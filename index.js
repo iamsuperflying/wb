@@ -18,7 +18,13 @@ function parseItems(items) {
 
 if (body) {
   var obj = JSON.parse($response.body);
+
+  console.log("[ 微博热搜广告日志: parseItems ] >", parseItems);
+
   obj.items = parseItems(obj.items);
+
+  console.log('[ 微博热搜广告日志 ] >', body)
+
   $done({ body: JSON.stringify(obj) });
 } else {
   $done({});
