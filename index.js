@@ -16,7 +16,10 @@ function parseItems(items) {
     if (item.category !== 'card') {
       return true;
     }
-    return item.data.card_type !== 118 || item.data.card_type !== 19;
+
+    console.log('card_type: ' + item.data["card_type"]);
+
+    return item.data["card_type"] !== 118 || item.data["card_type"] !== 19;
   });
 }
 
