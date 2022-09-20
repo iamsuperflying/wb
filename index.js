@@ -19,9 +19,10 @@ function parseItems(items) {
 
     console.log('card_type: ' + item.data["card_type"]);
     const type = typeof item.data["card_type"];
+    
     console.log("typeof card_type: " + type);
 
-    return item.data["card_type"] !== 118 || item.data["card_type"] !== 19;
+    return item.data["card_type"] !== "118" || item.data["card_type"] !== "19";
   });
 }
 
