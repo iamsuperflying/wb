@@ -22,7 +22,7 @@ function parseItems(items) {
     
     console.log("typeof card_type: " + type);
 
-    return item.data["card_type"] !== "118" || item.data["card_type"] !== "19";
+    return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
   });
 }
 
