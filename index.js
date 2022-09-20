@@ -18,6 +18,7 @@ function parseItems(items) {
     }
 
     console.log('card_type: ' + item.data["card_type"]);
+    console.log(typeof item.data["card_type"]);
 
     return item.data["card_type"] !== 118 || item.data["card_type"] !== 19;
   });
