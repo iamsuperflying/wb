@@ -33,7 +33,7 @@ if (body) {
 
   obj.items = parseItems(obj.items);
 
-  console.log(obj);
+  console.log(JSON.stringify(obj.items));
 
   $done({ body: JSON.stringify(obj) });
 } else {
