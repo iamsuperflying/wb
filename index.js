@@ -12,7 +12,11 @@ function parseItems(items) {
   // "card_type": 118, // 118: 轮播图
   // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
   return items.filter((item) => {
-    return item.card_type !== 118 || item.card_type !== 19;
+
+    if (item.category !== 'card') {
+      return true;
+    }
+    return item.data.card_type !== 118 || item.data.card_type !== 19;
   });
 }
 
