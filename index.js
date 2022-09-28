@@ -103,6 +103,19 @@ function rwProfileMe(items) {
 
   return items.filter((item) => {
     return filtereds.includes(item.itemId);
+  }).map((item) => {
+
+    if (item.itemId === "100505_-_top8") {
+      const top4 = ["album", "like", "watchhistory", "draft"].map(
+        (id) => `100505_-_${id}`
+      );
+      item.items = item.items.filter((topItem) => {
+        return top4.includes(topItem.itemId);
+      });
+      return item;
+    }
+    return item;
+
   });
 }
 
