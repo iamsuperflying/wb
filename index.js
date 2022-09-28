@@ -46,12 +46,12 @@ function parseProfile(data) {
     const { mblogtypename, content_auth_info, promotion } = item.data;
     if (mblogtypename) {
       return mblogtypename !== "广告";
-    }
-    if (content_auth_info) {
+    } else if (content_auth_info) {
       return content_auth_info.content_auth_title !== "广告" && content_auth_info.content_auth_title !== "热推";
-    }
-    if (promotion) {
+    } else if (promotion) {
       return promotion.recommend !== "广告" && promotion.recommend !== "热推";
+    } else {
+      return true;
     }
   });
 
