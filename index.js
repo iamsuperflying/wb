@@ -31,6 +31,8 @@ if (body) {
 
   console.log("------------");
 
+  console.log("url: " + url);
+
   obj.items = parseItems(obj.items);
 
   console.log(JSON.stringify(obj.items));
