@@ -65,10 +65,10 @@ if (body) {
 
   console.log("url: " + url);
 
-  if (url.contains("search")) {
+  if (url.includes("search")) {
     obj.data.items = parseItems(obj.data.items);
     // obj.items = parseItems(obj.items);
-  } else if (url.contains("profile")) {
+  } else if (url.includes("profile")) {
     obj.data.items = parseProfile(obj.data);
   }
 
