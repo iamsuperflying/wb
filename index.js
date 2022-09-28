@@ -5,6 +5,13 @@ console.log("Weibo Ad Block: " + version);
 var body = $response.body;
 var url = $request.url;
 
+// 热搜
+const hot = new RegExp("search/(finder|container_timeline)").test(url);
+// 其他人的 profile 页
+const profileTimeline = new RegExp("profile/container_timeline").test(url);
+// 我的
+const profileMe = new RegExp("profile/me").test(url);
+
 function noop(items) {
   return items;
 }
@@ -23,14 +30,6 @@ function promiseItems(data) {
  * @description: 区分不同的 url
  */
 function diffUrl() {
-
-  // 热搜
-  const hot = new RegExp("search/(finder|container_timeline)").test(url)
-  // 其他人的 profile 页
-  const profileTimeline = new RegExp("profile/container_timeline").test(url);
-  // 我的
-  const profileMe = new RegExp("profile/me").test(url);
-
   if (hot) {
     return rwHotItems;
   } else if (profileTimeline) {
@@ -46,7 +45,6 @@ function diffUrl() {
  * @description: 热搜页面
  */
 function rwHotItems(items) {
-
   // "card_type": 118, // 118: 轮播图
   // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
   return items.filter((item) => {
@@ -95,38 +93,39 @@ function rwProfile(items) {
  * @description: 解析我的
  */
 function rwProfileMe(items) {
-  return items
+
+  const filtereds = [
+    "profileme_mine",
+    "100505_-_top8",
+    "100505_-_recentlyuser",
+    "100505_-_manage",
+  ];
+
+  return items.filter((item) => {
+    return filtereds.includes(item.itemId);
+  });
 }
-
-
 
 if (body) {
   var data = JSON.parse($response.body);
-  promiseItems(data).then((items) => {
-    const rw = diffUrl();
-    data.items = rw(items);
-    $done({ body: JSON.stringify(data) });
-  }).catch((_error) => {
-    $done({ body });
-  });
+
+  /// 我的页面
+  if (profileMe) {
+    // 1. 移除广告
+    // delete data.vipHeaderBgImage;
+  }
+
+  promiseItems(data)
+    .then((items) => {
+      const rw = diffUrl();
+      data.items = rw(items);
+      $done({ body: JSON.stringify(data) });
+    })
+    .catch((_error) => {
+      $done({ body });
+    });
 
   console.log("------------");
-
-  // console.log("url: " + url);
-
-  // if (url.includes("search")) {
-  //   obj.items = parseItems(obj.items);
-  //   // obj.items = parseItems(obj.items);
-  // } else if (url.includes("profile")) {
-  //   if (url.includes("me")) {
-  //     // 我的
-
-  //   } else if (url.includes.container_timeline) {
-  //     obj.items = parseProfile(obj);
-  //   }
-  // }
-
-  // $done({ body: JSON.stringify(obj) });
 } else {
   $done({});
 }
