@@ -95,7 +95,7 @@ function rwProfile(items) {
  * @description: 解析我的
  */
 function rwProfileMe(items) {
-  returns
+  return items
 }
 
 
@@ -110,7 +110,7 @@ if (body) {
     $done({ body });
   });
 
-  // console.log("------------");
+  console.log("------------");
 
   // console.log("url: " + url);
 
