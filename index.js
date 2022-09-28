@@ -26,6 +26,38 @@ function parseItems(items) {
   });
 }
 
+/**
+ * @description: 解析 profile 页
+ */
+function parseProfile(data) {
+  if (!data) {
+    return;
+  }
+
+  const items = data.items;
+  if (!items) {
+    return;
+  }
+
+  return items.filter((item) => {
+    // item.data.mblogtypename === '广告'
+    // item.data.content_auth_info.content_auth_title === '广告' | '热推'
+    // item.data.promotion.recommend === '广告' | '热推
+    const { mblogtypename, content_auth_info, promotion } = item.data;
+    if (mblogtypename) {
+      return mblogtypename !== "广告";
+    }
+    if (content_auth_info) {
+      return content_auth_info.content_auth_title !== "广告" && content_auth_info.content_auth_title !== "热推";
+    }
+    if (promotion) {
+      return promotion.recommend !== "广告" && promotion.recommend !== "热推";
+    }
+  });
+
+
+}
+
 if (body) {
   var obj = JSON.parse($response.body);
 
@@ -33,7 +65,12 @@ if (body) {
 
   console.log("url: " + url);
 
-  obj.items = parseItems(obj.items);
+  if (url.contains("search")) {
+    obj.data.items = parseItems(obj.data.items);
+    // obj.items = parseItems(obj.items);
+  } else if (url.contains("profile")) {
+    obj.data.items = parseProfile(obj.data);
+  }
 
   $done({ body: JSON.stringify(obj) });
 } else {
