@@ -65,11 +65,13 @@ if (body) {
 
   console.log("url: " + url);
 
+  console
+
   if (url.includes("search")) {
-    obj.data.items = parseItems(obj.data.items);
+    obj.items = parseItems(obj.items);
     // obj.items = parseItems(obj.items);
   } else if (url.includes("profile")) {
-    obj.data.items = parseProfile(obj.data);
+    obj.items = parseProfile(obj);
   }
 
   $done({ body: JSON.stringify(obj) });
