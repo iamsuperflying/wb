@@ -1,4 +1,4 @@
-const version = "1.0.0";
+const version = "1.0.0.1";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
@@ -48,7 +48,7 @@ function parseProfile(data) {
     // item.data.content_auth_info.content_auth_title === '广告' | '热推'
     // item.data.promotion.recommend === '广告' | '热推
 
-    console.log('mblogtypename: ' + item.data.mblogtypename);
+    console.log('mblogtypename: ' + JSON.stringify(item.data));
 
     const { mblogtypename, content_auth_info, promotion } = item.data;
     if (mblogtypename) {
