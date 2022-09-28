@@ -43,6 +43,9 @@ function parseProfile(data) {
     // item.data.mblogtypename === '广告'
     // item.data.content_auth_info.content_auth_title === '广告' | '热推'
     // item.data.promotion.recommend === '广告' | '热推
+
+    console.log('mblogtypename: ' + item.data.mblogtypename);
+
     const { mblogtypename, content_auth_info, promotion } = item.data;
     if (mblogtypename) {
       return mblogtypename !== "广告";
