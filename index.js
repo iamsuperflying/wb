@@ -65,8 +65,6 @@ if (body) {
 
   console.log("url: " + url);
 
-  console
-
   if (url.includes("search")) {
     obj.items = parseItems(obj.items);
     // obj.items = parseItems(obj.items);
