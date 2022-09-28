@@ -1,3 +1,7 @@
+const version = "1.0.0";
+const name = "Weibo Ad Block";
+console.log("Weibo Ad Block: " + version);
+
 var body = $response.body;
 var url = $request.url;
 
