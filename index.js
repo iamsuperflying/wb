@@ -95,7 +95,6 @@ function rwProfile(items) {
  * @description: 解析我的
  */
 function rwProfileMe(items) {
-
   const filtereds = [
     "profileme_mine",
     "100505_-_top8",
@@ -103,22 +102,28 @@ function rwProfileMe(items) {
     "100505_-_manage",
   ];
 
-  return items.filter((item) => {
-    return filtereds.includes(item.itemId);
-  }).map((item) => {
+  return items
+    .filter((item) => {
+      return filtereds.includes(item.itemId);
+    })
+    .map((item) => {
+      if (item.itemId === "profileme_mine") {
+        if (item.header && item.header.vipView) {
+          item.header.vipView = null;
+        }
+      }
 
-    if (item.itemId === "100505_-_top8") {
-      const top4 = ["album", "like", "watchhistory", "draft"].map(
-        (id) => `100505_-_${id}`
-      );
-      item.items = item.items.filter((topItem) => {
-        return top4.includes(topItem.itemId);
-      });
+      if (item.itemId === "100505_-_top8") {
+        const top4 = ["album", "like", "watchhistory", "draft"].map(
+          (id) => `100505_-_${id}`
+        );
+        item.items = item.items.filter((topItem) => {
+          return top4.includes(topItem.itemId);
+        });
+        return item;
+      }
       return item;
-    }
-    return item;
-
-  });
+    });
 }
 
 if (body) {
