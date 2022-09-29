@@ -1,4 +1,4 @@
-const version = "1.0.0.10";
+const version = "1.0.0.11";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
@@ -62,14 +62,12 @@ function diffUrl() {
 
 // 是否是正常的帖子
 function isNormalTopic(item) {
-  if (!item.data) {
-    return true;
-  }
 
+  const topic = item.data || item;
   // item.data.mblogtypename === '广告'
   // item.data.content_auth_info.content_auth_title === '广告' | '热推'
   // item.data.promotion.recommend === '广告' | '热推
-  const { mblogtypename, content_auth_info, promotion } = item.data;
+  const { mblogtypename, content_auth_info, promotion } = topic;
   if (mblogtypename) {
     return mblogtypename !== "广告";
   } else if (content_auth_info) {
