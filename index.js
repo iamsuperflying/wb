@@ -1,4 +1,4 @@
-const version = "1.0.0.7";
+const version = "1.0.0.8";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
@@ -6,7 +6,7 @@ var body = $response.body;
 var url = $request.url;
 
 // 推荐
-const recommend = new RegExp("statuses/container_timeline_hot").test.url;
+const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 // statuses
 // 热搜
 const hot = new RegExp(
