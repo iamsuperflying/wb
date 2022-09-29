@@ -1,10 +1,13 @@
-const version = "1.0.0.6";
+const version = "1.0.0.7";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
 var body = $response.body;
 var url = $request.url;
 
+// 推荐
+const recommend = new RegExp("statuses/container_timeline_hot").test.url;
+// statuses
 // 热搜
 const hot = new RegExp(
   "search/(finder|container_timeline|container_discover)"
@@ -34,7 +37,7 @@ function promiseItems(data) {
 function diffUrl() {
   if (hot) {
     return rwHotItems;
-  } else if (profileTimeline) {
+  } else if (profileTimeline | recommend) {
     return rwProfile;
   } else if (profileMe) {
     return rwProfileMe;
