@@ -6,7 +6,9 @@ var body = $response.body;
 var url = $request.url;
 
 // 热搜
-const hot = new RegExp("search/(finder|container_timeline)").test(url);
+const hot = new RegExp(
+  "search/(finder|container_timeline|container_discover)"
+).test(url);
 // 其他人的 profile 页
 const profileTimeline = new RegExp("profile/container_timeline").test(url);
 // 我的
