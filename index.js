@@ -1,4 +1,4 @@
-const version = "1.0.0.9";
+const version = "1.0.0.10";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
@@ -16,6 +16,8 @@ const hot = new RegExp(
 const profileTimeline = new RegExp("profile/container_timeline").test(url);
 // 我的
 const profileMe = new RegExp("profile/me").test(url);
+// 视频
+const videoList = new RegExp("video/tiny_stream_video_list").test(url);
 
 function noop(items) {
   return items;
@@ -31,6 +33,16 @@ function promiseItems(data) {
   });
 }
 
+function promiseStatuses(data) {
+    return new Promise((resolve, reject) => {
+      if (data && data.statuses) {
+        resolve(data.statuses);
+      } else {
+        reject("data is null");
+      }
+    });
+}
+
 /**
  * @description: 区分不同的 url
  */
@@ -41,6 +53,8 @@ function diffUrl() {
     return rwProfile;
   } else if (profileMe) {
     return rwProfileMe;
+  } else if (videoList) {
+    return rwViewList;
   } else {
     return noop;
   }
@@ -136,6 +150,10 @@ function rwProfileMe(items) {
     });
 }
 
+function rwViewList(items) {
+  return items.filter(isNormalTopic);
+}
+
 if (body) {
   var data = JSON.parse($response.body);
 
@@ -155,7 +173,14 @@ if (body) {
       $done({ body });
     });
 
-  console.log("------------");
+  promiseStatuses(data).then((statuses) => {
+    const rw = diffUrl();
+    data.statuses = rw(statuses);
+    $done({ body: JSON.stringify(data) });
+  }).catch((_error) => {
+    $done({ body });
+  });  
+
 } else {
   $done({});
 }
