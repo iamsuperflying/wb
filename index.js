@@ -1,4 +1,4 @@
-const version = "1.0.0.8";
+const version = "1.0.0.9";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
@@ -46,6 +46,30 @@ function diffUrl() {
   }
 }
 
+// 是否是正常的帖子
+function isNormalTopic(item) {
+  if (!item.data) {
+    return true;
+  }
+
+  // item.data.mblogtypename === '广告'
+  // item.data.content_auth_info.content_auth_title === '广告' | '热推'
+  // item.data.promotion.recommend === '广告' | '热推
+  const { mblogtypename, content_auth_info, promotion } = item.data;
+  if (mblogtypename) {
+    return mblogtypename !== "广告";
+  } else if (content_auth_info) {
+    return (
+      content_auth_info.content_auth_title !== "广告" &&
+      content_auth_info.content_auth_title !== "热推"
+    );
+  } else if (promotion) {
+    return promotion.recommend !== "广告" && promotion.recommend !== "热推";
+  } else {
+    return true;
+  }
+}
+
 /**
  * @description: 热搜页面
  */
@@ -53,16 +77,20 @@ function rwHotItems(items) {
   // "card_type": 118, // 118: 轮播图
   // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
   return items.filter((item) => {
-    if (item.category !== "card") {
+    
+    if (item.category === "card") {
+      return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
+    } 
+    // 热搜信息流
+    else if (item.category === "feed") {
+      return isNormalTopic(item);
+    } else {
       return true;
     }
 
-    console.log("card_type: " + item.data["card_type"]);
-    const type = typeof item.data["card_type"];
+    
 
-    console.log("typeof card_type: " + type);
-
-    return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
+    
   });
 }
 
@@ -70,28 +98,7 @@ function rwHotItems(items) {
  * @description: 解析 profile 页
  */
 function rwProfile(items) {
-  return items.filter((item) => {
-    if (!item.data) {
-      return true;
-    }
-    // item.data.mblogtypename === '广告'
-    // item.data.content_auth_info.content_auth_title === '广告' | '热推'
-    // item.data.promotion.recommend === '广告' | '热推
-
-    const { mblogtypename, content_auth_info, promotion } = item.data;
-    if (mblogtypename) {
-      return mblogtypename !== "广告";
-    } else if (content_auth_info) {
-      return (
-        content_auth_info.content_auth_title !== "广告" &&
-        content_auth_info.content_auth_title !== "热推"
-      );
-    } else if (promotion) {
-      return promotion.recommend !== "广告" && promotion.recommend !== "热推";
-    } else {
-      return true;
-    }
-  });
+  return items.filter(isNormalTopic);
 }
 
 /**
