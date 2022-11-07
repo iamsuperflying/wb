@@ -12,6 +12,8 @@ const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 const hot = new RegExp(
   "search/(finder|container_timeline|container_discover)"
 ).test(url);
+// 热搜
+const hotPage = new RegExp("page").test(url);
 // 其他人的 profile 页
 const profileTimeline = new RegExp("profile/container_timeline").test(url);
 // 我的
@@ -47,7 +49,9 @@ function promiseStatuses(data) {
  * @description: 区分不同的 url
  */
 function diffUrl() {
-  if (hot) {
+  if (hotPage) {
+    return rwHotPage;
+  } else if (hot) {
     return rwHotItems;
   } else if (profileTimeline | recommend) {
     return rwProfile;
@@ -79,6 +83,17 @@ function isNormalTopic(item) {
   } else {
     return true;
   }
+}
+
+function rwHotPage(pageData) {
+  const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
+  pageData.cards = pageData.cards.map((card) => {
+    card.card_group = card.card_group.filter((group) => {
+      return !blackList.some((keyword) => group.desc.concat(keyword));
+    });
+    return card;
+  });
+  return pageData;
 }
 
 /**
