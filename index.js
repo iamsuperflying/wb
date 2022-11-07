@@ -1,4 +1,4 @@
-const version = "1.0.0.12";
+const version = "1.0.0.13";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
@@ -13,7 +13,7 @@ const hot = new RegExp(
   "search/(finder|container_timeline|container_discover)"
 ).test(url);
 // 热搜
-const hotPage = new RegExp("page").test(url);
+// const hotPage = new RegExp("page").test(url);
 // 其他人的 profile 页
 const profileTimeline = new RegExp("profile/container_timeline").test(url);
 // 我的
@@ -49,9 +49,10 @@ function promiseStatuses(data) {
  * @description: 区分不同的 url
  */
 function diffUrl() {
-  if (hotPage) {
-    return rwHotPage;
-  } else if (hot) {
+  // if (hotPage) {
+  //   return rwHotPage;
+  // } else 
+  if (hot) {
     return rwHotItems;
   } else if (profileTimeline | recommend) {
     return rwProfile;
@@ -114,19 +115,19 @@ function rwHotItems(items) {
         return true;
       }
     })
-    .map((item) => {
-      if (item.card_type === 17 || item.title === "微博热搜") {
-        item.group = item.group.filter((groupItem) => {
-          const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
-          return blackList.some(
-            (keyword) =>
-              groupItem.title_sub.concat(keyword) ||
-              groupItem.item_log.key.concat(keyword)
-          );
-        });
-      }
-      return item;
-    });
+    // .map((item) => {
+    //   if (item.card_type === 17 || item.title === "微博热搜") {
+    //     item.group = item.group.filter((groupItem) => {
+    //       const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
+    //       return blackList.some(
+    //         (keyword) =>
+    //           groupItem.title_sub.concat(keyword) ||
+    //           groupItem.item_log.key.concat(keyword)
+    //       );
+    //     });
+    //   }
+    //   return item;
+    // });
 }
 
 /**
