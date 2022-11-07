@@ -1,4 +1,4 @@
-const version = "1.0.0.11";
+const version = "1.0.0.12";
 const name = "Weibo Ad Block";
 console.log("Weibo Ad Block: " + version);
 
