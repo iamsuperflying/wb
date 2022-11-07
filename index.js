@@ -34,13 +34,13 @@ function promiseItems(data) {
 }
 
 function promiseStatuses(data) {
-    return new Promise((resolve, reject) => {
-      if (data && data.statuses) {
-        resolve(data.statuses);
-      } else {
-        reject("data is null");
-      }
-    });
+  return new Promise((resolve, reject) => {
+    if (data && data.statuses) {
+      resolve(data.statuses);
+    } else {
+      reject("data is null");
+    }
+  });
 }
 
 /**
@@ -62,7 +62,6 @@ function diffUrl() {
 
 // 是否是正常的帖子
 function isNormalTopic(item) {
-
   const topic = item.data || item;
   // item.data.mblogtypename === '广告'
   // item.data.content_auth_info.content_auth_title === '广告' | '热推'
@@ -88,22 +87,31 @@ function isNormalTopic(item) {
 function rwHotItems(items) {
   // "card_type": 118, // 118: 轮播图
   // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
-  return items.filter((item) => {
-    
-    if (item.category === "card") {
-      return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
-    } 
-    // 热搜信息流
-    else if (item.category === "feed") {
-      return isNormalTopic(item);
-    } else {
-      return true;
-    }
-
-    
-
-    
-  });
+  return items
+    .filter((item) => {
+      if (item.category === "card") {
+        return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
+      }
+      // 热搜信息流
+      else if (item.category === "feed") {
+        return isNormalTopic(item);
+      } else {
+        return true;
+      }
+    })
+    .map((item) => {
+      if (item.card_type === 17 || item.title === "微博热搜") {
+        item.group = item.group.filter((groupItem) => {
+          const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
+          return blackList.some(
+            (keyword) =>
+              groupItem.title_sub.concat(keyword) ||
+              groupItem.item_log.key.concat(keyword)
+          );
+        });
+      }
+      return item;
+    });
 }
 
 /**
@@ -171,14 +179,15 @@ if (body) {
       $done({ body });
     });
 
-  promiseStatuses(data).then((statuses) => {
-    const rw = diffUrl();
-    data.statuses = rw(statuses);
-    $done({ body: JSON.stringify(data) });
-  }).catch((_error) => {
-    $done({ body });
-  });  
-
+  promiseStatuses(data)
+    .then((statuses) => {
+      const rw = diffUrl();
+      data.statuses = rw(statuses);
+      $done({ body: JSON.stringify(data) });
+    })
+    .catch((_error) => {
+      $done({ body });
+    });
 } else {
   $done({});
 }
