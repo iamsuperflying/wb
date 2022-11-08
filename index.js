@@ -87,7 +87,12 @@ function rwHotPage(pageData) {
   const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
   pageData.cards = pageData.cards.map((card) => {
     card.card_group = card.card_group.filter(
-      (group) => !blackList.some((keyword) => group.desc.includes(keyword))
+      (group) => {
+        if (!group.desc) {
+          return true
+        }
+        return !blackList.some((keyword) => group.desc.includes(keyword));
+      }
     );
     return card;
   });
@@ -194,7 +199,7 @@ if (body) {
       $done({ body: JSON.stringify(data) });
     })
     .catch((_error) => {
-      $done({ body });
+      $done({ body: JSON.stringify(data) });
     });
 
   promiseStatuses(data)
@@ -204,7 +209,7 @@ if (body) {
       $done({ body: JSON.stringify(data) });
     })
     .catch((_error) => {
-      $done({ body });
+      $done({ body: JSON.stringify(data) });
     });
 } else {
   $done({});
