@@ -1,6 +1,6 @@
-const version = "1.0.0.14";
+const version = "1.0.0.15";
 const proxy_name = "Weibo Ad Block";
-console.info(`${proxy_name}: ${version}`);
+console.log(`${proxy_name}: ${version}`);
 
 let body = $response.body;
 let url = $request.url;
