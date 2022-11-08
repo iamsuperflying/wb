@@ -24,6 +24,6 @@ function rwHotPage(pageData) {
   return pageData;
 }
 
-// const pageData = rwHotPage(data);
-// debugger
-// console.log(data);
+const pageData = rwHotPage(data);
+debugger
+console.log(data);

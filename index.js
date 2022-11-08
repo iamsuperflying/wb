@@ -1,4 +1,4 @@
-const version = "1.0.0.15";
+const version = "1.0.0.16";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -49,9 +49,7 @@ function promiseStatuses(data) {
  * @description: 区分不同的 url
  */
 function diffUrl() {
-  if (hotPage) {
-    return rwHotPage;
-  } else if (hot) {
+  if (hot) {
     return rwHotItems;
   } else if (profileTimeline | recommend) {
     return rwProfile;
@@ -182,6 +180,11 @@ if (body) {
   if (profileMe) {
     // 1. 移除广告
     // delete data.vipHeaderBgImage;
+  }
+
+  // 2. 移除热搜
+  if (hotPage) {
+    data = rwHotPage(data);
   }
 
   promiseItems(data)
