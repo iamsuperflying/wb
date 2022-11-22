@@ -1,4 +1,4 @@
-const version = "1.0.0.23";
+const version = "1.0.0.24";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -179,7 +179,7 @@ function payloadItemsFilter(items) {
  */
 function rwDiscover(data) {
   if (!data) return data;
-
+  
   const keep = ["发现", "热搜", "游戏"];
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
@@ -195,6 +195,8 @@ function rwDiscover(data) {
       }
       return channel;
     });
+
+    data.channelInfo.channels = channels;
   }
 
   // 移除广告 card_type: 22
