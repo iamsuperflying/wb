@@ -1,9 +1,20 @@
-const version = "1.0.0.17";
+const version = "1.0.0.18";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
 let body = $response.body;
 let url = $request.url;
+
+// 读取 iCloud 中的配置
+let filePath = "wb/black-list.json";
+let readUint8Array = $iCloud.readFile(filePath);
+if (readUint8Array === undefined) {
+  console.log("NO");
+} else {
+  let textDecoder = new TextDecoder();
+  let readContent = textDecoder.decode(readUint8Array);
+  console.log(readContent);
+}
 
 // 推荐
 const recommend = new RegExp("statuses/container_timeline_hot").test(url);
@@ -106,6 +117,18 @@ function rwHotItems(items) {
   // "card_type": 118, // 118: 轮播图
   // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
   return items
+    .map((item) => {
+      if (item.category !== "card") return item;
+
+      if (item.data && item.data.title && item.data.title === "微博热搜") {
+        // 过滤热搜
+        // item.data.group = item.data.group.filter(({ title_sub }) => {
+        //   title_sub;
+        // });
+      }
+      return item;
+
+    })
     .filter((item) => {
       if (item.category === "card") {
         return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
