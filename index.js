@@ -1,4 +1,4 @@
-const version = "1.0.0.24";
+const version = "1.0.0.25";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -26,6 +26,8 @@ const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 const hot = new RegExp(
   "search/(finder|container_timeline|container_discover)"
 ).test(url);
+// 发现页
+const discoverRefresh = new RegExp("search/container_timeline").test(url);
 const discover = new RegExp("search/finder").test(url);
 // 热搜
 const hotPage = new RegExp("/page").test(url);
@@ -42,8 +44,13 @@ const noop = (items) => items;
 
 // 是否是广告标识
 const IS_AD_FLAGS = ["广告", "热推"];
+// card_type === 118 为图片轮播广告
+// card_type === 207 为各种赛程比分广告
+// card_type === 19 为小图标广告
+// card_type === 22 为图片广告
+const AD_CARD_TYPES = [19, 22, 118, 207];
 // 卡片标识
-const CARD = 'card';
+const CARD = "card";
 // 信息流标识
 const FEED = "feed";
 
@@ -107,7 +114,7 @@ const isNormalTopic = (item) => {
     //   content_auth_info.content_auth_title !== "热推"
     // );
   } else if (promotion) {
-    return !isAdFlag(promotion.recommend) && promotion.type !== 'ad';
+    return !isAdFlag(promotion.recommend) && promotion.type !== "ad";
     // return promotion.recommend !== "广告" && promotion.recommend !== "热推";
   } else {
     return true;
@@ -150,20 +157,17 @@ function rwComments(data) {
   return data;
 }
 
-function payloadItemsFilter(items) {
-  // card_type === 118 为图片轮播广告
-  // card_type === 207 为各种赛程比分广告
-  // card_type === 19 为小图标广告
-  // card_type === 22 为图片广告
-  const adCardTypes = [19, 22, 118, 207];
-
-  return items.filter((item) => {
+const discoverItemsFilter = (payload) => {
+  if (!payload) return payload;
+  let { items } = payload;
+  if (!items) return payload;
+  items = items.filter((item) => {
     if (!item) return false;
     const { data, category } = item;
     if (!data || !category) return true;
     if (category === CARD) {
       const { card_type } = data;
-      return !adCardTypes.includes(card_type);
+      return !AD_CARD_TYPES.includes(card_type);
     }
     // category === 'feed' 为信息流
     // 此时判断是否为正常帖子
@@ -172,14 +176,15 @@ function payloadItemsFilter(items) {
     }
     return true;
   });
-}
+  payload.items = items;
+  return payload;
+};
 
 /**
  * @description: 移除发现页广告
  */
-function rwDiscover(data) {
+const rwDiscover = (data) => {
   if (!data) return data;
-  
   const keep = ["发现", "热搜", "游戏"];
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
@@ -191,7 +196,7 @@ function rwDiscover(data) {
     channels = channels.map((channel) => {
       const { name, title, en_name } = channel;
       if (name === "发现" || title === "发现" || en_name === "Discover") {
-        channel.payload.items = payloadItemsFilter(channel.payload.items);
+        channel.payload = discoverItemsFilter(channel.payload);
       }
       return channel;
     });
@@ -204,6 +209,8 @@ function rwDiscover(data) {
 
   return data;
 }
+
+const rwDiscoverRefresh = discoverItemsFilter;
 
 /**
  * @description: 热搜页面
@@ -317,6 +324,9 @@ if (body) {
   // 4. 移除发现页面的广告
   if (discover) {
     data = rwDiscover(data);
+  }
+  if (discoverRefresh) {
+    data = rwDiscoverRefresh(data);
   }
 
   promiseItems(data)
