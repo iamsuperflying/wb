@@ -1,4 +1,4 @@
-const version = "1.0.0.18";
+const version = "1.0.0.19";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -6,7 +6,7 @@ let body = $response.body;
 let url = $request.url;
 
 // 读取 iCloud 中的配置
-let filePath = "wb/black-list.json";
+let filePath = "/wb/black-list.json";
 let readUint8Array = $iCloud.readFile(filePath);
 if (readUint8Array === undefined) {
   console.log("NO");
