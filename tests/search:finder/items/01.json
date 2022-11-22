@@ -1,0 +1,16 @@
+
+    {
+      "itemExt": {
+        "filterType": "search"
+      },
+      "style": {
+        "background": {
+          "type": "color",
+          "color": "#ffffff",
+          "colorKey": "MainFeedCardBackgroundColor"
+        },
+        "height": 8
+      },
+      "type": "span",
+      "category": "cell"
+    }

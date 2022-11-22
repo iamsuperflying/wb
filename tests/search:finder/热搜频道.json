@@ -1,0 +1,79 @@
+      {
+        "id" : "1009",
+        "style" : {
+          "padding" : [
+            0,
+            10,
+            10,
+            0
+          ],
+          "font" : "",
+          "backgroundImg" : "",
+          "sliderColor" : [
+            "#FFA300",
+            "#FF6A00"
+          ],
+          "selectBackgroundDarkImg" : "",
+          "selectFont" : "Bold",
+          "selectFontSize" : 18,
+          "textColor" : "#636363",
+          "textDarkColor" : "#999999",
+          "selectTextColor" : "#333333",
+          "selectTextDarkColor" : "#D3D3D3",
+          "backgroundDarkImg" : "",
+          "selectBackgroundImg" : "",
+          "fontSize" : 16,
+          "imgWidth" : 37,
+          "imgHeight" : 17,
+          "sliderDarkColor" : [
+            "#FF6A00",
+            "#FF6A00"
+          ]
+        },
+        "actionlog" : {
+          "uicode" : "10001344",
+          "launchid" : "10000365--x",
+          "ext" : "seqid:101801133|type:ctg1|pos:1-0-1|srid:7ca274ba8c2cc1162c260fb02a011f66|ext:&cate=1006&containerid=232727&name=热搜&mod_src=s_finder&qtime=1669116690&",
+          "act_code" : 695,
+          "luicode" : "",
+          "fid" : "232727",
+          "lfid" : "",
+          "act_type" : 1
+        },
+        "serviceConfig" : {
+          "searchBarContent" : {
+            "isDisable" : 1
+          },
+          "headerBack" : {
+            "isDisable" : 1
+          }
+        },
+        "theme" : {
+          "refreshBackType" : "dark",
+          "loadmoreBackColor" : "#EEEEEE",
+          "loadmoreBackColorDark" : "#151515"
+        },
+        "containerid" : "232727",
+        "pageId" : "232727",
+        "params" : {
+          "channel_bigday" : 1,
+          "no_location_permission" : 0,
+          "hotSearchPushCard" : 1,
+          "square_bigday_enable" : 1,
+          "is_bigday_info" : 1,
+          "key" : "hotsearch_channel",
+          "must_show" : "0",
+          "square_new_bigday_enable" : 1,
+          "en_name" : "Hot"
+        },
+        "weight" : 90000000,
+        "type" : "cardlist",
+        "key" : "hotsearch_channel",
+        "show" : 1,
+        "must_show" : "0",
+        "scheme" : "cardlist?containerid=232727&ext=square_bigday_enable%3A1%7Cchannel_bigday%3A1",
+        "is_gray" : 0,
+        "en_name" : "Hot",
+        "pageDataType" : "cardlist",
+        "name" : "热搜"
+      }

@@ -1,4 +1,4 @@
-const version = "1.0.0.22";
+const version = "1.0.0.23";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -38,9 +38,17 @@ const videoList = new RegExp("video/tiny_stream_video_list").test(url);
 // 评论
 const comment = new RegExp("comments/build_comments").test(url);
 
-function noop(items) {
-  return items;
-}
+const noop = (items) => items;
+
+// 是否是广告标识
+const IS_AD_FLAGS = ["广告", "热推"];
+// 卡片标识
+const CARD = 'card';
+// 信息流标识
+const FEED = "feed";
+
+// 某项是否有广告标识
+const isAdFlag = (item) => IS_AD_FLAGS.some((flag) => item.includes(flag));
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
@@ -79,26 +87,32 @@ function diffUrl() {
   }
 }
 
-// 是否是正常的帖子
-function isNormalTopic(item) {
+/**
+ * 是否是正常的帖子
+ * @param {Object} item 帖子, 包含 data 或者 item 属性
+ * @returns  {Boolean} true: 正常帖子, false: 广告帖子
+ */
+const isNormalTopic = (item) => {
   const topic = item.data || item;
   // item.data.mblogtypename === '广告'
   // item.data.content_auth_info.content_auth_title === '广告' | '热推'
   // item.data.promotion.recommend === '广告' | '热推
   const { mblogtypename, content_auth_info, promotion } = topic;
   if (mblogtypename) {
-    return mblogtypename !== "广告";
+    return !isAdFlag(mblogtypename);
   } else if (content_auth_info) {
-    return (
-      content_auth_info.content_auth_title !== "广告" &&
-      content_auth_info.content_auth_title !== "热推"
-    );
+    return !isAdFlag(content_auth_info.content_auth_title);
+    // return (
+    //   content_auth_info.content_auth_title !== "广告" &&
+    //   content_auth_info.content_auth_title !== "热推"
+    // );
   } else if (promotion) {
-    return promotion.recommend !== "广告" && promotion.recommend !== "热推";
+    return !isAdFlag(promotion.recommend) && promotion.type !== 'ad';
+    // return promotion.recommend !== "广告" && promotion.recommend !== "热推";
   } else {
     return true;
   }
-}
+};
 
 /**
  * 移除热搜页面广告 & 黑名单
@@ -130,29 +144,63 @@ function rwComments(data) {
       type === 1 ||
       commentAdSubType === 1 ||
       commentAdType === 1 ||
-      adType === "广告" ||
-      adType === "热推";
+      isAdFlag(adType);
     return !isAd;
   });
   return data;
+}
+
+function payloadItemsFilter(items) {
+  // card_type === 118 为图片轮播广告
+  // card_type === 207 为各种赛程比分广告
+  // card_type === 19 为小图标广告
+  // card_type === 22 为图片广告
+  const adCardTypes = [19, 22, 118, 207];
+
+  return items.filter((item) => {
+    if (!item) return false;
+    const { data, category } = item;
+    if (!data || !category) return true;
+    if (category === CARD) {
+      const { card_type } = data;
+      return !adCardTypes.includes(card_type);
+    }
+    // category === 'feed' 为信息流
+    // 此时判断是否为正常帖子
+    if (category === FEED) {
+      return isNormalTopic(item);
+    }
+    return true;
+  });
 }
 
 /**
  * @description: 移除发现页广告
  */
 function rwDiscover(data) {
-
   if (!data) return data;
-  // 保留 发现/热搜/游戏
+
   const keep = ["发现", "热搜", "游戏"];
-  if (data.channelInfo) {
-    data.channelInfo.channels = data.channelInfo.channels.filter((channel) => {
+  if (data.channelInfo && data.channelInfo.channels) {
+    let { channels } = data.channelInfo;
+    // 保留 发现/热搜/游戏
+    channels = channels.filter((channel) => {
       return keep.includes(channel.name);
-    })
+    });
+    // map 发现/热搜/游戏
+    channels = channels.map((channel) => {
+      const { name, title, en_name } = channel;
+      if (name === "发现" || title === "发现" || en_name === "Discover") {
+        channel.payload.items = payloadItemsFilter(channel.payload.items);
+      }
+      return channel;
+    });
   }
 
-  return data;
+  // 移除广告 card_type: 22
+  // 热搜底下的图片广告
 
+  return data;
 }
 
 /**
@@ -268,7 +316,6 @@ if (body) {
   if (discover) {
     data = rwDiscover(data);
   }
-
 
   promiseItems(data)
     .then((items) => {

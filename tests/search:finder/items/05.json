@@ -1,0 +1,33 @@
+{
+  "data": {
+    "card_type": 22,
+    "itemid": "vivo_x90_banner",
+    "height": 182,
+    "pic": "https://simg.s.weibo.com/imgtool/20221111_banner_final_1242-182.png",
+    "pic_h_w_scale": "0.1465",
+    "width": 1242,
+    "pic_content_mode": 1,
+    "actionlog": {
+      "uicode": "10001344",
+      "launchid": "10000365--x",
+      "ext": "seqid:101801133|type:ctg1|pos:1-0-0|srid:7ca274ba8c2cc1162c260fb02a011f66|ext:&cate=1074&adid=bigday_92&qtime=1669116690&mod_src=s_finder&",
+      "act_code": 695,
+      "luicode": "",
+      "fid": "102803_ctg1_1780_-_ctg1_1780",
+      "lfid": "",
+      "act_type": 0
+    },
+    "pic_unenable_click": true
+  },
+  "style": {
+    "background": {
+      "type": "color",
+      "color": "#ffffff",
+      "colorKey": "CommonCardBackground"
+    }
+  },
+  "itemExt": {
+    "filterType": "search"
+  },
+  "category": "card"
+}

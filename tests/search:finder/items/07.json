@@ -1,0 +1,19 @@
+{
+  "style": {
+    "grid": true,
+    "margin": [0, 0, 0, 0.69999999999999996],
+    "background": {
+      "type": "color",
+      "color": "#ffffff",
+      "colorKey": "CommonCardBackground"
+    }
+  },
+  "category": "card",
+  "data": {
+    "left_tag_img": "https://simg.s.weibo.com/20220105_hot_module_tag.png",
+    "title": "热门微博",
+    "is_show_arrow": 0,
+    "card_type": 101,
+    "desc": ""
+  }
+}
