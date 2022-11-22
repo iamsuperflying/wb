@@ -1,11 +1,11 @@
-const version = "1.0.0.19";
+const version = "1.0.0.20";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
 let body = $response.body;
 let url = $request.url;
 
-let blackList = []
+let blackList = [];
 
 // 读取 iCloud 中的配置
 let filePath = "/wb/black-list.json";
@@ -34,6 +34,8 @@ const profileTimeline = new RegExp("profile/container_timeline").test(url);
 const profileMe = new RegExp("profile/me").test(url);
 // 视频
 const videoList = new RegExp("video/tiny_stream_video_list").test(url);
+// 评论
+const comment = new RegExp("comments/build_comments").test(url);
 
 function noop(items) {
   return items;
@@ -97,19 +99,41 @@ function isNormalTopic(item) {
   }
 }
 
+/**
+ * 移除热搜页面广告 & 黑名单
+ * @param {*} pageData
+ * @returns
+ */
 function rwHotPage(pageData) {
   pageData.cards = pageData.cards.map((card) => {
-    card.card_group = card.card_group.filter(
-      (group) => {
-        if (!group.desc) {
-          return true
-        }
-        return !blackList.some((keyword) => group.desc.includes(keyword));
+    card.card_group = card.card_group.filter((group) => {
+      if (!group.desc) {
+        return true;
       }
-    );
+      return !blackList.some((keyword) => group.desc.includes(keyword));
+    });
     return card;
   });
   return pageData;
+}
+
+/**
+ * @description: 移除评论
+ * @param {*} items
+ */
+function rwComments(data) {
+  if (!data || !data.comments) return data;
+  data.datas = data.datas.filter((item) => {
+    const { type, commentAdSubType, commentAdType, adType } = item;
+    const isAd =
+      type === 1 ||
+      commentAdSubType === 1 ||
+      commentAdType === 1 ||
+      adType === "广告" ||
+      adType === "热推";
+    return !isAd;
+  });
+  return data;
 }
 
 /**
@@ -129,7 +153,6 @@ function rwHotItems(items) {
         });
       }
       return item;
-
     })
     .filter((item) => {
       if (item.category === "card") {
@@ -141,20 +164,20 @@ function rwHotItems(items) {
       } else {
         return true;
       }
-    })
-    // .map((item) => {
-    //   if (item.card_type === 17 || item.title === "微博热搜") {
-    //     item.group = item.group.filter((groupItem) => {
-    //       const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
-    //       return blackList.some(
-    //         (keyword) =>
-    //           groupItem.title_sub.concat(keyword) ||
-    //           groupItem.item_log.key.concat(keyword)
-    //       );
-    //     });
-    //   }
-    //   return item;
-    // });
+    });
+  // .map((item) => {
+  //   if (item.card_type === 17 || item.title === "微博热搜") {
+  //     item.group = item.group.filter((groupItem) => {
+  //       const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
+  //       return blackList.some(
+  //         (keyword) =>
+  //           groupItem.title_sub.concat(keyword) ||
+  //           groupItem.item_log.key.concat(keyword)
+  //       );
+  //     });
+  //   }
+  //   return item;
+  // });
 }
 
 /**
@@ -215,6 +238,11 @@ if (body) {
   // 2. 移除热搜
   if (hotPage) {
     data = rwHotPage(data);
+  }
+
+  // 3. 移除评论区的广告
+  if (comment) {
+    data = rwComments(data);
   }
 
   promiseItems(data)
