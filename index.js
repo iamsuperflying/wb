@@ -26,6 +26,7 @@ const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 const hot = new RegExp(
   "search/(finder|container_timeline|container_discover)"
 ).test(url);
+const discover = new RegExp("search/finder").test(url);
 // 热搜
 const hotPage = new RegExp("/page").test(url);
 // 其他人的 profile 页
@@ -137,6 +138,24 @@ function rwComments(data) {
 }
 
 /**
+ * @description: 移除发现页广告
+ */
+function rwDiscover(data) {
+
+  if (!data) return data;
+  // 保留 发现/热搜/游戏
+  const keep = ["发现", "热搜", "游戏"];
+  if (data.channelInfo) {
+    data.channelInfo.channels = data.channelInfo.channels.filter((channel) => {
+      return keep.includes(channel.name);
+    })
+  }
+
+  return data;
+
+}
+
+/**
  * @description: 热搜页面
  */
 function rwHotItems(items) {
@@ -244,6 +263,12 @@ if (body) {
   if (comment) {
     data = rwComments(data);
   }
+
+  // 4. 移除发现页面的广告
+  if (discover) {
+    data = rwDiscover(data);
+  }
+
 
   promiseItems(data)
     .then((items) => {

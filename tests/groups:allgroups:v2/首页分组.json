@@ -1,0 +1,210 @@
+{
+  "defaultPageId" : "homeFeed",
+  "is_new_segment" : "1",
+  "trans_param" : "0_1669073590",
+  "feed_default" : 0,
+  "pageDatas" : [
+    {
+      "pageDataTitle" : "关注",
+      "pageDataType" : "homeFeed",
+      "pageId" : "homeFeed",
+      "categories" : [
+        {
+          "title" : "默认分组",
+          "group_type" : 0,
+          "pageDatas" : [
+            {
+              "uid" : "3934103603",
+              "frequency" : 0,
+              "title" : "全部关注",
+              "count" : 0,
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "pageDataType" : "feedStream",
+              "navigation_title" : "关注",
+              "gid" : "100013934103603",
+              "type" : "1"
+            },
+            {
+              "is_unread" : 0,
+              "uid" : "3934103603",
+              "count" : 0,
+              "apipath" : "statuses/friends/timeline",
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "settings" : {
+                "remind" : 0
+              },
+              "type" : "20",
+              "gid" : "110003934103603",
+              "title" : "最新微博",
+              "pageDataType" : "feedStream",
+              "frequency" : 0
+            },
+            {
+              "uid" : 3934103603,
+              "frequency" : 2,
+              "title" : "特别关注",
+              "count" : 0,
+              "sysgroup" : 1,
+              "ad_scene" : 1,
+              "pageDataType" : "feedStream",
+              "type" : "0",
+              "gid" : "3652505362130848",
+              "settings" : {
+                "remind" : 1,
+                "priority" : 1
+              }
+            },
+            {
+              "uid" : "3934103603",
+              "frequency" : 2,
+              "title" : "好友圈",
+              "count" : 0,
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "pageDataType" : "feedStream",
+              "type" : "9",
+              "gid" : "100093934103603",
+              "settings" : {
+                "remind" : 1,
+                "priority" : 2
+              }
+            },
+            {
+              "is_unread" : 0,
+              "uid" : "3934103603",
+              "count" : 0,
+              "apipath" : "statuses/friends/timeline",
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "settings" : {
+                "remind" : 0
+              },
+              "type" : "20",
+              "gid" : "110013934103603",
+              "title" : "原创",
+              "pageDataType" : "feedStream",
+              "frequency" : 0
+            },
+            {
+              "is_unread" : 0,
+              "uid" : "3934103603",
+              "count" : 0,
+              "apipath" : "statuses/friends/timeline",
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "settings" : {
+                "remind" : 0
+              },
+              "type" : "20",
+              "gid" : "110023934103603",
+              "title" : "视频",
+              "pageDataType" : "feedStream",
+              "frequency" : 0
+            },
+            {
+              "uid" : "3934103603",
+              "frequency" : 2,
+              "title" : "超话社区",
+              "count" : 0,
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "pageDataType" : "feedStream",
+              "type" : 20,
+              "gid" : "110053934103603",
+              "settings" : {
+                "remind" : 1,
+                "priority" : 3
+              }
+            },
+            {
+              "uid" : "3934103603",
+              "frequency" : 0,
+              "title" : "V+微博",
+              "count" : 0,
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "pageDataType" : "feedStream",
+              "type" : 20,
+              "gid" : "100133934103603"
+            },
+            {
+              "uid" : "3934103603",
+              "frequency" : 2,
+              "title" : "群微博",
+              "count" : 0,
+              "sysgroup" : 2,
+              "ad_scene" : 1,
+              "pageDataType" : "feedStream",
+              "type" : "10",
+              "gid" : "100103934103603",
+              "settings" : {
+                "remind" : 1
+              }
+            }
+          ]
+        },
+        {
+          "title" : "我的分组",
+          "group_type" : 0,
+          "pageDatas" : [
+            {
+              "uid" : 3934103603,
+              "frequency" : 2,
+              "title" : "TimeLine",
+              "count" : 0,
+              "sysgroup" : 0,
+              "ad_scene" : 2,
+              "pageDataType" : "feedStream",
+              "type" : "0",
+              "gid" : "4235641627355405",
+              "settings" : {
+                "remind" : 0
+              }
+            },
+            {
+              "uid" : 3934103603,
+              "frequency" : 2,
+              "title" : "iOS",
+              "count" : 0,
+              "sysgroup" : 0,
+              "ad_scene" : 2,
+              "pageDataType" : "feedStream",
+              "type" : "0",
+              "gid" : "3976070422487503",
+              "settings" : {
+                "remind" : 0
+              }
+            },
+            {
+              "uid" : "3934103603",
+              "frequency" : 0,
+              "title" : "悄悄关注",
+              "count" : 0,
+              "sysgroup" : 2,
+              "ad_scene" : 2,
+              "pageDataType" : "feedStream",
+              "type" : "5",
+              "gid" : "100053934103603"
+            }
+          ]
+        },
+        {
+          "title" : "订阅分组",
+          "group_type" : 0,
+          "pageDatas" : [
+
+          ]
+        }
+      ]
+    },
+    {
+      "pageId" : "homeHot",
+      "pageDataType" : "homeHot",
+      "pageDataTitle" : "推荐"
+    }
+  ],
+  "pageDatasType" : 10,
+  "total_number" : 12
+}
