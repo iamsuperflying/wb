@@ -5,6 +5,8 @@ console.log(`${proxy_name}: ${version}`);
 let body = $response.body;
 let url = $request.url;
 
+let blackList = []
+
 // 读取 iCloud 中的配置
 let filePath = "/wb/black-list.json";
 let readUint8Array = $iCloud.readFile(filePath);
@@ -13,7 +15,8 @@ if (readUint8Array === undefined) {
 } else {
   let textDecoder = new TextDecoder();
   let readContent = textDecoder.decode(readUint8Array);
-  console.log(readContent);
+  blackList = JSON.parse(readContent);
+  console.log(blackList);
 }
 
 // 推荐
@@ -95,7 +98,6 @@ function isNormalTopic(item) {
 }
 
 function rwHotPage(pageData) {
-  const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
   pageData.cards = pageData.cards.map((card) => {
     card.card_group = card.card_group.filter(
       (group) => {
@@ -122,9 +124,9 @@ function rwHotItems(items) {
 
       if (item.data && item.data.title && item.data.title === "微博热搜") {
         // 过滤热搜
-        // item.data.group = item.data.group.filter(({ title_sub }) => {
-        //   title_sub;
-        // });
+        item.data.group = item.data.group.filter(({ title_sub }) => {
+          return !blackList.some((keyword) => title_sub.includes(keyword));
+        });
       }
       return item;
 
