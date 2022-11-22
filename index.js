@@ -1,4 +1,4 @@
-const version = "1.0.0.20";
+const version = "1.0.0.21";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -122,7 +122,7 @@ function rwHotPage(pageData) {
  * @param {*} items
  */
 function rwComments(data) {
-  if (!data || !data.comments) return data;
+  if (!data || !data.datas) return data;
   data.datas = data.datas.filter((item) => {
     const { type, commentAdSubType, commentAdType, adType } = item;
     const isAd =
