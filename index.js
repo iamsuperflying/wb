@@ -1,4 +1,4 @@
-const version = "1.0.0.36";
+const version = "1.0.0.37";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -186,12 +186,26 @@ function rwHotPage(pageData) {
 function rwComments(data) {
   if (!data || !data.datas) return data;
 
-  data.lack = 1
+  data.lack = 1;
+  data.max_id = 0;
+  data.max_id_str = "0";
+
+  // 001OutQmly1h8eswmmhe1j60zo0qy46i02
 
   // data.status?.source_type = 1;
   if (data.status) {
     data.status.source_type = 1;
     delete data.status.ad_state;
+
+    if (data.status.pic_infos) {
+      let { pic_infos } = data.status;
+      Object.keys(pic_infos).forEach((key) => {
+        pic_infos[key].pic_status = 0;
+      });
+
+      data.status.pic_infos = pic_infos;
+    }
+
   }
   // delete data.tip_msg,
   data.datas = data.datas.filter((item) => {
