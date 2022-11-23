@@ -1,4 +1,4 @@
-const version = "1.0.0.33";
+const version = "1.0.0.34";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -136,17 +136,35 @@ const isNormalTopic = (item) => {
 };
 
 const rwTimeline = (data) => {
+  for (const s of ["ad", "advertises", "trends"]) {
+    if (data[s]) {
+      delete data[s];
+    }
+  }
+  // if (!data.statuses) {
+  //   return;
+  // }
+  // let newStatuses = [];
+  // for (const s of data.statuses) {
+  //   if (!isAd(s)) {
+  //     lvZhouHandler(s);
+  //     if (!isBlock(s)) {
+  //       newStatuses.push(s);
+  //     }
+  //   }
+  // }
+  // data.statuses = newStatuses;
 
-  data.statuses = data?.statuses?.map((status) => {
+  data.statuses = data?.statuses?.filter(isNormalTopic).map((status) => {
     delete status.extend_info;
     delete status.common_struct;
     // 测试是否可删除卡片背景
     delete status.pic_bg_scheme;
     return status;
-  })
+  });
 
-  return data
-}
+  return data;
+};
 
 /**
  * 移除热搜页面广告 & 黑名单
@@ -167,6 +185,8 @@ function rwHotPage(pageData) {
  */
 function rwComments(data) {
   if (!data || !data.datas) return data;
+  data.status?.source_type = 1;
+  // delete data.tip_msg,
   data.datas = data.datas.filter((item) => {
     const { type, commentAdSubType, commentAdType, adType } = item;
     const isAd =
