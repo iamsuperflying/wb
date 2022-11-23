@@ -1,4 +1,4 @@
-const version = "1.0.0.35";
+const version = "1.0.0.36";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -185,9 +185,13 @@ function rwHotPage(pageData) {
  */
 function rwComments(data) {
   if (!data || !data.datas) return data;
+
+  data.lack = 1
+
   // data.status?.source_type = 1;
   if (data.status) {
     data.status.source_type = 1;
+    delete data.status.ad_state;
   }
   // delete data.tip_msg,
   data.datas = data.datas.filter((item) => {
