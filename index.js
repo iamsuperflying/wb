@@ -1,4 +1,4 @@
-const version = "1.0.0.27";
+const version = "1.0.0.28";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -10,7 +10,7 @@ let blackList = [];
 // 读取 iCloud 中的配置
 let filePath = "/wb/black-list.json";
 let readUint8Array = $iCloud.readFile(filePath);
-if (readUint8Array === undefined) {
+if (!readUint8Array) {
   console.log("NO");
 } else {
   let textDecoder = new TextDecoder();
@@ -58,15 +58,15 @@ const DISCOVER_TITLE = "发现";
 const DISCOVER_EN_TITLE = "Discover";
 
 const DISCOVER_IMAGE =
-  "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80";
-
+  "https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80";
 // 某项是否有广告标识
-const isAdFlag = (item) => IS_AD_FLAGS.some((flag) => {
-  if (typeof item === 'string') {
-    return item.includes(flag);
-  }
-  return false
-});
+const isAdFlag = (item) =>
+  IS_AD_FLAGS.some((flag) => {
+    if (typeof item === "string") {
+      return item.includes(flag);
+    }
+    return false;
+  });
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
@@ -143,7 +143,7 @@ function rwHotPage(pageData) {
       if (!group.desc) {
         return true;
       }
-      return !blackList.some((keyword) => group.desc.includes(keyword));
+      return !blackList.some(group.desc.includes);
     });
     return card;
   });
@@ -169,30 +169,43 @@ function rwComments(data) {
 }
 
 const discoverItemsFilter = (payload) => {
-  if (!payload) return payload;
+  if (!payload || !payload.items) return payload;
   let { items } = payload;
-  if (!items) return payload;
-  items = items.filter((item) => {
-    if (!item) return false;
-    const { data, category } = item;
-    if (!data || !category) return true;
-    if (category === CARD) {
-      const { card_type } = data;
-      return !AD_CARD_TYPES.includes(card_type);
-    }
-    // category === 'feed' 为信息流
-    // 此时判断是否为正常帖子
-    if (category === FEED) {
-      return isNormalTopic(item);
-    }
-    return true;
-  });
+  items = items
+    .filter((item) => {
+      if (!item) return false;
+      const { data, category } = item;
+      if (!data || !category) return true;
+      if (category === CARD) {
+        const { card_type } = data;
+        return !AD_CARD_TYPES.includes(card_type);
+      }
+      // category === 'feed' 为信息流
+      // 此时判断是否为正常帖子
+      if (category === FEED) {
+        return isNormalTopic(item);
+      }
+      return true;
+    })
+    .map((item) => {
+      const { data, category } = item;
+      if (!data || !category || category !== CARD) return item;
+      const { card_type, title, itemid, group } = data;
+      if (card_type === 17 || title === "微博热搜" || itemid === "hotsearch") {
+        item.data.group = group.filter(({ title_sub }) => {
+          // title_sub 为热搜关键词
+          return !blackList.some(title_sub.includes);
+        });
+      }
+      return item;
+    });
   payload.items = items;
 
-
-  if (payload.loadedInfo && 
-      payload.loadedInfo.headerBack && 
-      payload.loadedInfo.headerBack.channelStyleMap) {
+  if (
+    payload.loadedInfo &&
+    payload.loadedInfo.headerBack &&
+    payload.loadedInfo.headerBack.channelStyleMap
+  ) {
     let { channelStyleMap } = payload.loadedInfo.headerBack;
 
     Object.keys(channelStyleMap).forEach((key) => {
@@ -202,7 +215,7 @@ const discoverItemsFilter = (payload) => {
         data.backgroundDarkImage = DISCOVER_IMAGE;
       }
       channelStyleMap[key].data = data;
-    })
+    });
     payload.loadedInfo.headerBack.channelStyleMap = channelStyleMap;
   }
 
@@ -239,7 +252,7 @@ const rwDiscover = (data) => {
     data.channelInfo.channels = channels;
   }
   return data;
-}
+};
 
 const rwDiscoverRefresh = discoverItemsFilter;
 
