@@ -1,4 +1,4 @@
-const version = "1.0.0.25";
+const version = "1.0.0.26";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -55,7 +55,12 @@ const CARD = "card";
 const FEED = "feed";
 
 // 某项是否有广告标识
-const isAdFlag = (item) => IS_AD_FLAGS.some((flag) => item.includes(flag));
+const isAdFlag = (item) => IS_AD_FLAGS.some((flag) => {
+  if (typeof item === 'string') {
+    return item.includes(flag);
+  }
+  return false
+});
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
