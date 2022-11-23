@@ -1,4 +1,4 @@
-const version = "1.0.0.30";
+const version = "1.0.0.31";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -164,7 +164,7 @@ function rwComments(data) {
 }
 
 const discoverItemsFilter = (payload) => {
-  if (!payload || !payload.items) return payload;
+  if (!payload && !payload.items) return payload;
   let { items } = payload;
   items = items
     .filter((item) => {
