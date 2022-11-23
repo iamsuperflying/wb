@@ -1,4 +1,4 @@
-const version = "1.0.0.29";
+const version = "1.0.0.30";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -333,30 +333,34 @@ function rwViewList(items) {
 }
 
 if (body) {
-  var data = JSON.parse($response.body);
+  let data = JSON.parse($response.body);
 
-  /// 我的页面
-  if (profileMe) {
-    // 1. 移除广告
-    // delete data.vipHeaderBgImage;
-  }
+  try {
+    /// 我的页面
+    if (profileMe) {
+      // 1. 移除广告
+      // delete data.vipHeaderBgImage;
+    }
 
-  // 2. 移除热搜
-  if (hotPage) {
-    data = rwHotPage(data);
-  }
+    // 2. 移除热搜
+    if (hotPage) {
+      data = rwHotPage(data);
+    }
 
-  // 3. 移除评论区的广告
-  if (comment) {
-    data = rwComments(data);
-  }
+    // 3. 移除评论区的广告
+    if (comment) {
+      data = rwComments(data);
+    }
 
-  // 4. 移除发现页面的广告
-  if (discover) {
-    data = rwDiscover(data);
-  }
-  if (discoverRefresh) {
-    data = rwDiscoverRefresh(data);
+    // 4. 移除发现页面的广告
+    if (discover) {
+      data = rwDiscover(data);
+    }
+    if (discoverRefresh) {
+      data = rwDiscoverRefresh(data);
+    }
+  } catch (error) {
+    console.log('[ error ] >', error)
   }
 
   promiseItems(data)
