@@ -1,4 +1,4 @@
-const version = "1.0.0.26";
+const version = "1.0.0.27";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -53,6 +53,12 @@ const AD_CARD_TYPES = [19, 22, 118, 207];
 const CARD = "card";
 // 信息流标识
 const FEED = "feed";
+
+const DISCOVER_TITLE = "发现";
+const DISCOVER_EN_TITLE = "Discover";
+
+const DISCOVER_IMAGE =
+  "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80";
 
 // 某项是否有广告标识
 const isAdFlag = (item) => IS_AD_FLAGS.some((flag) => {
@@ -127,7 +133,7 @@ const isNormalTopic = (item) => {
 };
 
 /**
- * 移除热搜页面广告 & 黑名单DISCOVER_EN_TITLE
+ * 移除热搜页面广告 & 黑名单
  * @param {*} pageData
  * @returns
  */
@@ -182,6 +188,24 @@ const discoverItemsFilter = (payload) => {
     return true;
   });
   payload.items = items;
+
+
+  if (payload.loadedInfo && 
+      payload.loadedInfo.headerBack && 
+      payload.loadedInfo.headerBack.channelStyleMap) {
+    let { channelStyleMap } = payload.loadedInfo.headerBack;
+
+    Object.keys(channelStyleMap).forEach((key) => {
+      const { data } = channelStyleMap[key];
+      if (data) {
+        data.backgroundImage = DISCOVER_IMAGE;
+        data.backgroundDarkImage = DISCOVER_IMAGE;
+      }
+      channelStyleMap[key].data = data;
+    })
+    payload.loadedInfo.headerBack.channelStyleMap = channelStyleMap;
+  }
+
   return payload;
 };
 
@@ -190,17 +214,23 @@ const discoverItemsFilter = (payload) => {
  */
 const rwDiscover = (data) => {
   if (!data) return data;
-  const keep = ["发现", "热搜", "游戏"];
+  // "热搜", "游戏" 不做保留
+  const keep = [DISCOVER_TITLE];
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
-    // 保留 发现/热搜/游戏
+    // 保留 发现
     channels = channels.filter((channel) => {
       return keep.includes(channel.name);
     });
-    // map 发现/热搜/游戏
+    // map 发现
     channels = channels.map((channel) => {
       const { name, title, en_name } = channel;
-      if (name === "发现" || title === "发现" || en_name === "Discover") {
+      // 发现
+      if (
+        name === DISCOVER_TITLE ||
+        title === DISCOVER_TITLE ||
+        en_name === DISCOVER_EN_TITLE
+      ) {
         channel.payload = discoverItemsFilter(channel.payload);
       }
       return channel;
@@ -208,10 +238,6 @@ const rwDiscover = (data) => {
 
     data.channelInfo.channels = channels;
   }
-
-  // 移除广告 card_type: 22
-  // 热搜底下的图片广告
-
   return data;
 }
 
@@ -223,42 +249,33 @@ const rwDiscoverRefresh = discoverItemsFilter;
 function rwHotItems(items) {
   // "card_type": 118, // 118: 轮播图
   // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
+
+  return items;
+
   return items
     .map((item) => {
-      if (item.category !== "card") return item;
+      if (item.category !== CARD) return item;
 
       if (item.data && item.data.title && item.data.title === "微博热搜") {
         // 过滤热搜
         item.data.group = item.data.group.filter(({ title_sub }) => {
+          // title_sub 为热搜关键词
           return !blackList.some((keyword) => title_sub.includes(keyword));
         });
       }
       return item;
     })
     .filter((item) => {
-      if (item.category === "card") {
+      if (item.category === CARD) {
         return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
       }
       // 热搜信息流
-      else if (item.category === "feed") {
+      else if (item.category === FEED) {
         return isNormalTopic(item);
       } else {
         return true;
       }
     });
-  // .map((item) => {
-  //   if (item.card_type === 17 || item.title === "微博热搜") {
-  //     item.group = item.group.filter((groupItem) => {
-  //       const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
-  //       return blackList.some(
-  //         (keyword) =>
-  //           groupItem.title_sub.concat(keyword) ||
-  //           groupItem.item_log.key.concat(keyword)
-  //       );
-  //     });
-  //   }
-  //   return item;
-  // });
 }
 
 /**
