@@ -1,4 +1,4 @@
-const version = "1.0.0.28";
+const version = "1.0.0.29";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -60,13 +60,10 @@ const DISCOVER_EN_TITLE = "Discover";
 const DISCOVER_IMAGE =
   "https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80";
 // 某项是否有广告标识
-const isAdFlag = (item) =>
-  IS_AD_FLAGS.some((flag) => {
-    if (typeof item === "string") {
-      return item.includes(flag);
-    }
-    return false;
-  });
+const isAdFlag = (item) => {
+  if (typeof item !== "string") return false
+  IS_AD_FLAGS.some(item.includes);
+}
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
@@ -140,9 +137,7 @@ const isNormalTopic = (item) => {
 function rwHotPage(pageData) {
   pageData.cards = pageData.cards.map((card) => {
     card.card_group = card.card_group.filter((group) => {
-      if (!group.desc) {
-        return true;
-      }
+      if (!group.desc || (typeof group.desc !== "string")) return true
       return !blackList.some(group.desc.includes);
     });
     return card;
