@@ -127,7 +127,7 @@ const isNormalTopic = (item) => {
 };
 
 /**
- * 移除热搜页面广告 & 黑名单
+ * 移除热搜页面广告 & 黑名单DISCOVER_EN_TITLE
  * @param {*} pageData
  * @returns
  */
