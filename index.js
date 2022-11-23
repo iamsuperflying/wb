@@ -22,12 +22,9 @@ if (!readUint8Array) {
 // 推荐
 const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 // statuses
-// 热搜
-const hot = new RegExp(
-  "search/(finder|container_timeline|container_discover)"
-).test(url);
-// 发现页
+// 发现页热搜
 const discoverRefresh = new RegExp("search/container_timeline").test(url);
+const discoverReplace = new RegExp("search/container_discover").test(url);
 const discover = new RegExp("search/finder").test(url);
 // 热搜
 const hotPage = new RegExp("/page").test(url);
@@ -98,9 +95,7 @@ function promiseStatuses(data) {
  * @description: 区分不同的 url
  */
 function diffUrl() {
-  if (hot) {
-    return rwHotItems;
-  } else if (profileTimeline | recommend) {
+  if (profileTimeline | recommend) {
     return rwProfile;
   } else if (profileMe) {
     return rwProfileMe;
@@ -169,6 +164,26 @@ function rwComments(data) {
   return data;
 }
 
+/**
+ * 重写发现页背景图
+ * @param {Object} payload 发现页数据, 可能包含 loadedInfo 属性
+ */
+const rwChannelStyleMap = (payload) => {
+  if (payload?.loadedInfo?.headerBack?.channelStyleMap) {
+    let { channelStyleMap } = payload.loadedInfo.headerBack;
+    Object.keys(channelStyleMap).forEach((key) => {
+      const { data } = channelStyleMap[key];
+      if (data) {
+        data.backgroundImage = DISCOVER_IMAGE;
+        data.backgroundDarkImage = DISCOVER_IMAGE;
+      }
+      channelStyleMap[key].data = data;
+    });
+    payload.loadedInfo.headerBack.channelStyleMap = channelStyleMap;
+  }
+  return payload;
+};
+
 const discoverItemsFilter = (payload) => {
   if (!payload && !payload.items) return payload;
   let { items } = payload;
@@ -198,25 +213,7 @@ const discoverItemsFilter = (payload) => {
       return item;
     });
   payload.items = items;
-
-  if (
-    payload.loadedInfo &&
-    payload.loadedInfo.headerBack &&
-    payload.loadedInfo.headerBack.channelStyleMap
-  ) {
-    let { channelStyleMap } = payload.loadedInfo.headerBack;
-
-    Object.keys(channelStyleMap).forEach((key) => {
-      const { data } = channelStyleMap[key];
-      if (data) {
-        data.backgroundImage = DISCOVER_IMAGE;
-        data.backgroundDarkImage = DISCOVER_IMAGE;
-      }
-      channelStyleMap[key].data = data;
-    });
-    payload.loadedInfo.headerBack.channelStyleMap = channelStyleMap;
-  }
-
+  payload = rwChannelStyleMap(payload);
   return payload;
 };
 
@@ -250,7 +247,7 @@ const rwDiscover = (data) => {
   return data;
 };
 
-const rwDiscoverRefresh = discoverItemsFilter;
+const rwDiscoverContainer = discoverItemsFilter;
 
 /**
  * @description: 热搜页面
@@ -354,7 +351,10 @@ if (body) {
       data = rwDiscover(data);
     }
     if (discoverRefresh) {
-      data = rwDiscoverRefresh(data);
+      data = rwDiscoverContainer(data);
+    }
+    if (discoverReplace) {
+      data = rwDiscoverContainer(data);
     }
   } catch (error) {
     console.log("[ error ] >", error);
