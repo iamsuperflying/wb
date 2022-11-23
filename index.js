@@ -1,4 +1,4 @@
-const version = "1.0.0.31";
+const version = "1.0.0.32";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -43,12 +43,12 @@ const comment = new RegExp("comments/build_comments").test(url);
 const noop = (items) => items;
 
 // 是否是广告标识
-const IS_AD_FLAGS = ["广告", "热推"];
+const IS_AD_FLAGS = /广告|热推/;
 // card_type === 118 为图片轮播广告
 // card_type === 207 为各种赛程比分广告
 // card_type === 19 为小图标广告
 // card_type === 22 为图片广告
-const AD_CARD_TYPES = [19, 22, 118, 207];
+const AD_CARD_TYPES = /118|207|19|22/;
 // 卡片标识
 const CARD = "card";
 // 信息流标识
@@ -60,10 +60,19 @@ const DISCOVER_EN_TITLE = "Discover";
 const DISCOVER_IMAGE =
   "https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80";
 // 某项是否有广告标识
-const isAdFlag = (item) => {
-  if (typeof item !== "string") return false
-  IS_AD_FLAGS.some(item.includes);
-}
+const isAdFlag = IS_AD_FLAGS.test.bind(IS_AD_FLAGS);
+
+const isString = (item) => item && typeof item === "string";
+
+const safeIncludes = (source, target) => {
+  if (!isString(source) || !isString(target)) return false;
+  return source.includes(target);
+};
+
+const isBlack = (target) => {
+  if (!isString(target)) return false;
+  return blackList.some(target.includes.bind(target));
+};
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
@@ -136,10 +145,7 @@ const isNormalTopic = (item) => {
  */
 function rwHotPage(pageData) {
   pageData.cards = pageData.cards.map((card) => {
-    card.card_group = card.card_group.filter((group) => {
-      if (!group.desc || (typeof group.desc !== "string")) return true
-      return !blackList.some(group.desc.includes);
-    });
+    card.card_group = card.card_group.filter(({ desc }) => !isBlack(desc));
     return card;
   });
   return pageData;
@@ -173,7 +179,7 @@ const discoverItemsFilter = (payload) => {
       if (!data || !category) return true;
       if (category === CARD) {
         const { card_type } = data;
-        return !AD_CARD_TYPES.includes(card_type);
+        return !AD_CARD_TYPES.test(card_type);
       }
       // category === 'feed' 为信息流
       // 此时判断是否为正常帖子
@@ -187,10 +193,7 @@ const discoverItemsFilter = (payload) => {
       if (!data || !category || category !== CARD) return item;
       const { card_type, title, itemid, group } = data;
       if (card_type === 17 || title === "微博热搜" || itemid === "hotsearch") {
-        item.data.group = group.filter(({ title_sub }) => {
-          // title_sub 为热搜关键词
-          return !blackList.some(title_sub.includes);
-        });
+        item.data.group = group.filter(({ title_sub }) => !isBlack(title_sub));
       }
       return item;
     });
@@ -227,9 +230,7 @@ const rwDiscover = (data) => {
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
     // 保留 发现
-    channels = channels.filter((channel) => {
-      return keep.includes(channel.name);
-    });
+    channels = channels.filter(({ name }) => keep.includes(name));
     // map 发现
     channels = channels.map((channel) => {
       const { name, title, en_name } = channel;
@@ -305,9 +306,7 @@ function rwProfileMe(items) {
   ];
 
   return items
-    .filter((item) => {
-      return filtereds.includes(item.itemId);
-    })
+    .filter(({ itemId }) => filtereds.includes(itemId))
     .map((item) => {
       if (item.itemId === "profileme_mine") {
         if (item.header && item.header.vipView) {
@@ -319,9 +318,7 @@ function rwProfileMe(items) {
         const top4 = ["album", "like", "watchhistory", "draft"].map(
           (id) => `100505_-_${id}`
         );
-        item.items = item.items.filter((topItem) => {
-          return top4.includes(topItem.itemId);
-        });
+        item.items = item.items.filter(({ itemId }) => top4.includes(itemId));
         return item;
       }
       return item;
@@ -360,7 +357,7 @@ if (body) {
       data = rwDiscoverRefresh(data);
     }
   } catch (error) {
-    console.log('[ error ] >', error)
+    console.log("[ error ] >", error);
   }
 
   promiseItems(data)

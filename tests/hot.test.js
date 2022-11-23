@@ -12,7 +12,7 @@ const res2 = new RegExp(
 // ^https://api.weibo.cn/2/(video|statuses|search|profile)/(tiny_stream_video_list|container_timeline_hot|finder|container_discover|container_timeline|me)
 console.log(res2);
 
-const data = require("./hot.json")
+const data = require("../datas/hot.json")
 function rwHotPage(pageData) {
   const blackList = ["李峋", "陈飞宇", "阿瑟", "命韵峋环"];
   pageData.cards = pageData.cards.map((card) => {
