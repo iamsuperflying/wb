@@ -1,4 +1,4 @@
-const version = "1.0.0.32";
+const version = "1.0.0.33";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -19,6 +19,8 @@ if (!readUint8Array) {
   console.log(blackList);
 }
 
+// 时间线
+const timeline = /\/groups\/timeline/.test(url);
 // 推荐
 const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 // statuses
@@ -132,6 +134,19 @@ const isNormalTopic = (item) => {
     return true;
   }
 };
+
+const rwTimeline = (data) => {
+
+  data.statuses = data?.statuses?.map((status) => {
+    delete status.extend_info;
+    delete status.common_struct;
+    // 测试是否可删除卡片背景
+    delete status.pic_bg_scheme;
+    return status;
+  })
+
+  return data
+}
 
 /**
  * 移除热搜页面广告 & 黑名单
@@ -250,41 +265,6 @@ const rwDiscover = (data) => {
 const rwDiscoverContainer = discoverItemsFilter;
 
 /**
- * @description: 热搜页面
- */
-function rwHotItems(items) {
-  // "card_type": 118, // 118: 轮播图
-  // "card_type": 19, // 19: 热聊/找人/热议/直播/本地......
-
-  return items;
-
-  return items
-    .map((item) => {
-      if (item.category !== CARD) return item;
-
-      if (item.data && item.data.title && item.data.title === "微博热搜") {
-        // 过滤热搜
-        item.data.group = item.data.group.filter(({ title_sub }) => {
-          // title_sub 为热搜关键词
-          return !blackList.some((keyword) => title_sub.includes(keyword));
-        });
-      }
-      return item;
-    })
-    .filter((item) => {
-      if (item.category === CARD) {
-        return item.data["card_type"] !== 118 && item.data["card_type"] !== 19;
-      }
-      // 热搜信息流
-      else if (item.category === FEED) {
-        return isNormalTopic(item);
-      } else {
-        return true;
-      }
-    });
-}
-
-/**
  * @description: 解析 profile 页
  */
 function rwProfile(items) {
@@ -330,23 +310,28 @@ if (body) {
   let data = JSON.parse($response.body);
 
   try {
-    /// 我的页面
+    // 1. 首页 时间线
+    if (timeline) {
+      data = rwTimeline(data);
+    }
+
+    // 2. 我的页面
     if (profileMe) {
       // 1. 移除广告
       // delete data.vipHeaderBgImage;
     }
 
-    // 2. 移除热搜
+    // 3. 移除热搜
     if (hotPage) {
       data = rwHotPage(data);
     }
 
-    // 3. 移除评论区的广告
+    // 4. 移除评论区的广告
     if (comment) {
       data = rwComments(data);
     }
 
-    // 4. 移除发现页面的广告
+    // 5. 移除发现页面的广告
     if (discover) {
       data = rwDiscover(data);
     }
@@ -356,6 +341,8 @@ if (body) {
     if (discoverReplace) {
       data = rwDiscoverContainer(data);
     }
+
+    // 5. 移除 profile 页的广告
   } catch (error) {
     console.log("[ error ] >", error);
   }
