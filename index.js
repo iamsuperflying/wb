@@ -1,4 +1,4 @@
-const version = "1.0.0.39";
+const version = "1.0.0.40";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -358,8 +358,8 @@ const rwSearchAll = (data) => {
   if (!cards) return data;
   data.cards = cards.filter(({ mblog }) => {
     if (!mblog) return true;
-    if (mblog.ad_state) return true;
-    return isNormalTopic({ data: mblog });
+    if (mblog.ad_state) return false;
+    return isNormalTopic(mblog);
   });
   return data;
 }
