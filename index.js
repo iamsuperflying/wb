@@ -1,4 +1,4 @@
-const version = "1.0.0.37";
+const version = "1.0.0.38";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -21,6 +21,9 @@ if (!readUint8Array) {
 
 // 时间线
 const timeline = /\/groups\/timeline/.test(url);
+
+const containerTimeline = /\/statuses\/container_timeline/.test(url);
+
 // 推荐
 const recommend = new RegExp("statuses/container_timeline_hot").test(url);
 // statuses
@@ -97,7 +100,9 @@ function promiseStatuses(data) {
  * @description: 区分不同的 url
  */
 function diffUrl() {
-  if (profileTimeline | recommend) {
+  if (containerTimeline) {
+    return rwContainerTimeline;
+  } else if (profileTimeline | recommend) {
     return rwProfile;
   } else if (profileMe) {
     return rwProfileMe;
@@ -134,6 +139,8 @@ const isNormalTopic = (item) => {
     return true;
   }
 };
+
+const rwContainerTimeline = (data) => data.filter(isNormalTopic)
 
 const rwTimeline = (data) => {
   // for (const s of ["ad", "advertises", "trends"]) {
