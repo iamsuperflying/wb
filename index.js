@@ -1,4 +1,4 @@
-const version = "1.0.0.38";
+const version = "1.0.0.39";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -21,8 +21,10 @@ if (!readUint8Array) {
 
 // 时间线
 const timeline = /\/groups\/timeline/.test(url);
-
+// 新的首页时间线
 const containerTimeline = /\/statuses\/container_timeline/.test(url);
+// 热搜词条点击后的列表
+const searchall = /\/searchall/.test(url);
 
 // 推荐
 const recommend = new RegExp("statuses/container_timeline_hot").test(url);
@@ -350,6 +352,18 @@ function rwProfileMe(items) {
     });
 }
 
+const rwSearchAll = (data) => {
+  if (!data) return data;
+  const { cards } = data;
+  if (!cards) return data;
+  data.cards = cards.filter(({ mblog }) => {
+    if (!mblog) return true;
+    if (mblog.ad_state) return true;
+    return isNormalTopic({ data: mblog });
+  });
+  return data;
+}
+
 function rwViewList(items) {
   return items.filter(isNormalTopic);
 }
@@ -390,7 +404,11 @@ if (body) {
       data = rwDiscoverContainer(data);
     }
 
-    // 5. 移除 profile 页的广告
+    // 6. 移除热搜某词条下的广告
+    if (searchall) {
+      data = rwSearchAll(data);
+    }
+
   } catch (error) {
     console.log("[ error ] >", error);
   }
