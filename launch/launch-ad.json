@@ -1,0 +1,929 @@
+{
+  "realtime_video_stall_time": 300,
+  "req_id": "392E92A6-15F4-4E9A-B8F5-59895004C0C2",
+  "ads": [
+    {
+      "end_time": 1681919999,
+      "total_display_cnt": 50,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":2,\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1681833600,
+      "sort_num": 7,
+      "adid": "150008424",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150008424&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150008424&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100008646",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://browser?url=http%3A%2F%2Fwb.weixuanhome.cn%2FP9NcPi&allowRedirect=1&disable_sinaurl=1&gesture_back_type=2&schemewhitelist=%7B%22scheme%22%3A%5B%22.%2A%22%5D%2C%22itunes%22%3A%5B%22.%2A%22%5D%7D&mark_id=3_reallog_mark_ad%3A10%7C3_UVEAD%2C3934103603%2C150008424",
+          "start_time": 1681833600,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 180,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 1,
+                  "styles": [
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 17,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    },
+                    {
+                      "size": 25,
+                      "color": "#FFFFFF",
+                      "end": 6,
+                      "font": "PingFangSC-Medium",
+                      "start": 0
+                    },
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 17,
+                      "font": "PingFangSC-Regular",
+                      "start": 7
+                    }
+                  ],
+                  "shadow": 1,
+                  "left_margin": 40
+                }
+              },
+              "width": 628,
+              "res_type": "lottie",
+              "text": "点击查看详情\n跳转至施洛华天猫旗舰店",
+              "left": 8.1300000000000008,
+              "trigger_type": 1,
+              "top": 74.379999999999995,
+              "right": 91.870000000000005,
+              "res_url": "https://adimg.uve.weibo.com/public/files/image/BGS613abe48e806e.zip"
+            },
+            {
+              "height": 900,
+              "bottom": 100,
+              "click_plan": "planA",
+              "width": 1500,
+              "left": 0,
+              "trigger_type": 1,
+              "top": 72.290999999999997,
+              "right": 100
+            },
+            {
+              "height": 900,
+              "bottom": 100,
+              "click_plan": "planB",
+              "width": 1500,
+              "left": 0,
+              "trigger_type": 1,
+              "top": 0,
+              "right": 100
+            }
+          ],
+          "res_type": "image",
+          "end_time": 1681919999,
+          "show_type": "full",
+          "res_url": "https://kadmimage.biz.weibo.com/9771892289f3482e6f86e9218f34e6395786325630/4af41e7f10b346b48773f4b07497383c.png"
+        }
+      ]
+    },
+    {
+      "end_time": 1681919999,
+      "total_display_cnt": 50,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":1,\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1681833600,
+      "sort_num": 6,
+      "adid": "150008100",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150008100&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150008100&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100008310",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://browser?url=http%3A%2F%2Fb.indirect.mi.com%2Fmua%3Fc%3D19505.0010&allowRedirect=1&disable_sinaurl=1&gesture_back_type=2&schemewhitelist=%7B%22scheme%22%3A%5B%22.%2A%22%5D%2C%22itunes%22%3A%5B%22.%2A%22%5D%7D&mark_id=3_reallog_mark_ad%3A10%7C3_UVEAD%2C3934103603%2C150008100",
+          "start_time": 1681833600,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 637,
+              "bottom": 100,
+              "width": 750,
+              "res_type": "image",
+              "left": 0,
+              "top": 60.960000000000001,
+              "right": 100,
+              "res_url": "http://u1.img.mobile.sina.cn/public/files/image/3x1686_img61443728688cf.png"
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "width": 160,
+              "res_type": "lottie",
+              "left": 39.329999999999998,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002,
+              "res_url": "https://adimg.uve.weibo.com/public/files/image/BGS612603548e1b3.zip"
+            },
+            {
+              "height": 102,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 0,
+                  "shadow": 1,
+                  "styles": [
+                    {
+                      "size": 22,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    },
+                    {
+                      "size": 21,
+                      "color": "#FFFFFF",
+                      "end": 4,
+                      "font": "PingFangSC-Medium",
+                      "start": 0
+                    },
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 5
+                    }
+                  ]
+                }
+              },
+              "width": 750,
+              "text": "向上滑动\n跳转至小米商城新品页",
+              "left": 0,
+              "top": 79.189999999999998,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 10,
+                  "slide_directions": [1]
+                }
+              },
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 5,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planA",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 1,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planB",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            }
+          ],
+          "res_type": "video",
+          "end_time": 1681919999,
+          "show_type": "full",
+          "res_url": "https://adimg.uve.weibo.com/public/files/image/QcZDK703lx084H921xpS010412005fCr0E010.mp4"
+        }
+      ]
+    },
+    {
+      "end_time": 1681919999,
+      "total_display_cnt": 50,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":1,\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1681833600,
+      "sort_num": 5,
+      "adid": "150007793",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150007793&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150007793&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100007992",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://browser?url=http%3A%2F%2Fb.indirect.mi.com%2Fmua%3Fc%3D19505.0005&allowRedirect=1&disable_sinaurl=1&gesture_back_type=2&schemewhitelist=%7B%22scheme%22%3A%5B%22.%2A%22%5D%2C%22itunes%22%3A%5B%22.%2A%22%5D%7D&mark_id=3_reallog_mark_ad%3A10%7C3_UVEAD%2C3934103603%2C150007793",
+          "start_time": 1681833600,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 637,
+              "bottom": 100,
+              "width": 750,
+              "res_type": "image",
+              "left": 0,
+              "top": 60.960000000000001,
+              "right": 100,
+              "res_url": "http://u1.img.mobile.sina.cn/public/files/image/3x1686_img61443728688cf.png"
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "width": 160,
+              "res_type": "lottie",
+              "left": 39.329999999999998,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002,
+              "res_url": "https://adimg.uve.weibo.com/public/files/image/BGS612603548e1b3.zip"
+            },
+            {
+              "height": 102,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 0,
+                  "shadow": 1,
+                  "styles": [
+                    {
+                      "size": 22,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    },
+                    {
+                      "size": 21,
+                      "color": "#FFFFFF",
+                      "end": 4,
+                      "font": "PingFangSC-Medium",
+                      "start": 0
+                    },
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 5
+                    }
+                  ]
+                }
+              },
+              "width": 750,
+              "text": "向上滑动\n跳转至小米商城新品页",
+              "left": 0,
+              "top": 79.189999999999998,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 10,
+                  "slide_directions": [1]
+                }
+              },
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 5,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planA",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 1,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planB",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            }
+          ],
+          "res_type": "video",
+          "end_time": 1681919999,
+          "show_type": "full",
+          "res_url": "https://adimg.uve.weibo.com/public/files/image/5tBubl7Ylx084C4JaLMc010412005eK50E010.mp4"
+        }
+      ]
+    },
+    {
+      "end_time": 1681919999,
+      "total_display_cnt": 50,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":1,\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1681833600,
+      "sort_num": 4,
+      "adid": "150007784",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150007784&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150007784&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100007983",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://openadscheme?scheme=tbopen%3A%2F%2Fm.taobao.com%2Ftbopen%2Findex.html%3F%26action%3Dali.open.nav%26module%3Dh5%26source%3Dliuliangbao%26h5Url%3Dhttps%253A%252F%252Fbosideng.m.tmall.com%252F%253F_bind%253Dtrue%2526bc_fl_src%253Dtmall_market_llb_1_2186206%2526llbPlatform%253Dweibo%2526agentId%253D2021579%2526spm%253Da224e.7913437.1.2186206%2526llbDlk%253D1%26backURL%3D__back_url__%26appkey%3D24996807%26bc_fl_src%3Dtmall_market_llb_1_2186206&urlscheme=sinaweibo%3A%2F%2Fbrowser%3Furl%3Dhttps%253A%252F%252Fequity.tmall.com%252Ftm%253FagentId%253D2016076%2526bc_fl_src%253Dtmall_market_llb_1_2180703%2526llbPlatform%253D_pube%2526llbOsd%253D1%26allowRedirect%3D1%26disable_sinaurl%3D1%26gesture_back_type%3D2%26schemewhitelist%3D%257B%2522scheme%2522%253A%255B%2522.%252A%2522%255D%252C%2522itunes%2522%253A%255B%2522.%252A%2522%255D%257D&universallink=&downloadscheme=",
+          "start_time": 1681833600,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 637,
+              "bottom": 100,
+              "width": 750,
+              "res_type": "image",
+              "left": 0,
+              "top": 60.960000000000001,
+              "right": 100,
+              "res_url": "http://u1.img.mobile.sina.cn/public/files/image/3x1686_img61443728688cf.png"
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "extra": {
+                "trigger_conf": {
+                  "shake_sensitivity": 20
+                }
+              },
+              "width": 160,
+              "res_type": "lottie",
+              "left": 39.329999999999998,
+              "trigger_type": 3,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002,
+              "res_url": "https://adimg.uve.weibo.com/public/files/image/BGS61385571e2d7d.zip"
+            },
+            {
+              "height": 102,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 0,
+                  "shadow": 1,
+                  "styles": [
+                    {
+                      "size": 22,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    },
+                    {
+                      "size": 21,
+                      "color": "#FFFFFF",
+                      "end": 3,
+                      "font": "PingFangSC-Medium",
+                      "start": 0
+                    },
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 4
+                    }
+                  ]
+                }
+              },
+              "width": 750,
+              "text": "摇一摇\n跳转至波司登天猫旗舰店",
+              "left": 0,
+              "top": 79.189999999999998,
+              "right": 100
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "extra": {
+                "trigger_conf": {
+                  "shake_sensitivity": 15
+                }
+              },
+              "click_plan": "planA",
+              "width": 160,
+              "left": 39.329999999999998,
+              "trigger_type": 3,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "extra": {
+                "trigger_conf": {
+                  "shake_sensitivity": 12
+                }
+              },
+              "click_plan": "planB",
+              "width": 160,
+              "left": 39.329999999999998,
+              "trigger_type": 3,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002
+            }
+          ],
+          "res_type": "video",
+          "end_time": 1681919999,
+          "show_type": "full",
+          "res_url": "https://adimg.uve.weibo.com/public/files/image/nBhYOj3Flx084BXbvAcM010412003Ppg0E010.mp4"
+        }
+      ]
+    },
+    {
+      "end_time": 1682092799,
+      "total_display_cnt": 5,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":1,\"from_wax\":\"wax.1681748350023683902;10064;82112fabbbfa47246c34d6d57c4a4bdc;0;WB23040506_339FD944-09DC-4452-BC1F-DD21DBA551B5;048974378921681748350588;1681748350;6E98F8AF-CC1E-4965-87E8-8D451289802D;20230421\",\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1682006400,
+      "sort_num": 3,
+      "adid": "150007769",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "http://e.cn.miaozhen.com/r/k=2352950&p=8N2CJ&rt=2&pro=s&tr=__REQID__&ns=__IP__&ls=__GEO__&vv=1&ai=AB6D5D1291AC5AB4271002A118803C03C390932DEF2C26B446D8701D594BB165&o=?df_sid=ac1287a3000010f5643d717e0065feb7",
+          "third_party_show": "http://ef-dongfeng.tanx.com/tanx?p=ASE2n1EAAA6SZD1xfgAAQ7HhbJaV6KiRnQ%3d%3d&e=43be8omT96zuUfCWOIbkD-pvGrLgupvNXA7YSuRO9mG-iSPsXbyCddIcVipZLikgM0wrH3Y8EwOhUaDk_fIr-rrnD_rPbSW0r1qnkFBTTNtFH6_muJf33vLmlJdPRxj-PNChzxOTLTLMAyKPKXKwVIh9DCughBXznlfNX6m9ruy4b6_vNXt4yU0ImvtcJnrCkhusce_F6PXpJFUc6ElpC_fS6t6JwKlVn1JRQUM8nlx1dXlSG4QqRaMmGXcaJ-tSpDGjq0bNgrZwpVqJ3SidIV0ILbCovH1PWoAY3-c3C5WYyYXc8KHc1ePXUdukAaQ8rtVz4AUNHGjDasoNZ-OJWBtULXketfGWIoIX3rzHVRrM75pr2t-2ZKbKx1tesR-euItnfNYvZW1MynNnC0Os-NsgygNP29jCL5krswIA0R86AkhYEoqrQT6ilXm6cOQ6aVBPXIDm31UQcl3myf_MO66Nk0CBeQjqzVnwRtV-WgzLx5vM7i7ILecePH53zkaDKBMVHUD5AIXssTacl19omkm7-Ht4iBPodwns0Ci36TtE-MfVxvadUMZ-BXkCEjm38lFl3sg6pSN5anu4cWnAstpDfzFmi9IoZRxXbFQS19q5dWHgGavAKQScdOOowdGh1spz4IDmzovhcxd4dH2VmflcohLei4XB7XcIzbr_QRv4v_iH_9cxqIirc5y2liKqkChqLWdZnys4C7kv_BXvTaW9GyA8rQN37c6eff2pudnAjwGEg0EMqidkbPVzNQtKbvvZuD-CWNPbYC5dCGUwOMd3HtzYlnHOCvwwgHGh8eIR1_uTg0uYUDW6VjP1m-MGBtQFT9iGp9aW2KYq_G9bDh0UcKS4fbYptDMIThgmSic3WcYSAppFTc5kNiLa3sMfUQivdm-2Rjh8m7DMJURAxTtdN6ojfVq-lxZeVCreM2Sj1cEnNoPsvSXHdc5YwIm8HaNljf0Kr-QmjZCEp_ZLhxoUzog_OfJrox30VRTFt82C96RDPGeM5FxGpQIQPqdHyarATMcIU5vFsbzEj1cl8_qQs4s1EZCrIPpv3zgQ_ltYDQGqeLb6czfaStWV3T6b2VO4vHdexIXnmcipIARz5ao46sg-0xDiFYLUr2hiTDQ&k=1130"
+        },
+        {
+          "third_party_click": "http://ef-dongfeng.tanx.com/cm?e=uuKh3kqyX3XuUfCWOIbkD-pvGrLgupvNXA7YSuRO9mG-iSPsXbyCddIcVipZLikgM0wrH3Y8EwOhUaDk_fIr-rrnD_rPbSW0r1qnkFBTTNtFH6_muJf33vLmlJdPRxj-PNChzxOTLTLMAyKPKXKwVIh9DCughBXznlfNX6m9ruy4b6_vNXt4yU0ImvtcJnrCkhusce_F6PXpJFUc6ElpC_fS6t6JwKlVn1JRQUM8nlx1dXlSG4QqRaMmGXcaJ-tSpDGjq0bNgrZwpVqJ3SidIV0ILbCovH1PWoAY3-c3C5WYyYXc8KHc1ePXUdukAaQ8rtVz4AUNHGjDasoNZ-OJWBtULXketfGWIoIX3rzHVRq86oHgR3rlTqbKx1tesR-euItnfNYvZW1MynNnC0Os-NsgygNP29jCL5krswIA0R86AkhYEoqrQT6ilXm6cOQ6aVBPXIDm31UQcl3myf_MO66Nk0CBeQjqzVnwRtV-WgzLx5vM7i7ILecePH53zkaDKBMVHUD5AIXssTacl19omkm7-Ht4iBPodwns0Ci36TtE-MfVxvadUMZ-BXkCEjm38lFl3sg6pSN5anu4cWnAstpDfzFmi9IoZRxXbFQS19q5dWHgGavAKQScdOOowdGhdq_pcdKrXegAvARwZCO0j3dGB551bTgdZvF1LZAXZdo&k=682&ext=1",
+          "third_party_show": "http://g.cn.miaozhen.com/x/k=2352950&p=8N2CJ&rt=2&pro=s&tr=__REQID__&ns=__IP__&ls=__GEO__&vv=1&ai=AB6D5D1291AC5AB4271002A118803C03C390932DEF2C26B446D8701D594BB165&o=?df_sid=ac1287a3000010f5643d717e0065feb7"
+        },
+        {
+          "third_party_click": "http://rdstat.tanx.com/trd?f=https%3A%2F%2Fmarket.m.taobao.com%2Fapp%2Ftb-shop%2Fshop-page-webapp%2Fpages%2Fcustom-page%2Findex.html&p=mm_26632537_25060897_95052989&pvid=21369f5100000e92643d717e100043b1&sid=21369f5100000e92643d717e000043b1&s=750x1624&d=121507994&did=2095026&idf=6E98F8AF-CC1E-4965-87E8-8D451289802D&os=2&osv=16.5&br=iphone&md=iPhone_14%2C3&aid=232005749822784012&aaid=7B95EBB7-7274-AAB3-BAEB-F4569399CF18&k=495eef7a68f110f9&bkts=0.7356566-0.8166648-0.12334132-0.19572786&clst=na61&t=1681748350&et=V0IyMzA0MDUwNl8zMzlGRDk0NC0wOURDLTQ0NTItQkMxRi1ERDIxREJBNTUxQjUCMjECMQIzMDUCMwIyMQIzAjECAjACAjECMAIxAjUxNTAxOTUwNQIyMTQyNDg0AjUwMDACWAJNAmNvbS5zaW5hLndlaWJvAgIxMDAxMTYxMwICAg",
+          "third_party_show": "http://df.tanx.com/spf3?e=cFNfJ6CvrV3gH0EYmFZOykz0DShbf4SUdpP6O-e35uNQ9dmBc9Eyz1czW9cgO50r1YnjeIfM1T67kVmSpCpoBOD1magZW-vBdNf9ctsz8bUxY4tlumzoQMrA16ii1CIauXC5emE6gJJ-j6yyjCVVbH2oVc6IxYk3sHd2W2MepnK85meSeE6Ht8va5vjD0OD4ffpG2Jsd5xTzNplkdIsAswDd_AlRXCzIbuRZ8d9luphfVdpGX_ozHlIIjdJNmpuAGfsA4Q6LWqhaC1pgGy9Qb9F9hS4tOeWsDezUZB3qsLfkeDf0XZvef4yaE0BK8FPQb8AnLf0fT0WiHndcOuaLtYwFAmhW1Tdh3-k9WcpQY38HopJpS87k1nMTgbigIpIHqtCq2GNQVV-bRRe1AcdqqGV5Ap2ktJXOYLKyXPi-240zIfRdIbrsXzc1QcvcHDDK1uXYAqWanXWZfZ1kL-g4rqQ3hJwJH31HjJfUA4DSqhmub2sE1S9zOtUzOXCZDSXXqGRKgrUfaxK68Kevkcx4dDvJDUUIZjVbTiOsoC37P6U&k=554&i=mm_26632537_25060897_95052989&p=4c0c248427832d4bbb5bcb20a5a7d56a"
+        },
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150007769&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150007769&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "external_logo": "https://nb-ssp.oss-cn-beijing.aliyuncs.com/1648699553998828f6f50-79c1-11ec-92c0-01612323b7a1.png",
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100007968",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://openadscheme?universallink=https%3A%2F%2Fulk.alimama.com%2Ftb%3Fsmburl%3Dtbopen%253a%252f%252fm.taobao.com%252ftbopen%252findex.html%253faction%253dali.open.nav%2526bootImage%253d0%2526module%253dh5%2526source%253dalimama%2526visa%253d5d429034ad046701%2526appkey%253d23208668%2526bc_fl_src%253dtanx_df_95052989_ac1287a3000010f5643d717e0065feb7_102519_515019505_16107859_2342814_3103712_2_2095026_1_10053869_0_0_0_0%2526backURL%253dsinaweibo%25253a%25252f%25252fgotohome%2526packageName%253dcom.sina.weibo%2526h5Url%253dhttps%25253a%25252f%25252fclick.tanx.com%25252ftf%25253fe%25253dFl4aMGBp5XmMJfbPhIKx63uIYOJ6c5AfcCe%2525252F7%2525252FneF2q3VQp0XfQ%2525252FAyxqq7gf02%2525252Byvdd%2525252FDY4m5W9XHOjFQx1eIWcyA76rKDhveV24rWbtgoPfxdC4BtX7QqzH99pW3qWMORsZ39YH2kjy0UZQhMg3NvFRpJcJJiKaFoGPjqGtUl4HYseMjvT99hTPVAOqIdaDVbHfwTddnjwX%2525252BWbaxGKYkjOlPIcMqHxwkhCXyJ%2525252Fe4h%2525252BMZVcE%2525252B7X4rEbBdLwi9pEwRjSFZ7ItW%2525252F2Y25%2525252BndmLgUEpFaMURarDYRN2mEUUUGW3dQuNzHVM%2525252FxXrz34DST%2525252F0fxMuDdBqLnUZkRskvnPGjYphLvgUhqbtG4WkMhT82EYuau7kCWYVBzQBphk8su8yxNVchItCI%2525252FN4ncVlRpWRNsqSfRy%2525252BuCN5YXeTvsMOPO0CHDeb%2525252BID4b9oK3DUrRw6Yw%2525252FHRrk5viWEhnc7fvoA7tXoQF%2525252BgV2mVlL%2525252BBQQV%2525252BxDuJ0kA2RrVa5E8XtOwqfxDgznwssvkLHgeeCbIahrghGWn73taSSaZlNqwuuqZI0d8yGCPefow51S9zDaPACmOcUE8hcNDy%2525252Bk4JD0MmNp6fZr%2525252B3WBUabIdktGzhqDyYaZ%2525252FCr3KgrdN7Edmn4d5YBCkg7qC2yv2cnaUc5yuECoCtpaBQ%2525253D%2525253D%252526u%25253dhttps%2525253A%2525252F%2525252Fmarket.m.taobao.com%2525252Fapp%2525252Ftb-shop%2525252Fshop-page-webapp%2525252Fpages%2525252Fcustom-page%2525252Findex.html%2525253Fdf_sid%2525253Dac1287a3000010f5643d717e0065feb7%25252526shopId%2525253D104736810%25252526sellerId%2525253D1714128138%25252526pageId%2525253D376663227%25252526pathInfo%2525253Dshop%2525252Factivity2%25252526isShopDomain%2525253Dtrue%25252526_oneId%2525253DD3FD62F4DFBE2F3E92E8C21BAAB95B7B3098D8C4D0A1FE7368ADDC95F4161C7E%25252526resource_id%2525253D102519%252526k%25253d664%252526x%25253d1%2526_tanx_bkts%253d0.7356566-0.8166648-0.12334132-0.19572786_2095026&urlscheme=sinaweibo%3A%2F%2Fbrowser%3Furl%3Dhttps%253A%252F%252Fulk.alimama.com%252Ftb%253Fsmburl%253Dtbopen%25253a%25252f%25252fm.taobao.com%25252ftbopen%25252findex.html%25253faction%25253dali.open.nav%252526bootImage%25253d0%252526module%25253dh5%252526source%25253dalimama%252526visa%25253d5d429034ad046701%252526appkey%25253d23208668%252526bc_fl_src%25253dtanx_df_95052989_ac1287a3000010f5643d717e0065feb7_102519_515019505_16107859_2342814_3103712_2_2095026_1_10053869_0_0_0_0%252526backURL%25253dsinaweibo%2525253a%2525252f%2525252fgotohome%252526packageName%25253dcom.sina.weibo%252526h5Url%25253dhttps%2525253a%2525252f%2525252fclick.tanx.com%2525252ftf%2525253fe%2525253dFl4aMGBp5XmMJfbPhIKx63uIYOJ6c5AfcCe%252525252F7%252525252FneF2q3VQp0XfQ%252525252FAyxqq7gf02%252525252Byvdd%252525252FDY4m5W9XHOjFQx1eIWcyA76rKDhveV24rWbtgoPfxdC4BtX7QqzH99pW3qWMORsZ39YH2kjy0UZQhMg3NvFRpJcJJiKaFoGPjqGtUl4HYseMjvT99hTPVAOqIdaDVbHfwTddnjwX%252525252BWbaxGKYkjOlPIcMqHxwkhCXyJ%252525252Fe4h%252525252BMZVcE%252525252B7X4rEbBdLwi9pEwRjSFZ7ItW%252525252F2Y25%252525252BndmLgUEpFaMURarDYRN2mEUUUGW3dQuNzHVM%252525252FxXrz34DST%252525252F0fxMuDdBqLnUZkRskvnPGjYphLvgUhqbtG4WkMhT82EYuau7kCWYVBzQBphk8su8yxNVchItCI%252525252FN4ncVlRpWRNsqSfRy%252525252BuCN5YXeTvsMOPO0CHDeb%252525252BID4b9oK3DUrRw6Yw%252525252FHRrk5viWEhnc7fvoA7tXoQF%252525252BgV2mVlL%252525252BBQQV%252525252BxDuJ0kA2RrVa5E8XtOwqfxDgznwssvkLHgeeCbIahrghGWn73taSSaZlNqwuuqZI0d8yGCPefow51S9zDaPACmOcUE8hcNDy%252525252Bk4JD0MmNp6fZr%252525252B3WBUabIdktGzhqDyYaZ%252525252FCr3KgrdN7Edmn4d5YBCkg7qC2yv2cnaUc5yuECoCtpaBQ%252525253D%252525253D%25252526u%2525253dhttps%252525253A%252525252F%252525252Fmarket.m.taobao.com%252525252Fapp%252525252Ftb-shop%252525252Fshop-page-webapp%252525252Fpages%252525252Fcustom-page%252525252Findex.html%252525253Fdf_sid%252525253Dac1287a3000010f5643d717e0065feb7%2525252526shopId%252525253D104736810%2525252526sellerId%252525253D1714128138%2525252526pageId%252525253D376663227%2525252526pathInfo%252525253Dshop%252525252Factivity2%2525252526isShopDomain%252525253Dtrue%2525252526_oneId%252525253DD3FD62F4DFBE2F3E92E8C21BAAB95B7B3098D8C4D0A1FE7368ADDC95F4161C7E%2525252526resource_id%252525253D102519%25252526k%2525253d664%25252526x%2525253d1%252526_tanx_bkts%25253d0.7356566-0.8166648-0.12334132-0.19572786_2095026%26allowRedirect%3D1%26disable_sinaurl%3D1%26gesture_back_type%3D2%26schemewhitelist%3D%257b%2522scheme%2522%253a%255b%2522.%2A%2522%255d%252c%2522itunes%2522%253a%255b%2522.%2A%2522%255d%257d&ulinkdissafari=true",
+          "start_time": 1682006400,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 637,
+              "bottom": 100,
+              "width": 750,
+              "res_type": "image",
+              "left": 0,
+              "top": 60.960000000000001,
+              "right": 100,
+              "res_url": "http://u1.img.mobile.sina.cn/public/files/image/3x1686_img61443728688cf.png"
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "width": 160,
+              "res_type": "lottie",
+              "left": 39.329999999999998,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002,
+              "res_url": "https://adimg.uve.weibo.com/public/files/image/BGS612603548e1b3.zip"
+            },
+            {
+              "height": 102,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 0,
+                  "shadow": 1,
+                  "styles": [
+                    {
+                      "size": 22,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    },
+                    {
+                      "size": 21,
+                      "color": "#FFFFFF",
+                      "end": 4,
+                      "font": "PingFangSC-Medium",
+                      "start": 0
+                    },
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 5
+                    }
+                  ]
+                }
+              },
+              "width": 750,
+              "text": "向上滑动\n跳转至小米天猫新品页",
+              "left": 0,
+              "top": 79.189999999999998,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 10,
+                  "slide_directions": [1]
+                }
+              },
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 5,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planA",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 1,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planB",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            }
+          ],
+          "res_type": "video",
+          "end_time": 1682092799,
+          "show_type": "full",
+          "res_url": "https://a1.alibabausercontent.com/prod/feupload/user/5t7fa/92b7a840-d9ae-11ed-ba07-e737dfea2a59.mp4_.mp4"
+        }
+      ]
+    },
+    {
+      "end_time": 1682092799,
+      "total_display_cnt": 50,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":1,\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1682006400,
+      "sort_num": 2,
+      "adid": "150008200",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150008200&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150008200&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100008413",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://browser?url=https%3A%2F%2Fitem.m.jd.com%2Fproduct%2F100043835702.html&allowRedirect=1&disable_sinaurl=1&gesture_back_type=2&schemewhitelist=%7B%22scheme%22%3A%5B%22.%2A%22%5D%2C%22itunes%22%3A%5B%22.%2A%22%5D%7D&mark_id=3_reallog_mark_ad%3A10%7C3_UVEAD%2C3934103603%2C150008200",
+          "start_time": 1682006400,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 160,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 0,
+                  "styles": [
+                    {
+                      "size": 22,
+                      "color": "#FFFFFF",
+                      "end": 8,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    }
+                  ]
+                }
+              },
+              "width": 654,
+              "res_type": "image",
+              "text": "点击去京东搜索戴森",
+              "left": 6.4000000000000004,
+              "trigger_type": 1,
+              "top": 75.620000000000005,
+              "right": 93.599999999999994,
+              "res_url": "http://u1.img.mobile.sina.cn/public/files/image/654x160_img60fbebe3eafc6.png"
+            },
+            {
+              "height": 900,
+              "bottom": 100,
+              "click_plan": "planA",
+              "width": 1500,
+              "left": 0,
+              "trigger_type": 1,
+              "top": 72.290999999999997,
+              "right": 100
+            },
+            {
+              "height": 900,
+              "bottom": 100,
+              "click_plan": "planB",
+              "width": 1500,
+              "left": 0,
+              "trigger_type": 1,
+              "top": 0,
+              "right": 100
+            }
+          ],
+          "res_type": "video",
+          "end_time": 1682092799,
+          "show_type": "full",
+          "res_url": "https://adimg.uve.weibo.com/public/files/image/rrt0ZfBblx084JS3OSoU010412001DwU0E010.mp4"
+        }
+      ]
+    },
+    {
+      "end_time": 1682092799,
+      "total_display_cnt": 5,
+      "daily_display_cnt": 3,
+      "display_duration": 5,
+      "return_server_data": "{\"version\":1,\"from_wax\":\"wax.1681748350023683901;10064;82112fabbbfa47246c34d6d57c4a4bdc;0;WB23040509_7AB35BCE-1785-4118-BA21-E6BFD037844D;048974378921681748350588;1681748350;6E98F8AF-CC1E-4965-87E8-8D451289802D;20230421\",\"trace_id\":\"cgvptjdun1nkltcnvn6g\"}",
+      "start_time": 1682006400,
+      "sort_num": 1,
+      "adid": "150008234",
+      "posids": ["pos5135551ba2245", "pos5365a8eaf2c32"],
+      "monitor_url": [
+        {
+          "third_party_click": "http://e.cn.miaozhen.com/r/k=2352950&p=8N2CJ&rt=2&pro=s&tr=__REQID__&ns=__IP__&ls=__GEO__&vv=1&ai=AB6D5D1291AC5AB4271002A118803C03C390932DEF2C26B446D8701D594BB165&o=?df_sid=ac1287a3000010f5643d717e0065feb7",
+          "third_party_show": "http://ef-dongfeng.tanx.com/tanx?p=ASE2n1EAAA6SZD1xfgAAQ7HhbJaV6KiRnQ%3d%3d&e=dNQFvTspfj_uUfCWOIbkD-pvGrLgupvNXA7YSuRO9mG-iSPsXbyCddIcVipZLikgM0wrH3Y8EwOhUaDk_fIr-rrnD_rPbSW0r1qnkFBTTNtFH6_muJf33vLmlJdPRxj-PNChzxOTLTLMAyKPKXKwVIh9DCughBXznlfNX6m9ruy4b6_vNXt4yU0ImvtcJnrCkhusce_F6PXpJFUc6ElpC_fS6t6JwKlVn1JRQUM8nly0BjF6g2iLDugKa6ZPRm0wpDGjq0bNgrZwpVqJ3SidIV0ILbCovH1PWoAY3-c3C5WYyYXc8KHc1ePXUdukAaQ87FJRrlg5KfLDasoNZ-OJWBtULXketfGWIoIX3rzHVRqgxdABk4nzHKbKx1tesR-euItnfNYvZW1MynNnC0Os-NsgygNP29jCL5krswIA0R86AkhYEoqrQT6ilXm6cOQ6aVBPXIDm31UQcl3myf_MO66Nk0CBeQjqzVnwRtV-WgzLx5vM7i7ILecePH53zkaDKBMVHUD5AIXssTacl19omkm7-Ht4iBPodwns0Ci36TtE-MfVxvadUMZ-BXkCEjm38lFl3sg6pSN5anu4cWnAstpDfzFmi9IoZRxXbFQS19q5dWHgGavAKQScdOOowdGh1spz4IDmzovhcxd4dH2VmflcohLei4XB7XcIzbr_QRv4v_iH_9cxqIirc5y2liKqkChqLWdZnys4C7kv_BXvTaW9GyA8rQN37c6eff2pudnAjwGEg0EMqidkbPVzNQtKbvvZuD-CWNPbYC5dCGUwOMd3HtzYlnHOCvwwgHGh8eIR1_uTg0uYUDW6VjP1m-MGBtQFT9iGp9aW2KYq_G9bDh0UcKS4fbYptDMIThgmSic3WcYSAppFTc5kNiLa3sMfUQivdm-2Rjh8m7DMJURAxTtdN6ojfVq-lxZeVCreM2Sj1cEnNoPsvSXHdc5YwIm8HaNljf0Kr-QmjZCEp_ZLhxoUzog_OfJrox30VRTFt82C96RDPGeM5FxGpQIQPqdHyarATMcIU5vFsbzEj1cl8_qQs4s1EZCrIPpv3zgQ_ltYDQGqeLb6czfaStWV3T6b2VO4vHdexIXnmcipIARz5ao46sg-0xDiFYLUr2hiTDQ&k=1130"
+        },
+        {
+          "third_party_click": "http://ef-dongfeng.tanx.com/cm?e=s1QjYJiiZejuUfCWOIbkD-pvGrLgupvNXA7YSuRO9mG-iSPsXbyCddIcVipZLikgM0wrH3Y8EwOhUaDk_fIr-rrnD_rPbSW0r1qnkFBTTNtFH6_muJf33vLmlJdPRxj-PNChzxOTLTLMAyKPKXKwVIh9DCughBXznlfNX6m9ruy4b6_vNXt4yU0ImvtcJnrCkhusce_F6PXpJFUc6ElpC_fS6t6JwKlVn1JRQUM8nly0BjF6g2iLDugKa6ZPRm0wpDGjq0bNgrZwpVqJ3SidIV0ILbCovH1PWoAY3-c3C5WYyYXc8KHc1ePXUdukAaQ87FJRrlg5KfLDasoNZ-OJWBtULXketfGWIoIX3rzHVRoWCwHEBQV5v6bKx1tesR-euItnfNYvZW1MynNnC0Os-NsgygNP29jCL5krswIA0R86AkhYEoqrQT6ilXm6cOQ6aVBPXIDm31UQcl3myf_MO66Nk0CBeQjqzVnwRtV-WgzLx5vM7i7ILecePH53zkaDKBMVHUD5AIXssTacl19omkm7-Ht4iBPodwns0Ci36TtE-MfVxvadUMZ-BXkCEjm38lFl3sg6pSN5anu4cWnAstpDfzFmi9IoZRxXbFQS19q5dWHgGavAKQScdOOowdGhdq_pcdKrXegAvARwZCO0j3dGB551bTgdZvF1LZAXZdo&k=682&ext=1",
+          "third_party_show": "http://g.cn.miaozhen.com/x/k=2352950&p=8N2CJ&rt=2&pro=s&tr=__REQID__&ns=__IP__&ls=__GEO__&vv=1&ai=AB6D5D1291AC5AB4271002A118803C03C390932DEF2C26B446D8701D594BB165&o=?df_sid=ac1287a3000010f5643d717e0065feb7"
+        },
+        {
+          "third_party_click": "http://rdstat.tanx.com/trd?f=https%3A%2F%2Fmarket.m.taobao.com%2Fapp%2Ftb-shop%2Fshop-page-webapp%2Fpages%2Fcustom-page%2Findex.html&p=mm_26632537_25060897_95052989&pvid=21369f5100000e92643d717e000043b1&sid=21369f5100000e92643d717e000043b1&s=750x1624&d=121507994&did=2095027&idf=6E98F8AF-CC1E-4965-87E8-8D451289802D&os=2&osv=16.5&br=iphone&md=iPhone_14%2C3&aid=232005749822784012&aaid=7B95EBB7-7274-AAB3-BAEB-F4569399CF18&k=495eef7a68f110f9&bkts=0.7356566-0.8166648-0.12334132-0.19572786&clst=na61&t=1681748350&et=V0IyMzA0MDUwOV83QUIzNUJDRS0xNzg1LTQxMTgtQkEyMS1FNkJGRDAzNzg0NEQCMjECMQIzMDUCMwIyMQIzAjECAjACAjECMAIxAjUxNTAxOTUwNQIyMTQyNDg0AjUwMDACWAJNAmNvbS5zaW5hLndlaWJvAgIxMDAxMTYxNAICAg",
+          "third_party_show": "http://df.tanx.com/spf3?e=cexSv_cnlSFzagt-jiJaQ5WQHQW7olOF1BdPu-ri-5vqUybRdEnxBL_5tpYxhXE9xqvuG54wyr5sd2gPwc1Z-RTG5zTxQueNKpI_U6Ly6S8ceOFcBQ6JQvEKY_6wdJNA4PIyHMWRROxV5blAXpWPzInz4Q5Q_Im_4QeExzwTsbiDVFa8IWCIxO1bRMOgnIPzyh4uC-FZwnxNOF6SeQCJ6xVeHQa36N5W5MmMWDg6Lo8JRshOMLsj0ihQuVGWz4l-xzrnG16nDpicSi1cJ6FBvkECuVNyjrWl64Wn-tkCBBv9xYBMkt1LBPPpV5nCSvTeEV87ITBD736MUgkHtsBftzc9ZnPFd2tOCgeV3ky3OEJIA8Q4MGAoECLmI7VYKkuynzqilBrI42Gl86dlC9OpHivjsopPWZGpx3LYEVStf1RACdcTqHQQFlvfZRA-_fyMilrwJuyOxTa39FS4ZlKc8S5iXbL7bk-ovea4XvLuYHG_qW26EY2qVOcveNCmDslgf3GjPCG_-0ka54L3wjm-lD1Eg-WqoEZExY9nTxnNIpE&k=554&i=mm_26632537_25060897_95052989&p=4c0c248427832d4bbb5bcb20a5a7d56a"
+        },
+        {
+          "third_party_click": "https://sdkmonitor.biz.weibo.com/click-monitor?adid=150008234&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603",
+          "third_party_show": "https://sdkmonitor.biz.weibo.com/expose-monitor?adid=150008234&api=preload&creative_id=__CREATIVE_ID__&from=10D4193010&language=go&platform=iphone&sdk_version=6.0.2&uid=3934103603"
+        }
+      ],
+      "creatives": [
+        {
+          "skip_button_type": 2,
+          "extra": {
+            "external_logo": "https://nb-ssp.oss-cn-beijing.aliyuncs.com/1648699553998828f6f50-79c1-11ec-92c0-01612323b7a1.png",
+            "layout_type": 1
+          },
+          "add_logo": true,
+          "creative_id": "100008447",
+          "res_width": 750,
+          "ad_tag_str": "广告",
+          "click_url_backup": "sinaweibo://openadscheme?universallink=https%3A%2F%2Fulk.alimama.com%2Ftb%3Fsmburl%3Dtbopen%253a%252f%252fm.taobao.com%252ftbopen%252findex.html%253faction%253dali.open.nav%2526bootImage%253d0%2526module%253dh5%2526source%253dalimama%2526visa%253d5d429034ad046701%2526appkey%253d23208668%2526bc_fl_src%253dtanx_df_95052989_ac1287a3000010f5643d717e0065feb7_102519_515019505_16107859_2342814_3103712_2_2095027_1_10053869_0_0_0_0%2526backURL%253dsinaweibo%25253a%25252f%25252fgotohome%2526packageName%253dcom.sina.weibo%2526h5Url%253dhttps%25253a%25252f%25252fclick.tanx.com%25252ftf%25253fe%25253dbIVq4Q6kg%2525252FCMJfbPhIKx63uIYOJ6c5AfcCe%2525252F7%2525252FneF2q3VQp0XfQ%2525252FAyxqq7gf02%2525252Byvdd%2525252FDY4m5W9XHOjFQx1eIWcyA76rKDhveV24rWbtgoPfxdC4BtX7QqzH99pW3qWMORsZ39YH2kjy0UZQhMg3NvFRpJcJJiKaFoGPjqGtUl69l%2525252Bp51uOK8xTPVAOqIdaDVbHfwTddnjy1ne0X6BCa2KTV9GJHXXIBkhCXyJ%2525252Fe4h%2525252BMZVcE%2525252B7X4rEbBdLwi9pEwRjSFZ7ItW%2525252F3z73gnCGyMpUpFaMURarDYRN2mEUUUGW3dQuNzHVM%2525252FxXrz34DST%2525252F0fxMuDdBqLnUZkRskvnPGjYphLvgUhqbtG4WkMhT82EYuau7kCWYVBzQBphk8su8yxNVchItCI%2525252FN4ncVlRpWRNsqSfRy%2525252BuCN5YXeTvsMOPO0CHDeb%2525252BID4b9oK3DUrRw6Yw%2525252FHRrk5viWEhnc7fvoA7tXoQF%2525252BgV2mVlL%2525252BBQQV%2525252BxDuJ0kA2RrVa5E8XtOwqfxDgznwssvkLHgeeCbIahrghGWn73taSSaZlNqwuuqZI0d8yGCPefow51S9zDaPACmOcUE8hcNDy%2525252Bk4JD0MmNp6fZr%2525252B3WBUabIdktGzhqDyYaZ%2525252FCr3KgrdN7Edmn4d5YBCkg7qC2yv2cnaUc5yuECoCtpaBQ%2525253D%2525253D%252526u%25253dhttps%2525253A%2525252F%2525252Fmarket.m.taobao.com%2525252Fapp%2525252Ftb-shop%2525252Fshop-page-webapp%2525252Fpages%2525252Fcustom-page%2525252Findex.html%2525253Fdf_sid%2525253Dac1287a3000010f5643d717e0065feb7%25252526shopId%2525253D104736810%25252526sellerId%2525253D1714128138%25252526pageId%2525253D376663227%25252526pathInfo%2525253Dshop%2525252Factivity2%25252526isShopDomain%2525253Dtrue%25252526_oneId%2525253DD3FD62F4DFBE2F3E92E8C21BAAB95B7B3098D8C4D0A1FE7368ADDC95F4161C7E%25252526resource_id%2525253D102519%252526k%25253d664%252526x%25253d1%2526_tanx_bkts%253d0.7356566-0.8166648-0.12334132-0.19572786_2095027&urlscheme=sinaweibo%3A%2F%2Fbrowser%3Furl%3Dhttps%253A%252F%252Fulk.alimama.com%252Ftb%253Fsmburl%253Dtbopen%25253a%25252f%25252fm.taobao.com%25252ftbopen%25252findex.html%25253faction%25253dali.open.nav%252526bootImage%25253d0%252526module%25253dh5%252526source%25253dalimama%252526visa%25253d5d429034ad046701%252526appkey%25253d23208668%252526bc_fl_src%25253dtanx_df_95052989_ac1287a3000010f5643d717e0065feb7_102519_515019505_16107859_2342814_3103712_2_2095027_1_10053869_0_0_0_0%252526backURL%25253dsinaweibo%2525253a%2525252f%2525252fgotohome%252526packageName%25253dcom.sina.weibo%252526h5Url%25253dhttps%2525253a%2525252f%2525252fclick.tanx.com%2525252ftf%2525253fe%2525253dbIVq4Q6kg%252525252FCMJfbPhIKx63uIYOJ6c5AfcCe%252525252F7%252525252FneF2q3VQp0XfQ%252525252FAyxqq7gf02%252525252Byvdd%252525252FDY4m5W9XHOjFQx1eIWcyA76rKDhveV24rWbtgoPfxdC4BtX7QqzH99pW3qWMORsZ39YH2kjy0UZQhMg3NvFRpJcJJiKaFoGPjqGtUl69l%252525252Bp51uOK8xTPVAOqIdaDVbHfwTddnjy1ne0X6BCa2KTV9GJHXXIBkhCXyJ%252525252Fe4h%252525252BMZVcE%252525252B7X4rEbBdLwi9pEwRjSFZ7ItW%252525252F3z73gnCGyMpUpFaMURarDYRN2mEUUUGW3dQuNzHVM%252525252FxXrz34DST%252525252F0fxMuDdBqLnUZkRskvnPGjYphLvgUhqbtG4WkMhT82EYuau7kCWYVBzQBphk8su8yxNVchItCI%252525252FN4ncVlRpWRNsqSfRy%252525252BuCN5YXeTvsMOPO0CHDeb%252525252BID4b9oK3DUrRw6Yw%252525252FHRrk5viWEhnc7fvoA7tXoQF%252525252BgV2mVlL%252525252BBQQV%252525252BxDuJ0kA2RrVa5E8XtOwqfxDgznwssvkLHgeeCbIahrghGWn73taSSaZlNqwuuqZI0d8yGCPefow51S9zDaPACmOcUE8hcNDy%252525252Bk4JD0MmNp6fZr%252525252B3WBUabIdktGzhqDyYaZ%252525252FCr3KgrdN7Edmn4d5YBCkg7qC2yv2cnaUc5yuECoCtpaBQ%252525253D%252525253D%25252526u%2525253dhttps%252525253A%252525252F%252525252Fmarket.m.taobao.com%252525252Fapp%252525252Ftb-shop%252525252Fshop-page-webapp%252525252Fpages%252525252Fcustom-page%252525252Findex.html%252525253Fdf_sid%252525253Dac1287a3000010f5643d717e0065feb7%2525252526shopId%252525253D104736810%2525252526sellerId%252525253D1714128138%2525252526pageId%252525253D376663227%2525252526pathInfo%252525253Dshop%252525252Factivity2%2525252526isShopDomain%252525253Dtrue%2525252526_oneId%252525253DD3FD62F4DFBE2F3E92E8C21BAAB95B7B3098D8C4D0A1FE7368ADDC95F4161C7E%2525252526resource_id%252525253D102519%25252526k%2525253d664%25252526x%2525253d1%252526_tanx_bkts%25253d0.7356566-0.8166648-0.12334132-0.19572786_2095027%26allowRedirect%3D1%26disable_sinaurl%3D1%26gesture_back_type%3D2%26schemewhitelist%3D%257b%2522scheme%2522%253a%255b%2522.%2A%2522%255d%252c%2522itunes%2522%253a%255b%2522.%2A%2522%255d%257d&ulinkdissafari=true",
+          "start_time": 1682006400,
+          "res_height": 1624,
+          "click_rects": [
+            {
+              "height": 637,
+              "bottom": 100,
+              "width": 750,
+              "res_type": "image",
+              "left": 0,
+              "top": 60.960000000000001,
+              "right": 100,
+              "res_url": "http://u1.img.mobile.sina.cn/public/files/image/3x1686_img61443728688cf.png"
+            },
+            {
+              "height": 250,
+              "bottom": 78.200000000000003,
+              "width": 160,
+              "res_type": "lottie",
+              "left": 39.329999999999998,
+              "top": 62.810000000000002,
+              "right": 60.670000000000002,
+              "res_url": "https://adimg.uve.weibo.com/public/files/image/BGS612603548e1b3.zip"
+            },
+            {
+              "height": 102,
+              "bottom": 85.469999999999999,
+              "extra": {
+                "text_conf": {
+                  "align": 0,
+                  "shadow": 1,
+                  "styles": [
+                    {
+                      "size": 22,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 0
+                    },
+                    {
+                      "size": 21,
+                      "color": "#FFFFFF",
+                      "end": 4,
+                      "font": "PingFangSC-Medium",
+                      "start": 0
+                    },
+                    {
+                      "size": 15,
+                      "color": "#FFFFFF",
+                      "end": 14,
+                      "font": "PingFangSC-Regular",
+                      "start": 5
+                    }
+                  ]
+                }
+              },
+              "width": 750,
+              "text": "向上滑动\n跳转至小米天猫新品页",
+              "left": 0,
+              "top": 79.189999999999998,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 10,
+                  "slide_directions": [1]
+                }
+              },
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 5,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planA",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            },
+            {
+              "height": 1624,
+              "bottom": 100,
+              "extra": {
+                "trigger_conf": {
+                  "slide_distance": 1,
+                  "slide_directions": [1]
+                }
+              },
+              "click_plan": "planB",
+              "width": 750,
+              "left": 0,
+              "trigger_type": 4,
+              "top": 0,
+              "right": 100
+            }
+          ],
+          "res_type": "video",
+          "end_time": 1682092799,
+          "show_type": "full",
+          "res_url": "https://a1.alibabausercontent.com/prod/feupload/user/5t7fa/92b7a840-d9ae-11ed-ba07-e737dfea2a59.mp4_.mp4"
+        }
+      ]
+    }
+  ],
+  "code": 200,
+  "last_ad_show_interval": 1800,
+  "client_ip": "119.165.201.119",
+  "realtime_stop_conf": {
+    "api_timeout": 1000,
+    "request_interval": 7200
+  },
+  "realtime_api_timeout": 1000,
+  "background_interval": 300
+}
