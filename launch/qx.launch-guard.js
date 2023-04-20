@@ -43,11 +43,11 @@ if (url.indexOf(path2) != -1) {
    */
   let temp = data.match(/\{.*\}/);
   if (!temp) return data;
-  data = JSON.parse(temp);
-  if (data.ads) data.ads = [];
+  let obj = JSON.parse(temp);
+  if (obj.ads) obj.ads = [];
   // if (data.background_delay_display_time)
   //   data.background_delay_display_time = 60 * 60 * 24 * 1000;
-  if (data.show_push_splash_ad) data.show_push_splash_ad = false;
+  if (obj.show_push_splash_ad) obj.show_push_splash_ad = false;
   if (obj.realtime_ad_video_stall_time) obj.realtime_ad_video_stall_time = 0;
   if (obj.lastAdShow_delay_display_time) obj.lastAdShow_delay_display_time = year;
   if (obj.realtime_ad_timeout_duration) obj.realtime_ad_timeout_duration = 0;
@@ -56,7 +56,7 @@ if (url.indexOf(path2) != -1) {
       api_timeout: 0,
       request_interval: year,
     };
-  return JSON.stringify(data) + "OK";
+  return JSON.stringify(obj) + "OK";
 }
 
 $done({ body });
