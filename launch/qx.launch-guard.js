@@ -41,8 +41,8 @@ if (url.indexOf(path2) != -1) {
   "ads": []
 }
    */
-  let temp = data.match(/\{.*\}/);
-  if (!temp) return data;
+  let temp = body.match(/\{.*\}/);
+  if (!temp) return body;
   let obj = JSON.parse(temp);
   if (obj.ads) obj.ads = [];
   // if (data.background_delay_display_time)
