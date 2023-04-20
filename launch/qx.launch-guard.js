@@ -4,6 +4,7 @@ console.log(`${proxy_name}: ${version}`);
 
 const path1 = "/gdt_mview.fcg";
 const path2 = "/interface/sdk/sdkad.php";
+const path3 = "/api/fortune/decisionMaker";
 
 const year = 60 * 60 * 24 * 365;
 
@@ -56,7 +57,29 @@ if (url.indexOf(path2) != -1) {
       api_timeout: 0,
       request_interval: year,
     };
-  return JSON.stringify(obj) + "OK";
+  body = JSON.stringify(obj) + "OK";
+}
+
+if (url.indexOf(path3) != -1) {
+  console.log(`匹配到 ${path3}`);
+  let obj = JSON.parse(body);
+  if (obj.popup) obj.popup = {
+    data: [],
+    popup_overtime: 0,
+    ad_popup_cooltime: year,
+    tencent_ad_popup_button_normal: "不看详情",
+    tencent_ad_popup_button_download: "千万别体验",
+    vip_enable: 1,
+  };
+  if (obj.launch) {
+    obj.launch = {
+      data: [],
+      cool_time: year,
+      coldboot_time: year,
+      vip_enable: 1,
+    };
+  }
+  body = JSON.stringify(obj);
 }
 
 $done({ body });
