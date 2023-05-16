@@ -19,6 +19,33 @@ if (!readUint8Array) {
   console.log(blackList);
 }
 
+let blockedWeibo = [];
+const filterFilePath = "/wb/filter.json";
+const filterReadUint8Array = $iCloud.readFile(filterFilePath);
+if (!filterReadUint8Array) {
+  console.log("NO");
+} else {
+  const textDecoder = new TextDecoder();
+  const readContent = textDecoder.decode(filterReadUint8Array);
+  const filter = JSON.parse(readContent);
+  blockedWeibo = filter.blockedWeibo;
+  blockedWeibo = blockedWeibo.map((item) => {
+    // "https://weibo.com/6356104116/4901947448230404"
+    const reg = /https:\/\/weibo.com\/(\d+)\/(\d+)/;
+    const match = item.match(reg);
+    if (match) {
+      return {
+        uid: match[1],
+        mid: match[2],
+      };
+    } else {
+      return null;
+    }
+  }).filter((item) => item !== null);
+  console.log(blockedWeibo);
+}
+
+
 // 时间线
 const timeline = /\/groups\/timeline/.test(url);
 // 新的首页时间线
@@ -347,7 +374,7 @@ function rwProfileMe(items) {
         );
         item.items = item.items.filter(({ itemId }) => top4.includes(itemId));
       }
-      
+
       return item;
     });
 }
