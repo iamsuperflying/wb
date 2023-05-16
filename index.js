@@ -346,8 +346,8 @@ function rwProfileMe(items) {
           (id) => `100505_-_${id}`
         );
         item.items = item.items.filter(({ itemId }) => top4.includes(itemId));
-        return item;
       }
+      
       return item;
     });
 }
