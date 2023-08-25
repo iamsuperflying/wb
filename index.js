@@ -398,9 +398,7 @@ function rwViewList(items) {
 }
 
 function rwExtend(data) {
-  if (!data) return data;
-  const { head_cards } = data;
-  if (!head_cards) return data;
+  if (!data || !data[head_cards]) return data;
   data.head_cards = [];
   return data;
 }
