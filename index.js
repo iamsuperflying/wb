@@ -70,6 +70,8 @@ const profileMe = new RegExp("profile/me").test(url);
 const videoList = new RegExp("video/tiny_stream_video_list").test(url);
 // 评论
 const comment = new RegExp("comments/build_comments").test(url);
+// 我的某条微博
+const extend = /\/statuses\/extend/.test(url);
 
 const noop = (items) => items;
 
@@ -395,6 +397,15 @@ function rwViewList(items) {
   return items.filter(isNormalTopic);
 }
 
+function rwExtend(data) {
+  if (!data) return data;
+  const { head_cards } = data;
+  if (!head_cards) return data;
+  data.head_cards = [];
+  return data;
+}
+
+
 if (body) {
   let data = JSON.parse($response.body);
 
@@ -434,6 +445,10 @@ if (body) {
     // 6. 移除热搜某词条下的广告
     if (searchall) {
       data = rwSearchAll(data);
+    }
+    // 7. 移除我的某条微博的广告
+    if (extend) {
+      data = rwExtend(data);
     }
 
   } catch (error) {
