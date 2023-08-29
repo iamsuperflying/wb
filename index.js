@@ -411,6 +411,17 @@ function rwUserinfo(data) {
   const filteredsToolbar = (item) =>
     ["toolbar_follow", "toolbar_serve"].includes(item.type);
   items = items.filter(filteredsToolbar);
+  items = items.map((item) => {
+    // 修改关注按钮
+    if (item.type === 'toolbar_follow') {
+      item.buttonMap.unfollow.style.widthValue = 40;
+      item.buttonMap.unfollow.style.richText =
+        item.buttonMap.unfollow.style.richText.filter(
+          (item) => item.type !== "text"
+        );
+    }
+    return item;
+  })
 
   servicePopup.subData.data = [];
   servicePopup.durationTime = 0;
