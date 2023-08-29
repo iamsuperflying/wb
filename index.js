@@ -405,7 +405,7 @@ function rwExtend(data) {
   return data;
 }
 
-function rwProfile(data) {
+function rwUserinfo(data) {
   if (!data || !data.footer) return data;
   const footer = data.footer;
   const { items, servicePopup } = footer;
@@ -474,7 +474,7 @@ if (body) {
 
     // 8. 别人的微博
     if (userinfo) {
-      data = rwProfile(data);
+      data = rwUserinfo(data);
     }
 
   } catch (error) {
