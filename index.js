@@ -64,6 +64,8 @@ const discover = new RegExp("search/finder").test(url);
 const hotPage = new RegExp("/page").test(url);
 // 其他人的 profile 页
 const profileTimeline = new RegExp("profile/container_timeline").test(url);
+// 其他人的页面 / 新
+const userinfo = /\/profile\/userinfo/.test(url);
 // 我的
 const profileMe = new RegExp("profile/me").test(url);
 // 视频
@@ -403,6 +405,27 @@ function rwExtend(data) {
   return data;
 }
 
+function rwProfile(data) {
+  if (!data || !data.footer) return data;
+  const footer = data.footer;
+  const { items, servicePopup } = footer;
+  // toolbar_follow  toolbar_serve
+  const filteredsToolbar = ["toolbar_follow", "toolbar_serve"].includes;
+  footer.items = items.filter(filteredsToolbar);
+
+  servicePopup.durationTime = 0;
+  const filteredsData = (item) => item.header.text === "其他";
+  const filteredsService = (item) => ["投诉", "拉黑"].includes(item.text);
+  servicePopup.allData.data = servicePopup.allData.data.filter(filteredsData).map((item) => {
+    item.items = item.items.filter(filteredsService);
+    return item;
+  });
+  footer.servicePopup = servicePopup;
+
+  data.footer = footer;
+  return data;
+}
+
 
 if (body) {
   let data = JSON.parse($response.body);
@@ -447,6 +470,11 @@ if (body) {
     // 7. 移除我的某条微博的广告
     if (extend) {
       data = rwExtend(data);
+    }
+
+    // 8. 别人的微博
+    if (userinfo) {
+      data = rwProfile(data);
     }
 
   } catch (error) {
