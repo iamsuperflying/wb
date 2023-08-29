@@ -407,12 +407,13 @@ function rwExtend(data) {
 
 function rwUserinfo(data) {
   if (!data || !data.footer) return data;
-  const footer = data.footer;
-  const { items, servicePopup } = footer;
-  // toolbar_follow  toolbar_serve
-  const filteredsToolbar = ["toolbar_follow", "toolbar_serve"].includes;
+  let footer = data.footer;
+  let { items, servicePopup } = footer;
+  const filteredsToolbar = (item) =>
+    ["toolbar_follow", "toolbar_serve"].includes(item.type);
   footer.items = items.filter(filteredsToolbar);
 
+  servicePopup.subData.data = [];
   servicePopup.durationTime = 0;
   const filteredsData = (item) => item.header.text === "其他";
   const filteredsService = (item) => ["投诉", "拉黑"].includes(item.text);
