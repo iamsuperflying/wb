@@ -407,11 +407,10 @@ function rwExtend(data) {
 
 function rwUserinfo(data) {
   if (!data || !data.footer) return data;
-  let footer = data.footer;
-  let { items, servicePopup } = footer;
+  let { items, servicePopup } = data.footer.data;
   const filteredsToolbar = (item) =>
     ["toolbar_follow", "toolbar_serve"].includes(item.type);
-  footer.items = items.filter(filteredsToolbar);
+  items = items.filter(filteredsToolbar);
 
   servicePopup.subData.data = [];
   servicePopup.durationTime = 0;
@@ -421,9 +420,12 @@ function rwUserinfo(data) {
     item.items = item.items.filter(filteredsService);
     return item;
   });
-  footer.servicePopup = servicePopup;
 
-  data.footer = footer;
+  data.footer.data = {
+    ...data.footer.data,
+    items,
+    servicePopup
+  };
   return data;
 }
 
