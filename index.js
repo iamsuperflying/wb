@@ -407,7 +407,7 @@ function rwExtend(data) {
 
 function rwUserinfo(data) {
   if (!data || !data.footer) return data;
-  let { items, servicePopup } = data.footer.data;
+  let { items, servicePopup, style } = data.footer.data.toolbar_menus_new;
   const filteredsToolbar = (item) =>
     ["toolbar_follow", "toolbar_serve"].includes(item.type);
   items = items.filter(filteredsToolbar);
@@ -421,10 +421,10 @@ function rwUserinfo(data) {
     return item;
   });
 
-  data.footer.data = {
-    ...data.footer.data,
+  data.footer.data.toolbar_menus_new = {
+    style,
     items,
-    servicePopup
+    servicePopup,
   };
   return data;
 }
