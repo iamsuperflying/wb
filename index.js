@@ -62,8 +62,8 @@ const discoverReplace = new RegExp("search/container_discover").test(url);
 const discover = new RegExp("search/finder").test(url);
 // 热搜
 const hotPage = new RegExp("/page").test(url);
-// 其他人的 profile 页
-const profileTimeline = new RegExp("profile/container_timeline").test(url);
+// 其他人的 profile 页 
+const profileTimeline = /\/profile\/container_timeline/.test(url);
 // 其他人的页面 / 新
 const userinfo = /\/profile\/userinfo/.test(url);
 // 我的
@@ -411,17 +411,6 @@ function rwUserinfo(data) {
   const filteredsToolbar = (item) =>
     ["toolbar_follow", "toolbar_serve"].includes(item.type);
   items = items.filter(filteredsToolbar);
-  // items = items.map((item) => {
-  //   // 修改关注按钮
-  //   if (item.type === 'toolbar_follow') {
-  //     item.buttonMap.unfollow.style.widthValue = 40;
-  //     item.buttonMap.unfollow.style.richText =
-  //       item.buttonMap.unfollow.style.richText.filter(
-  //         (item) => item.type !== "text"
-  //       );
-  //   }
-  //   return item;
-  // })
 
   servicePopup.subData.data = [];
   servicePopup.durationTime = 0;
@@ -437,6 +426,14 @@ function rwUserinfo(data) {
     items,
     servicePopup,
   };
+  return data;
+}
+
+function rwProfileTimeline(data) {
+  if (!data || !data.loadedInfo || !data.loadedInfo.follow_guide_info) {
+    return data;
+  }
+  delete data.loadedInfo.follow_guide_info;
   return data;
 }
 
@@ -489,6 +486,10 @@ if (body) {
     // 8. 别人的微博
     if (userinfo) {
       data = rwUserinfo(data);
+    }
+    // 9. 别人的微博
+    if (profileTimeline) {
+      data = rwProfileTimeline(data);
     }
 
   } catch (error) {
