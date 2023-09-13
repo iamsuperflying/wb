@@ -175,6 +175,8 @@ const isNormalTopic = (item) => {
 
 const rwContainerTimeline = (data) => data.filter(isNormalTopic).map((topic) => {
   delete topic.data.extend_info;
+  delete topic.data.common_struct;
+  delete topic.data.pic_bg_scheme;
   return topic;
 });
 
