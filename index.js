@@ -173,7 +173,10 @@ const isNormalTopic = (item) => {
   }
 };
 
-const rwContainerTimeline = (data) => data.filter(isNormalTopic)
+const rwContainerTimeline = (data) => data.filter(isNormalTopic).map((topic) => {
+  delete topic.data.extend_info;
+  return topic;
+});
 
 const rwTimeline = (data) => {
   // for (const s of ["ad", "advertises", "trends"]) {
