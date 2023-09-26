@@ -515,9 +515,12 @@ if (body) {
       //   }
       //   return pageData;
       // });
-      data.pageData = data.pageData.filter(
+      data.pageDatas = data.pageDatas.filter(
         ({ pageDataTitle, pageDataType }) => {
-          return ["homeFeed", "homeHot"].includes(pageDataType) || ["关注", "推荐"].includes(pageDataTitle);
+          return (
+            ["homeFeed", "homeHot"].includes(pageDataType) ||
+            ["关注", "推荐"].includes(pageDataTitle)
+          );
         }
       );
     }
