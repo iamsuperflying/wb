@@ -504,6 +504,7 @@ if (body) {
           pageData.pageDataTitle = "大康优选";
           pageData.categories.map((category) => {
             category.pageDatas.map((pageData) => {
+              pageData.navigation_info.title = "大康优选";
               pageData.navigation_title = "大康优选";
               return pageData;
             })
