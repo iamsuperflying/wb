@@ -499,20 +499,27 @@ if (body) {
     }
     // 10. 分组
     if (groups) {
-      data.pageDatas = data.pageDatas.map((pageData) => {
-        if (pageData.pageDataTitle === "Mate60") {
-          pageData.pageDataTitle = "大康优选";
-          pageData.categories.map((category) => {
-            category.pageDatas.map((pageData) => {
-              pageData.navigation_info.title = "大康优选";
-              pageData.navigation_title = "大康优选";
-              return pageData;
-            })
-            return category;
-          });
+      // homeFeed 为首页
+      // homeHot 为推荐
+      // data.pageDatas = data.pageDatas.map((pageData) => {
+      //   if (pageData.pageDataTitle === "Mate60") {
+      //     pageData.pageDataTitle = "大康优选";
+      //     pageData.categories.map((category) => {
+      //       category.pageDatas.map((pageData) => {
+      //         pageData.navigation_info.title = "大康优选";
+      //         pageData.navigation_title = "大康优选";
+      //         return pageData;
+      //       });
+      //       return category;
+      //     });
+      //   }
+      //   return pageData;
+      // });
+      data.pageData = data.pageData.filter(
+        ({ pageDataTitle, pageDataType }) => {
+          return ["homeFeed", "homeHot"].includes(pageDataType) || ["关注", "推荐"].includes(pageDataTitle);
         }
-        return pageData;
-      });
+      );
     }
 
   } catch (error) {
