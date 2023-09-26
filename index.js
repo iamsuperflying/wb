@@ -45,7 +45,8 @@ if (!filterReadUint8Array) {
   console.log(blockedWeibo);
 }
 
-
+// 分组
+const groups = /\/groups\/allgroups/.test(url);
 // 时间线
 const timeline = /\/groups\/timeline/.test(url);
 // 新的首页时间线
@@ -495,6 +496,15 @@ if (body) {
     // 9. 别人的微博
     if (profileTimeline) {
       data = rwProfileTimeline(data);
+    }
+    // 10. 分组
+    if (groups) {
+      data.pageDatas = data.pageDatas.map((pageData) => {
+        if (pageData.pageDataTitle === "Mate60") {
+          pageData.pageDataTitle = "大康优选";
+        }
+        return pageData;
+      });
     }
 
   } catch (error) {
