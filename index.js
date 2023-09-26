@@ -502,6 +502,13 @@ if (body) {
       data.pageDatas = data.pageDatas.map((pageData) => {
         if (pageData.pageDataTitle === "Mate60") {
           pageData.pageDataTitle = "大康优选";
+          pageData.categories.map((category) => {
+            category.pageDatas.map((pageData) => {
+              pageData.navigation_title = "大康优选";
+              return pageData;
+            })
+            return category;
+          });
         }
         return pageData;
       });
