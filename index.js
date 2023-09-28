@@ -72,7 +72,7 @@ const profileMe = new RegExp("profile/me").test(url);
 // 视频
 const videoList = new RegExp("video/tiny_stream_video_list").test(url);
 // 评论
-const comment = new RegExp("comments/build_comments").test(url);
+const comment = /\/comments\/build_comments/.test(url);
 // 我的某条微博
 const extend = /\/statuses\/extend/.test(url);
 
@@ -261,7 +261,11 @@ function rwComments(data) {
       commentAdSubType === 1 ||
       commentAdType === 1 ||
       isAdFlag(adType);
-    return !isAd;
+    // 相关内容
+    const is5 = type === 5 || commentAdType === 5 || adType === "相关内容";
+    // 空评论
+    const is6 = type === 6
+    return !isAd && !is5 && !is6;
   });
   return data;
 }
@@ -408,6 +412,9 @@ function rwViewList(items) {
 function rwExtend(data) {
   if (!data || !data["head_cards"]) return data;
   data.head_cards = [];
+  // 疑似广告
+  data.trend = {};
+  delete data.trend;
   return data;
 }
 
