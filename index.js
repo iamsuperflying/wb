@@ -412,6 +412,7 @@ function rwViewList(items) {
 function rwExtend(data) {
   if (!data || !data["head_cards"]) return data;
   data.head_cards = [];
+  delete data.head_cards
   // 疑似广告
   data.trend = {};
   delete data.trend;
@@ -511,28 +512,38 @@ if (body) {
     if (groups) {
       // homeFeed 为首页
       // homeHot 为推荐
-      // data.pageDatas = data.pageDatas.map((pageData) => {
-      //   if (pageData.pageDataTitle === "Mate60") {
-      //     pageData.pageDataTitle = "大康优选";
-      //     pageData.categories.map((category) => {
-      //       category.pageDatas.map((pageData) => {
-      //         pageData.navigation_info.title = "大康优选";
-      //         pageData.navigation_title = "大康优选";
-      //         return pageData;
-      //       });
-      //       return category;
-      //     });
-      //   }
-      //   return pageData;
-      // });
+      const homeFeed = "homeFeed";
+      const homeHot = "homeHot";
+
+      const myCas = ["默认分组", "我的分组"];
+      const myCasDatas = ["全部关注", "好友圈"]
+
       data.pageDatas = data.pageDatas.filter(
         ({ pageDataTitle, pageDataType }) => {
           return (
-            ["homeFeed", "homeHot"].includes(pageDataType) ||
+            [homeFeed, homeHot].includes(pageDataType) ||
             ["关注", "推荐"].includes(pageDataTitle)
           );
         }
-      );
+      ).map(({ pageId, pageDataType, pageDataTitle, categories }) => {
+        // 如果是信息流分组
+        // "title" : "默认分组",  "title" : "我的分组",
+        if (pageId === homeFeed && pageDataType === homeFeed) {
+          const cas = categories
+          .filter((category) => myCas.includes(category.title))
+          .map((category) => {
+            if (category.title === "默认分组") {
+              // 只保留 myCas
+              category.pageDatas = category.pageDatas.filter(
+                ({ title }) => myCasDatas.includes(title)
+              )  
+            }
+            return category
+          });
+        }
+
+        return pageData;
+      });
     }
 
   } catch (error) {
