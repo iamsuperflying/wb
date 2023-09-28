@@ -415,6 +415,9 @@ function rwExtend(data) {
   // 疑似广告
   data.trend = {};
   delete data.trend;
+  // 测试移除关注 toast
+  data.follow_data = {}
+  delete data.follow_data
   return data;
 }
 
