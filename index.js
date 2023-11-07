@@ -1,5 +1,5 @@
-const version = "1.0.0.40";
-const proxy_name = "Weibo Ad Block";
+const version = '1.0.0.40';
+const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
 let body = $response.body;
@@ -8,10 +8,10 @@ let url = $request.url;
 let blackList = [];
 
 // 读取 iCloud 中的配置
-let filePath = "/wb/black-list.json";
+let filePath = '/wb/black-list.json';
 let readUint8Array = $iCloud.readFile(filePath);
 if (!readUint8Array) {
-  console.log("NO");
+  console.log('NO');
 } else {
   let textDecoder = new TextDecoder();
   let readContent = textDecoder.decode(readUint8Array);
@@ -20,28 +20,30 @@ if (!readUint8Array) {
 }
 
 let blockedWeibo = [];
-const filterFilePath = "/wb/filter.json";
+const filterFilePath = '/wb/filter.json';
 const filterReadUint8Array = $iCloud.readFile(filterFilePath);
 if (!filterReadUint8Array) {
-  console.log("NO");
+  console.log('NO');
 } else {
   const textDecoder = new TextDecoder();
   const readContent = textDecoder.decode(filterReadUint8Array);
   const filter = JSON.parse(readContent);
   blockedWeibo = filter.blockedWeibo;
-  blockedWeibo = blockedWeibo.map((item) => {
-    // "https://weibo.com/6356104116/4901947448230404"
-    const reg = /https:\/\/weibo.com\/(\d+)\/(\d+)/;
-    const match = item.match(reg);
-    if (match) {
-      return {
-        uid: match[1],
-        mid: match[2],
-      };
-    } else {
-      return null;
-    }
-  }).filter((item) => item !== null);
+  blockedWeibo = blockedWeibo
+    .map((item) => {
+      // "https://weibo.com/6356104116/4901947448230404"
+      const reg = /https:\/\/weibo.com\/(\d+)\/(\d+)/;
+      const match = item.match(reg);
+      if (match) {
+        return {
+          uid: match[1],
+          mid: match[2],
+        };
+      } else {
+        return null;
+      }
+    })
+    .filter((item) => item !== null);
   console.log(blockedWeibo);
 }
 
@@ -55,22 +57,22 @@ const containerTimeline = /\/statuses\/container_timeline/.test(url);
 const searchall = /\/searchall/.test(url);
 
 // 推荐
-const recommend = new RegExp("statuses/container_timeline_hot").test(url);
+const recommend = new RegExp('statuses/container_timeline_hot').test(url);
 // statuses
 // 发现页热搜
-const discoverRefresh = new RegExp("search/container_timeline").test(url);
-const discoverReplace = new RegExp("search/container_discover").test(url);
-const discover = new RegExp("search/finder").test(url);
+const discoverRefresh = new RegExp('search/container_timeline').test(url);
+const discoverReplace = new RegExp('search/container_discover').test(url);
+const discover = new RegExp('search/finder').test(url);
 // 热搜
-const hotPage = new RegExp("/page").test(url);
-// 其他人的 profile 页 
+const hotPage = new RegExp('/page').test(url);
+// 其他人的 profile 页
 const profileTimeline = /\/profile\/container_timeline/.test(url);
 // 其他人的页面 / 新
 const userinfo = /\/profile\/userinfo/.test(url);
 // 我的
-const profileMe = new RegExp("profile/me").test(url);
+const profileMe = new RegExp('profile/me').test(url);
 // 视频
-const videoList = new RegExp("video/tiny_stream_video_list").test(url);
+const videoList = new RegExp('video/tiny_stream_video_list').test(url);
 // 评论
 const comment = /\/comments\/build_comments/.test(url);
 // 我的某条微博
@@ -86,19 +88,20 @@ const IS_AD_FLAGS = /广告|热推/;
 // card_type === 22 为图片广告
 const AD_CARD_TYPES = /118|207|19|22/;
 // 卡片标识
-const CARD = "card";
+const CARD = 'card';
 // 信息流标识
-const FEED = "feed";
+const FEED = 'feed';
+// 热搜标识
+const GROUP = 'group';
 
-const DISCOVER_TITLE = "发现";
-const DISCOVER_EN_TITLE = "Discover";
+const DISCOVER_TITLE = '发现';
+const DISCOVER_EN_TITLE = 'Discover';
 
-const DISCOVER_IMAGE =
-  "https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80";
+const DISCOVER_IMAGE = 'https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80';
 // 某项是否有广告标识
 const isAdFlag = IS_AD_FLAGS.test.bind(IS_AD_FLAGS);
 
-const isString = (item) => item && typeof item === "string";
+const isString = (item) => item && typeof item === 'string';
 
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
@@ -115,7 +118,7 @@ function promiseItems(data) {
     if (data && data.items) {
       resolve(data.items);
     } else {
-      reject("data is null");
+      reject('data is null');
     }
   });
 }
@@ -125,7 +128,7 @@ function promiseStatuses(data) {
     if (data && data.statuses) {
       resolve(data.statuses);
     } else {
-      reject("data is null");
+      reject('data is null');
     }
   });
 }
@@ -167,19 +170,20 @@ const isNormalTopic = (item) => {
     //   content_auth_info.content_auth_title !== "热推"
     // );
   } else if (promotion) {
-    return !isAdFlag(promotion.recommend) && promotion.type !== "ad";
+    return !isAdFlag(promotion.recommend) && promotion.type !== 'ad';
     // return promotion.recommend !== "广告" && promotion.recommend !== "热推";
   } else {
     return true;
   }
 };
 
-const rwContainerTimeline = (data) => data.filter(isNormalTopic).map((topic) => {
-  delete topic.data.extend_info;
-  delete topic.data.common_struct;
-  delete topic.data.pic_bg_scheme;
-  return topic;
-});
+const rwContainerTimeline = (data) =>
+  data.filter(isNormalTopic).map((topic) => {
+    delete topic.data.extend_info;
+    delete topic.data.common_struct;
+    delete topic.data.pic_bg_scheme;
+    return topic;
+  });
 
 const rwTimeline = (data) => {
   // for (const s of ["ad", "advertises", "trends"]) {
@@ -234,7 +238,7 @@ function rwComments(data) {
 
   data.lack = 1;
   data.max_id = 0;
-  data.max_id_str = "0";
+  data.max_id_str = '0';
 
   // 001OutQmly1h8eswmmhe1j60zo0qy46i02
 
@@ -251,20 +255,15 @@ function rwComments(data) {
 
       data.status.pic_infos = pic_infos;
     }
-
   }
   // delete data.tip_msg,
   data.datas = data.datas.filter((item) => {
     const { type, commentAdSubType, commentAdType, adType } = item;
-    const isAd =
-      type === 1 ||
-      commentAdSubType === 1 ||
-      commentAdType === 1 ||
-      isAdFlag(adType);
+    const isAd = type === 1 || commentAdSubType === 1 || commentAdType === 1 || isAdFlag(adType);
     // 相关内容
-    const is5 = type === 5 || commentAdType === 5 || adType === "相关内容";
+    const is5 = type === 5 || commentAdType === 5 || adType === '相关内容';
     // 空评论
-    const is6 = type === 6
+    const is6 = type === 6;
     return !isAd && !is5 && !is6;
   });
   return data;
@@ -290,14 +289,44 @@ const rwChannelStyleMap = (payload) => {
   return payload;
 };
 
+/**
+ * 现在的微博热搜结构
+ * payload > items
+ * 微博热搜和广告在第一个 item
+ */
 const discoverItemsFilter = (payload) => {
   if (!payload && !payload.items) return payload;
+
+  const rmHotItem = (args) => {
+    const { category, data } = args;
+    if (!category || !data) return true;
+    if (category !== CARD) return true;
+    const { card_type } = data;
+    return !AD_CARD_TYPES.test(card_type);
+  };
+
   let { items } = payload;
   items = items
+    // 这个判断是新的热搜
+    .map((item) => {
+      const { data, category } = item;
+      if (!data || !category || category !== GROUP) return item;
+      // if (!data || !category || category !== CARD) return item;
+      const { card_type, title, itemid, group } = data;
+      if (card_type === 17 || title === '微博热搜' || itemid === 'hotsearch') {
+        item.data.group = group.filter(({ title_sub }) => !isBlack(title_sub));
+      }
+
+      const { items } = item;
+      if (!items) return item;
+      item.items = items.filter(rmHotItem);
+      return item;
+    })
     .filter((item) => {
       if (!item) return false;
       const { data, category } = item;
       if (!data || !category) return true;
+      /// 这个判断是旧的热搜
       if (category === CARD) {
         const { card_type } = data;
         return !AD_CARD_TYPES.test(card_type);
@@ -308,15 +337,6 @@ const discoverItemsFilter = (payload) => {
         return isNormalTopic(item);
       }
       return true;
-    })
-    .map((item) => {
-      const { data, category } = item;
-      if (!data || !category || category !== CARD) return item;
-      const { card_type, title, itemid, group } = data;
-      if (card_type === 17 || title === "微博热搜" || itemid === "hotsearch") {
-        item.data.group = group.filter(({ title_sub }) => !isBlack(title_sub));
-      }
-      return item;
     });
   payload.items = items;
   payload = rwChannelStyleMap(payload);
@@ -338,11 +358,7 @@ const rwDiscover = (data) => {
     channels = channels.map((channel) => {
       const { name, title, en_name } = channel;
       // 发现
-      if (
-        name === DISCOVER_TITLE ||
-        title === DISCOVER_TITLE ||
-        en_name === DISCOVER_EN_TITLE
-      ) {
+      if (name === DISCOVER_TITLE || title === DISCOVER_TITLE || en_name === DISCOVER_EN_TITLE) {
         channel.payload = discoverItemsFilter(channel.payload);
       }
       return channel;
@@ -366,26 +382,19 @@ function rwProfile(items) {
  * @description: 解析我的
  */
 function rwProfileMe(items) {
-  const filtereds = [
-    "profileme_mine",
-    "100505_-_top8",
-    "100505_-_recentlyuser",
-    "100505_-_manage",
-  ];
+  const filtereds = ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_manage'];
 
   return items
     .filter(({ itemId }) => filtereds.includes(itemId))
     .map((item) => {
-      if (item.itemId === "profileme_mine") {
+      if (item.itemId === 'profileme_mine') {
         if (item.header && item.header.vipView) {
           item.header.vipView = null;
         }
       }
 
-      if (item.itemId === "100505_-_top8") {
-        const top4 = ["album", "like", "watchhistory", "draft"].map(
-          (id) => `100505_-_${id}`
-        );
+      if (item.itemId === '100505_-_top8') {
+        const top4 = ['album', 'like', 'watchhistory', 'draft'].map((id) => `100505_-_${id}`);
         item.items = item.items.filter(({ itemId }) => top4.includes(itemId));
       }
 
@@ -403,36 +412,35 @@ const rwSearchAll = (data) => {
     return isNormalTopic(mblog);
   });
   return data;
-}
+};
 
 function rwViewList(items) {
   return items.filter(isNormalTopic);
 }
 
 function rwExtend(data) {
-  if (!data || !data["head_cards"]) return data;
+  if (!data || !data['head_cards']) return data;
   data.head_cards = [];
-  delete data.head_cards
+  delete data.head_cards;
   // 疑似广告
   data.trend = {};
   delete data.trend;
   // 测试移除关注 toast
-  data.follow_data = {}
-  delete data.follow_data
+  data.follow_data = {};
+  delete data.follow_data;
   return data;
 }
 
 function rwUserinfo(data) {
   if (!data || !data.footer) return data;
   let { items, servicePopup, style } = data.footer.data.toolbar_menus_new;
-  const filteredsToolbar = (item) =>
-    ["toolbar_follow", "toolbar_serve"].includes(item.type);
+  const filteredsToolbar = (item) => ['toolbar_follow', 'toolbar_serve'].includes(item.type);
   items = items.filter(filteredsToolbar);
 
   servicePopup.subData.data = [];
   servicePopup.durationTime = 0;
-  const filteredsData = (item) => item.header.text === "其他";
-  const filteredsService = (item) => ["投诉", "拉黑"].includes(item.text);
+  const filteredsData = (item) => item.header.text === '其他';
+  const filteredsService = (item) => ['投诉', '拉黑'].includes(item.text);
   servicePopup.allData.data = servicePopup.allData.data.filter(filteredsData).map((item) => {
     item.items = item.items.filter(filteredsService);
     return item;
@@ -453,7 +461,6 @@ function rwProfileTimeline(data) {
   delete data.loadedInfo.follow_guide_info;
   return data;
 }
-
 
 if (body) {
   let data = JSON.parse($response.body);
@@ -512,42 +519,36 @@ if (body) {
     if (groups) {
       // homeFeed 为首页
       // homeHot 为推荐
-      const homeFeed = "homeFeed";
-      const homeHot = "homeHot";
+      const homeFeed = 'homeFeed';
+      const homeHot = 'homeHot';
 
-      const myCas = ["默认分组", "我的分组"];
-      const myCasDatas = ["全部关注", "好友圈"]
+      const myCas = ['默认分组', '我的分组'];
+      const myCasDatas = ['全部关注', '好友圈'];
 
-      data.pageDatas = data.pageDatas.filter(
-        ({ pageDataTitle, pageDataType }) => {
-          return (
-            [homeFeed, homeHot].includes(pageDataType) ||
-            ["关注", "推荐"].includes(pageDataTitle)
-          );
-        }
-      ).map(({ pageId, pageDataType, pageDataTitle, categories }) => {
-        // 如果是信息流分组
-        // "title" : "默认分组",  "title" : "我的分组",
-        if (pageId === homeFeed && pageDataType === homeFeed) {
-          const cas = categories
-          .filter((category) => myCas.includes(category.title))
-          .map((category) => {
-            if (category.title === "默认分组") {
-              // 只保留 myCas
-              category.pageDatas = category.pageDatas.filter(
-                ({ title }) => myCasDatas.includes(title)
-              )  
-            }
-            return category
-          });
-        }
+      data.pageDatas = data.pageDatas
+        .filter(({ pageDataTitle, pageDataType }) => {
+          return [homeFeed, homeHot].includes(pageDataType) || ['关注', '推荐'].includes(pageDataTitle);
+        })
+        .map(({ pageId, pageDataType, pageDataTitle, categories }) => {
+          // 如果是信息流分组
+          // "title" : "默认分组",  "title" : "我的分组",
+          if (pageId === homeFeed && pageDataType === homeFeed) {
+            const cas = categories
+              .filter((category) => myCas.includes(category.title))
+              .map((category) => {
+                if (category.title === '默认分组') {
+                  // 只保留 myCas
+                  category.pageDatas = category.pageDatas.filter(({ title }) => myCasDatas.includes(title));
+                }
+                return category;
+              });
+          }
 
-        return pageData;
-      });
+          return pageData;
+        });
     }
-
   } catch (error) {
-    console.log("[ error ] >", error);
+    console.log('[ error ] >', error);
   }
 
   promiseItems(data)
