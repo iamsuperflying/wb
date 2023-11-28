@@ -186,25 +186,6 @@ const rwContainerTimeline = (data) =>
   });
 
 const rwTimeline = (data) => {
-  // for (const s of ["ad", "advertises", "trends"]) {
-  //   if (data[s]) {
-  //     delete data[s];
-  //   }
-  // }
-  // if (!data.statuses) {
-  //   return;
-  // }
-  // let newStatuses = [];
-  // for (const s of data.statuses) {
-  //   if (!isAd(s)) {
-  //     lvZhouHandler(s);
-  //     if (!isBlock(s)) {
-  //       newStatuses.push(s);
-  //     }
-  //   }
-  // }
-  // data.statuses = newStatuses;
-
   data.statuses = data?.statuses?.filter(isNormalTopic).map((status) => {
     delete status.extend_info;
     delete status.common_struct;
@@ -370,7 +351,7 @@ const rwDiscover = (data) => {
 };
 
 const rwDiscoverContainer = discoverItemsFilter;
-
+ 
 /**
  * @description: 解析 profile 页
  */
