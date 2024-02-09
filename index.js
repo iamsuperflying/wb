@@ -502,30 +502,47 @@ if (body) {
       // homeHot 为推荐
       const homeFeed = 'homeFeed';
       const homeHot = 'homeHot';
+      const defaultPageId = 'feedStream';
 
       const myCas = ['默认分组', '我的分组'];
       const myCasDatas = ['全部关注', '好友圈'];
-
+      data.defaultPageId = defaultPageId;
       data.pageDatas = data.pageDatas
-        .filter(({ pageDataTitle, pageDataType }) => {
-          return [homeFeed, homeHot].includes(pageDataType) || ['关注', '推荐'].includes(pageDataTitle);
-        })
-        .map(({ pageId, pageDataType, pageDataTitle, categories }) => {
+        .filter(({ pageDataTitle, pageDataType, pageId }) => (
+            [homeFeed, homeHot].includes(pageDataType) ||
+            [homeFeed, homeHot].includes(pageId) ||
+            ["关注", "推荐"].includes(pageDataTitle)
+          ))
+        .map(({ pageId, pageDataType, categories, ...prop }) => {
           // 如果是信息流分组
           // "title" : "默认分组",  "title" : "我的分组",
           if (pageId === homeFeed && pageDataType === homeFeed) {
             const cas = categories
               .filter((category) => myCas.includes(category.title))
               .map((category) => {
-                if (category.title === '默认分组') {
+                if (category.title === "默认分组") {
                   // 只保留 myCas
-                  category.pageDatas = category.pageDatas.filter(({ title }) => myCasDatas.includes(title));
+                  category.pageDatas = category.pageDatas.filter(({ title }) =>
+                    myCasDatas.includes(title)
+                  );
                 }
                 return category;
               });
+
+              return  {
+                pageId,
+                pageDataType,
+                categories: cas,
+                ...prop,
+              }
           }
 
-          return pageData;
+          return {
+            pageId,
+            pageDataType,
+            categories,
+            ...prop,
+          };
         });
     }
   } catch (error) {
