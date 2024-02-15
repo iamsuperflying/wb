@@ -113,13 +113,12 @@ const isString = (item) => item && typeof item === 'string';
 
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
-  return source.includes(target);
+  console.log("source", source, "target", target, source.indexOf(target) !== -1);
+  return source.indexOf(target) !== -1;
 };
 
-const isBlack = (target) => {
-  if (!isString(target)) return false;
-  return blackList.some((item) => item.indexOf(target) !== -1);
-};
+const isBlack = (target) =>
+  blackList.some((item) => safeIncludes(item, target));
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
@@ -364,7 +363,8 @@ function rwDiscoverContainer(data) {
     return !(item.category === 'card' && item.data.card_type === 208);
   }).map((item) => {
     if (item.category !== 'card') return item;
-    if (!item.data || !item.data.group) return item;
+    if (!item.data || !item.data.group || item.data.card_type !== 17)
+      return item;
     item.data.group = item.data.group.filter(({ title_sub }) => !isBlack(title_sub));
     return item;
   });
