@@ -374,7 +374,7 @@ function rwDiscoverContainer(data) {
     return !(
       item.category === "card" &&
       [118, 208, 19].includes(item.data.card_type)
-      || !(item.category === "group" && item.items)
+      && !(item.category === "group" && item.items)
     );
   }).map((item) => {
     if (item.category !== 'card') return item;
