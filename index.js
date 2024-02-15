@@ -114,7 +114,7 @@ const isString = (item) => item && typeof item === 'string';
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
   console.log("source", source, "target", target, source.indexOf(target) !== -1);
-  return source.indexOf(target) !== -1;
+  return target.indexOf(source) !== -1;
 };
 
 const isBlack = (target) =>
