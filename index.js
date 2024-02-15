@@ -1,4 +1,4 @@
-const version = '0.0.11';
+const version = '0.0.12';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -72,7 +72,7 @@ const discoverRefresh = /\/search\/container_timeline/.test(url);
 const discoverReplace = /\/search\/container_discover/.test(url);
 const discover = /\/search\/finder/.test(url);
 // 热搜
-const hotPage = /\/page/test(url);
+const hotPage = /\/page/.test(url);
 // 其他人的 profile 页
 const profileTimeline = /\/profile\/container_timeline/.test(url);
 // 其他人的页面 / 新
