@@ -1,4 +1,4 @@
-const version = '0.0.12';
+const version = '0.0.13';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -113,7 +113,12 @@ const isString = (item) => item && typeof item === 'string';
 
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
-  console.log("source", source, "target", target, source.indexOf(target) !== -1);
+  // console.log("source", source, "target", target, source.indexOf(target) !== -1);
+  console.log("source");
+  console.log(source);
+  console.log("target");
+  console.log(target);
+  console.log(source.indexOf(target) !== -1);
   return target.indexOf(source) !== -1;
 };
 
