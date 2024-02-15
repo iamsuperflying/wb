@@ -1,4 +1,4 @@
-const version = '1.0.1';
+const version = '0.0.10';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -113,7 +113,7 @@ const safeIncludes = (source, target) => {
 
 const isBlack = (target) => {
   if (!isString(target)) return false;
-  return blackList.some(target.includes.bind(target));
+  return blackList.some((item) => item.indexOf(target) !== -1);
 };
 
 function promiseItems(data) {
