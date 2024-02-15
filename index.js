@@ -1,4 +1,4 @@
-const version = '0.0.13';
+const version = '0.0.14';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -365,7 +365,9 @@ const rwDiscover = (data) => {
 function rwDiscoverContainer(data) {
   if (!data || !data.items) return data;
   data.items = data.items.filter((item) => {
-    return !(item.category === 'card' && item.data.card_type === 208);
+    return !(
+      item.category === "card" && [118, 208].includes(item.data.card_type)
+    );
   }).map((item) => {
     if (item.category !== 'card') return item;
     if (!item.data || !item.data.group || item.data.card_type !== 17)
