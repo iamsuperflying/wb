@@ -5,7 +5,7 @@ console.log(`${proxy_name}: ${version}`);
 let body = $response.body;
 let url = $request.url;
 
-let blackList = [];
+let blackList = ['贾玲', '热辣滚烫', '乐莹'];
 
 // 读取 iCloud 中的配置
 let filePath = '/wb/black-list.json';
@@ -15,7 +15,10 @@ if (!readUint8Array) {
 } else {
   let textDecoder = new TextDecoder();
   let readContent = textDecoder.decode(readUint8Array);
-  blackList = JSON.parse(readContent);
+  const _blackList = JSON.parse(readContent);
+  if (_blackList && Array.isArray(_blackList)) {
+    blackList = [...blackList, ..._blackList];
+  }
   console.log(blackList);
 }
 
@@ -60,11 +63,11 @@ const searchall = /\/searchall/.test(url);
 const recommend = new RegExp('statuses/container_timeline_hot').test(url);
 // statuses
 // 发现页热搜
-const discoverRefresh = new RegExp('search/container_timeline').test(url);
-const discoverReplace = new RegExp('search/container_discover').test(url);
-const discover = new RegExp('search/finder').test(url);
+const discoverRefresh = /\/search\/container_timeline/.test(url);
+const discoverReplace = /\/search\/container_discover/.test(url);
+const discover = /\/search\/finder/.test(url);
 // 热搜
-const hotPage = new RegExp('/page').test(url);
+const hotPage = /\/page/test(url);
 // 其他人的 profile 页
 const profileTimeline = /\/profile\/container_timeline/.test(url);
 // 其他人的页面 / 新
@@ -350,7 +353,19 @@ const rwDiscover = (data) => {
   return data;
 };
 
-const rwDiscoverContainer = discoverItemsFilter;
+function rwDiscoverContainer(data) {
+  if (!data || !data.items) return data;
+  data.items = data.items.filter((item) => {
+    return !(item.category === 'card' && item.data.card_type === 208);
+  }).map((item) => {
+    if (item.category !== 'card') return item;
+    if (!item.data || !item.data.group) return item;
+    item.data.group = item.data.group.filter(({ title_sub }) => !isBlack(title_sub));
+    return item;
+  });
+
+  return data;
+}
  
 /**
  * @description: 解析 profile 页
