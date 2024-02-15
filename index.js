@@ -1,4 +1,4 @@
-const version = '0.0.10';
+const version = '0.0.11';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -13,13 +13,18 @@ let readUint8Array = $iCloud.readFile(filePath);
 if (!readUint8Array) {
   console.log('NO');
 } else {
-  let textDecoder = new TextDecoder();
-  let readContent = textDecoder.decode(readUint8Array);
-  const _blackList = JSON.parse(readContent);
-  if (_blackList && Array.isArray(_blackList)) {
-    blackList = [...blackList, ..._blackList];
+  try {
+    let textDecoder = new TextDecoder();
+    let readContent = textDecoder.decode(readUint8Array);
+    const _blackList = JSON.parse(readContent);
+    if (_blackList && Array.isArray(_blackList)) {
+      blackList = [...blackList, ..._blackList];
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log(blackList);
   }
-  console.log(blackList);
 }
 
 let blockedWeibo = [];
