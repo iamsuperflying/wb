@@ -8,7 +8,7 @@ let url = $request.url;
 let blackList = ['贾玲', '热辣滚烫', '乐莹'];
 
 // 读取 iCloud 中的配置
-let filePath = '/wb/black-list.json';
+const filePath = '/wb/black-list.json';
 let readUint8Array = $iCloud.readFile(filePath);
 if (!readUint8Array) {
   console.log('NO');
@@ -371,10 +371,11 @@ function rwDiscoverContainer(data) {
   }
   data.items = data.items.filter((item) => {
     /// 182: 热门人物啥的
-    return !(
-      item.category === CARD &&
-      [118, 208, 19].includes(item.data.card_type)
-    ) && !(item.category === GROUP && !!item.items);
+    return (
+      !(
+        item.category === CARD && [118, 208, 19].includes(item.data.card_type)
+      ) && !(item.category === GROUP && !!item.items)
+    );
   }).map((item) => {
     if (item.category !== 'card') return item;
     if (!item.data || !item.data.group || item.data.card_type !== 17)
