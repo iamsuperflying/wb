@@ -1,4 +1,4 @@
-const version = '0.0.20';
+const version = '0.0.21';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -65,7 +65,7 @@ const containerTimeline = /\/statuses\/container_timeline/.test(url);
 const searchall = /\/searchall/.test(url);
 
 // 推荐
-const recommend = new RegExp('statuses/container_timeline_hot').test(url);
+const recommend = /\/statuses\/container_timeline_hot/.test(url);
 // statuses
 // 发现页热搜
 const discoverRefresh = /\/search\/container_timeline/.test(url);
@@ -114,12 +114,6 @@ const isString = (item) => item && typeof item === 'string';
 
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
-  // console.log("source", source, "target", target, source.indexOf(target) !== -1);
-  console.log("source");
-  console.log(source);
-  console.log("target");
-  console.log(target);
-  console.log(source.indexOf(target) !== -1);
   return target.indexOf(source) !== -1;
 };
 
@@ -390,16 +384,16 @@ const rwDiscover = (data) => {
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
     // 保留 发现
-    channels = channels.filter(({ name }) => keep.includes(name));
-    // map 发现
-    channels = channels.map((channel) => {
-      const { name, title, en_name } = channel;
-      // 发现
-      if (name === DISCOVER_TITLE || title === DISCOVER_TITLE || en_name === DISCOVER_EN_TITLE) {
-        // channel.payload = discoverItemsFilter(channel.payload);
-        channel.payload = rwDiscoverContainer(channel.payload);
-      }
-      return channel;
+    channels = channels
+      .filter(({ name }) => keep.includes(name))
+      .map((channel) => {
+        const { name, title, en_name } = channel;
+        // 发现
+        if (name === DISCOVER_TITLE || title === DISCOVER_TITLE || en_name === DISCOVER_EN_TITLE) {
+          // channel.payload = discoverItemsFilter(channel.payload);
+          channel.payload = rwDiscoverContainer(channel.payload);
+        }
+        return channel;
     });
 
     data.channelInfo.channels = channels;
