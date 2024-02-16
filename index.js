@@ -1,4 +1,4 @@
-const version = '0.0.18';
+const version = '0.0.19';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -78,9 +78,9 @@ const profileTimeline = /\/profile\/container_timeline/.test(url);
 // 其他人的页面 / 新
 const userinfo = /\/profile\/userinfo/.test(url);
 // 我的
-const profileMe = new RegExp('profile/me').test(url);
+const profileMe = /\/profile\/me/.test(url);
 // 视频
-const videoList = new RegExp('video/tiny_stream_video_list').test(url);
+const videoList = /\/video\/tiny_stream_video_list/.test(url);
 // 评论
 const comment = /\/comments\/build_comments/.test(url);
 // 我的某条微博
@@ -94,7 +94,8 @@ const IS_AD_FLAGS = /广告|热推/;
 // card_type === 207 为各种赛程比分广告
 // card_type === 19 为小图标广告
 // card_type === 22 为图片广告
-const AD_CARD_TYPES = /118|207|19|22/;
+// card_type === 208 为热聊
+const AD_CARD_TYPES = /19|22|118|207|208/;
 // 卡片标识
 const CARD = 'card';
 // 信息流标识
@@ -336,6 +337,48 @@ const discoverItemsFilter = (payload) => {
   return payload;
 };
 
+function rwDiscoverContainer(data) {
+  if (!data || !data.items) return data;
+  // 推荐搜索过滤
+  if (data.loadedInfo) {
+    data.loadedInfo.searchBarContent = data.loadedInfo.searchBarContent.filter(
+      ({ note }) => !isBlack(note)
+    );
+  }
+
+  const rmHotItem = (args) => {
+    const { category, data } = args;
+    if (!category || !data) return true;
+    if (category !== CARD) return true;
+    const { card_type } = data;
+    return !AD_CARD_TYPES.test(card_type);
+  };
+
+  data.items = data.items
+    .filter((item) => {
+      if (!item) return false;
+      const { data, category } = item;
+      if (!data || !category) return true;
+      /// 182: 热门人物啥的
+      return (
+        !(category === CARD && AD_CARD_TYPES.test(card_type)) &&
+        !(item.category === GROUP && !!item.items) &&
+        !(category === FEED && !isNormalTopic(item))
+      );
+    })
+    .map((item) => {
+      if (item.category !== CARD) return item;
+      if (!item.data || !item.data.group || item.data.card_type !== 17)
+        return item;
+      item.data.group = item.data.group.filter(
+        ({ title_sub }) => !isBlack(title_sub)
+      );
+      return item;
+    });
+
+  return rwChannelStyleMap(data);
+}
+
 /**
  * @description: 移除发现页广告
  */
@@ -352,7 +395,8 @@ const rwDiscover = (data) => {
       const { name, title, en_name } = channel;
       // 发现
       if (name === DISCOVER_TITLE || title === DISCOVER_TITLE || en_name === DISCOVER_EN_TITLE) {
-        channel.payload = discoverItemsFilter(channel.payload);
+        // channel.payload = discoverItemsFilter(channel.payload);
+        channel.payload = rwDiscoverContainer(channel.payload);
       }
       return channel;
     });
@@ -361,31 +405,6 @@ const rwDiscover = (data) => {
   }
   return data;
 };
-
-function rwDiscoverContainer(data) {
-  if (!data || !data.items) return data;
-  if (data.loadedInfo) {
-    data.loadedInfo.searchBarContent = data.loadedInfo.searchBarContent.filter(
-      ({ note }) => !isBlack(note)
-    );
-  }
-  data.items = data.items.filter((item) => {
-    /// 182: 热门人物啥的
-    return (
-      !(
-        item.category === CARD && [118, 208, 19].includes(item.data.card_type)
-      ) && !(item.category === GROUP && !!item.items)
-    );
-  }).map((item) => {
-    if (item.category !== 'card') return item;
-    if (!item.data || !item.data.group || item.data.card_type !== 17)
-      return item;
-    item.data.group = item.data.group.filter(({ title_sub }) => !isBlack(title_sub));
-    return item;
-  });
-
-  return data;
-}
  
 /**
  * @description: 解析 profile 页
