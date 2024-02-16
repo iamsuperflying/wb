@@ -1,4 +1,4 @@
-const version = '0.0.19';
+const version = '0.0.20';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -359,10 +359,11 @@ function rwDiscoverContainer(data) {
       if (!item) return false;
       const { data, category } = item;
       if (!data || !category) return true;
+      const { card_type } = data;
       /// 182: 热门人物啥的
       return (
         !(category === CARD && AD_CARD_TYPES.test(card_type)) &&
-        !(item.category === GROUP && !!item.items) &&
+        !(category === GROUP && !!item.items) &&
         !(category === FEED && !isNormalTopic(item))
       );
     })
