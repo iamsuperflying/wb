@@ -1,4 +1,4 @@
-const version = '0.0.22';
+const version = '0.0.23';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -119,6 +119,11 @@ const safeIncludes = (source, target) => {
 
 const isBlack = (target) =>
   blackList.some((item) => safeIncludes(item, target));
+  
+function isNormalFeedTopic(category, item) {
+  const feed = category === FEED;
+  return feed ? isNormalTopic(item) : !feed;
+}
 
 function promiseItems(data) {
   return new Promise((resolve, reject) => {
@@ -190,7 +195,7 @@ const rwContainerTimeline = (data) =>
     delete topic.data.common_struct;
     delete topic.data.pic_bg_scheme;
     return topic;
-  });
+});
 
 const rwTimeline = (data) => {
   data.statuses = data?.statuses?.filter(isNormalTopic).map((status) => {
@@ -321,10 +326,11 @@ const discoverItemsFilter = (payload) => {
       }
       // category === 'feed' 为信息流
       // 此时判断是否为正常帖子
-      if (category === FEED) {
-        return isNormalTopic(item);
-      }
-      return true;
+      // if (category === FEED) {
+      //   return isNormalTopic(item);
+      // }
+      // return true;
+      return isNormalFeedTopic(category, data);
     });
   payload.items = items;
   payload = rwChannelStyleMap(payload);
@@ -441,7 +447,7 @@ const rwSearchAll = (data) => {
     if (mblog.ad_state) return false;
     return isNormalTopic(mblog);
   });
-  data.items = items.filter(({ category, data }) => category !== 'feed' ? true : isNormalTopic(data));
+  data.items = items.filter(({ category, data }) => isNormalFeedTopic(category, data));
   return data;
 };
 
