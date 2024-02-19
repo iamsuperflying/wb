@@ -1,4 +1,4 @@
-const version = '0.0.21';
+const version = '0.0.22';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -434,13 +434,14 @@ function rwProfileMe(items) {
 
 const rwSearchAll = (data) => {
   if (!data) return data;
-  const { cards } = data;
-  if (!cards) return data;
+  const { cards, items } = data;
+  if (!cards && !items) return data;
   data.cards = cards.filter(({ mblog }) => {
     if (!mblog) return true;
     if (mblog.ad_state) return false;
     return isNormalTopic(mblog);
   });
+  data.items = items.filter(({ category, data }) => category !== 'feed' ? true : isNormalTopic(data));
   return data;
 };
 
