@@ -455,25 +455,18 @@ function rwProfileMe(items) {
 }
 
 const rwSearchAll = (data) => {
-  console.log("rwSearchAll");
   if (!data) return data;
   const { cards, items } = data;
-  if (!cards && !items) return data;
-  if (cards) {
-    data.cards = cards.filter(({ mblog }) => {
-      if (!mblog) return true;
-      if (mblog.ad_state) return false;
-      return isNormalTopic(mblog);
-    });
-  }
+  data.cards = cards?.filter(({ mblog }) => {
+    if (!mblog) return true;
+    if (mblog.ad_state) return false;
+    return isNormalTopic(mblog);
+  });
 
-  if (items) {
-    console.log("items -------------------------------", items);
-    data.items = items.filter((item) => {
-      console.log("category", item.category, item.data.mblogtypename);
-      return isNormalFeedTopic(item.category, item);
-    });
-  }
+   data.items = items?.filter((item) => {
+     console.log("category", item.category, item.data?.mblogtypename);
+     return isNormalFeedTopic(item.category, item);
+   });
 
   return data;
 };
