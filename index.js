@@ -468,10 +468,7 @@ const rwSearchAll = (data) => {
   }
 
   if (items) {
-      console.log(
-        "-------------------------------",
-        items
-      );
+    console.log("items -------------------------------", items);
     data.items = items.filter(({ category, ...item }) => {
       console.log("category", category, item.data.mblogtypename);
       return isNormalFeedTopic(category, item);
