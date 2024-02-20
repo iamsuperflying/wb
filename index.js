@@ -1,14 +1,14 @@
-const version = '0.0.25';
-const proxy_name = 'Weibo Ad Block';
+const version = "0.0.26";
+const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
 let body = $response.body;
 let url = $request.url;
 
-let blackList = ['贾玲', '热辣滚烫', '乐莹'];
+let blackList = ["贾玲", "热辣滚烫", "乐莹"];
 
 // 读取 iCloud 中的配置
-const filePath = '/wb/black-list.json';
+const filePath = "/wb/black-list.json";
 let readUint8Array = $iCloud.readFile(filePath);
 if (!readUint8Array) {
   // console.log('NO');
@@ -21,14 +21,14 @@ if (!readUint8Array) {
       blackList = [...blackList, ..._blackList];
     }
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   } finally {
     // console.log(blackList);
   }
 }
 
 let blockedWeibo = [];
-const filterFilePath = '/wb/filter.json';
+const filterFilePath = "/wb/filter.json";
 const filterReadUint8Array = $iCloud.readFile(filterFilePath);
 if (!filterReadUint8Array) {
   // console.log('NO');
@@ -97,20 +97,21 @@ const IS_AD_FLAGS = /广告|热推/;
 // card_type === 208 为热聊
 const AD_CARD_TYPES = /19|22|118|207|208/;
 // 卡片标识
-const CARD = 'card';
+const CARD = "card";
 // 信息流标识
-const FEED = 'feed';
+const FEED = "feed";
 // 热搜标识
-const GROUP = 'group';
+const GROUP = "group";
 
-const DISCOVER_TITLE = '发现';
-const DISCOVER_EN_TITLE = 'Discover';
+const DISCOVER_TITLE = "发现";
+const DISCOVER_EN_TITLE = "Discover";
 
-const DISCOVER_IMAGE = 'https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80';
+const DISCOVER_IMAGE =
+  "https://images.unsplash.com/photo-1542880941-1abfea46bba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1827&q=80";
 // 某项是否有广告标识
 const isAdFlag = IS_AD_FLAGS.test.bind(IS_AD_FLAGS);
 
-const isString = (item) => item && typeof item === 'string';
+const isString = (item) => item && typeof item === "string";
 
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
@@ -119,7 +120,7 @@ const safeIncludes = (source, target) => {
 
 const isBlack = (target) =>
   blackList.some((item) => safeIncludes(item, target));
-  
+
 function isNormalFeedTopic(category, item) {
   const feed = category === FEED;
   return feed ? isNormalTopic(item) : !feed;
@@ -130,7 +131,7 @@ function promiseItems(data) {
     if (data && data.items) {
       resolve(data.items);
     } else {
-      reject('data is null');
+      reject("data is null");
     }
   });
 }
@@ -140,7 +141,7 @@ function promiseStatuses(data) {
     if (data && data.statuses) {
       resolve(data.statuses);
     } else {
-      reject('data is null');
+      reject("data is null");
     }
   });
 }
@@ -182,7 +183,7 @@ const isNormalTopic = (item) => {
     //   content_auth_info.content_auth_title !== "热推"
     // );
   } else if (promotion) {
-    return !isAdFlag(promotion.recommend) && promotion.type !== 'ad';
+    return !isAdFlag(promotion.recommend) && promotion.type !== "ad";
     // return promotion.recommend !== "广告" && promotion.recommend !== "热推";
   } else {
     return true;
@@ -195,7 +196,7 @@ const rwContainerTimeline = (data) =>
     delete topic.data.common_struct;
     delete topic.data.pic_bg_scheme;
     return topic;
-});
+  });
 
 const rwTimeline = (data) => {
   data.statuses = data?.statuses?.filter(isNormalTopic).map((status) => {
@@ -231,7 +232,7 @@ function rwComments(data) {
 
   data.lack = 1;
   data.max_id = 0;
-  data.max_id_str = '0';
+  data.max_id_str = "0";
 
   // 001OutQmly1h8eswmmhe1j60zo0qy46i02
 
@@ -252,9 +253,13 @@ function rwComments(data) {
   // delete data.tip_msg,
   data.datas = data.datas.filter((item) => {
     const { type, commentAdSubType, commentAdType, adType } = item;
-    const isAd = type === 1 || commentAdSubType === 1 || commentAdType === 1 || isAdFlag(adType);
+    const isAd =
+      type === 1 ||
+      commentAdSubType === 1 ||
+      commentAdType === 1 ||
+      isAdFlag(adType);
     // 相关内容
-    const is5 = type === 5 || commentAdType === 5 || adType === '相关内容';
+    const is5 = type === 5 || commentAdType === 5 || adType === "相关内容";
     // 空评论
     const is6 = type === 6;
     return !isAd && !is5 && !is6;
@@ -306,7 +311,7 @@ const discoverItemsFilter = (payload) => {
       if (!data || !category || category !== GROUP) return item;
       // if (!data || !category || category !== CARD) return item;
       const { card_type, title, itemid, group } = data;
-      if (card_type === 17 || title === '微博热搜' || itemid === 'hotsearch') {
+      if (card_type === 17 || title === "微博热搜" || itemid === "hotsearch") {
         item.data.group = group.filter(({ title_sub }) => !isBlack(title_sub));
       }
 
@@ -395,18 +400,22 @@ const rwDiscover = (data) => {
       .map((channel) => {
         const { name, title, en_name } = channel;
         // 发现
-        if (name === DISCOVER_TITLE || title === DISCOVER_TITLE || en_name === DISCOVER_EN_TITLE) {
+        if (
+          name === DISCOVER_TITLE ||
+          title === DISCOVER_TITLE ||
+          en_name === DISCOVER_EN_TITLE
+        ) {
           // channel.payload = discoverItemsFilter(channel.payload);
           channel.payload = rwDiscoverContainer(channel.payload);
         }
         return channel;
-    });
+      });
 
     data.channelInfo.channels = channels;
   }
   return data;
 };
- 
+
 /**
  * @description: 解析 profile 页
  */
@@ -418,19 +427,26 @@ function rwProfile(items) {
  * @description: 解析我的
  */
 function rwProfileMe(items) {
-  const filtereds = ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_manage'];
+  const filtereds = [
+    "profileme_mine",
+    "100505_-_top8",
+    "100505_-_recentlyuser",
+    "100505_-_manage",
+  ];
 
   return items
     .filter(({ itemId }) => filtereds.includes(itemId))
     .map((item) => {
-      if (item.itemId === 'profileme_mine') {
+      if (item.itemId === "profileme_mine") {
         if (item.header && item.header.vipView) {
           item.header.vipView = null;
         }
       }
 
-      if (item.itemId === '100505_-_top8') {
-        const top4 = ['album', 'like', 'watchhistory', 'draft'].map((id) => `100505_-_${id}`);
+      if (item.itemId === "100505_-_top8") {
+        const top4 = ["album", "like", "watchhistory", "draft"].map(
+          (id) => `100505_-_${id}`
+        );
         item.items = item.items.filter(({ itemId }) => top4.includes(itemId));
       }
 
@@ -439,20 +455,29 @@ function rwProfileMe(items) {
 }
 
 const rwSearchAll = (data) => {
-  console.log('rwSearchAll');
+  console.log("rwSearchAll");
   if (!data) return data;
   const { cards, items } = data;
   if (!cards && !items) return data;
-  console.log("-------------------------------", cards, "-------------------------------", items);
-  data.cards = cards.filter(({ mblog }) => {
-    if (!mblog) return true;
-    if (mblog.ad_state) return false;
-    return isNormalTopic(mblog);
-  });
-  data.items = items.filter(({ category, ...item }) => {
-    console.log("category", category, item.data.mblogtypename);
-    return isNormalFeedTopic(category, item);
-  })
+  if (cards) {
+    data.cards = cards.filter(({ mblog }) => {
+      if (!mblog) return true;
+      if (mblog.ad_state) return false;
+      return isNormalTopic(mblog);
+    });
+  }
+
+  if (items) {
+      console.log(
+        "-------------------------------",
+        items
+      );
+    data.items = items.filter(({ category, ...item }) => {
+      console.log("category", category, item.data.mblogtypename);
+      return isNormalFeedTopic(category, item);
+    });
+  }
+
   return data;
 };
 
@@ -461,7 +486,7 @@ function rwViewList(items) {
 }
 
 function rwExtend(data) {
-  if (!data || !data['head_cards']) return data;
+  if (!data || !data["head_cards"]) return data;
   data.head_cards = [];
   delete data.head_cards;
   // 疑似广告
@@ -476,17 +501,20 @@ function rwExtend(data) {
 function rwUserinfo(data) {
   if (!data || !data.footer) return data;
   let { items, servicePopup, style } = data.footer.data.toolbar_menus_new;
-  const filteredsToolbar = (item) => ['toolbar_follow', 'toolbar_serve'].includes(item.type);
+  const filteredsToolbar = (item) =>
+    ["toolbar_follow", "toolbar_serve"].includes(item.type);
   items = items.filter(filteredsToolbar);
 
   servicePopup.subData.data = [];
   servicePopup.durationTime = 0;
-  const filteredsData = (item) => item.header.text === '其他';
-  const filteredsService = (item) => ['投诉', '拉黑'].includes(item.text);
-  servicePopup.allData.data = servicePopup.allData.data.filter(filteredsData).map((item) => {
-    item.items = item.items.filter(filteredsService);
-    return item;
-  });
+  const filteredsData = (item) => item.header.text === "其他";
+  const filteredsService = (item) => ["投诉", "拉黑"].includes(item.text);
+  servicePopup.allData.data = servicePopup.allData.data
+    .filter(filteredsData)
+    .map((item) => {
+      item.items = item.items.filter(filteredsService);
+      return item;
+    });
 
   data.footer.data.toolbar_menus_new = {
     style,
@@ -561,19 +589,20 @@ if (body) {
     if (groups) {
       // homeFeed 为首页
       // homeHot 为推荐
-      const homeFeed = 'homeFeed';
-      const homeHot = 'homeHot';
-      const defaultPageId = 'feedStream';
+      const homeFeed = "homeFeed";
+      const homeHot = "homeHot";
+      const defaultPageId = "feedStream";
 
-      const myCas = ['默认分组', '我的分组'];
-      const myCasDatas = ['全部关注', '好友圈'];
+      const myCas = ["默认分组", "我的分组"];
+      const myCasDatas = ["全部关注", "好友圈"];
       data.defaultPageId = defaultPageId;
       data.pageDatas = data.pageDatas
-        .filter(({ pageDataTitle, pageDataType, pageId }) => (
+        .filter(
+          ({ pageDataTitle, pageDataType, pageId }) =>
             [homeFeed, homeHot].includes(pageDataType) ||
             [homeFeed, homeHot].includes(pageId) ||
             ["关注", "推荐"].includes(pageDataTitle)
-          ))
+        )
         .map(({ pageId, pageDataType, categories, ...prop }) => {
           // 如果是信息流分组
           // "title" : "默认分组",  "title" : "我的分组",
@@ -590,12 +619,12 @@ if (body) {
                 return category;
               });
 
-              return  {
-                pageId,
-                pageDataType,
-                categories: cas,
-                ...prop,
-              }
+            return {
+              pageId,
+              pageDataType,
+              categories: cas,
+              ...prop,
+            };
           }
 
           return {
@@ -607,7 +636,7 @@ if (body) {
         });
     }
   } catch (error) {
-    console.log('[ error ] >', error);
+    console.log("[ error ] >", error);
   }
 
   promiseItems(data)
