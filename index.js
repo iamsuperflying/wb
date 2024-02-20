@@ -443,6 +443,7 @@ const rwSearchAll = (data) => {
   if (!data) return data;
   const { cards, items } = data;
   if (!cards && !items) return data;
+  console.log("-------------------------------", cards, "-------------------------------", items);
   data.cards = cards.filter(({ mblog }) => {
     if (!mblog) return true;
     if (mblog.ad_state) return false;
