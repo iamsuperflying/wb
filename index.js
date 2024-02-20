@@ -464,7 +464,7 @@ const rwSearchAll = (data) => {
   });
 
    data.items = items?.filter((item) => {
-     console.log("category", item.category, item.data?.mblogtypename);
+     console.log("category");
      return isNormalFeedTopic(item.category, item);
    });
 
