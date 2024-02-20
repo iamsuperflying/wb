@@ -447,9 +447,10 @@ const rwSearchAll = (data) => {
     if (mblog.ad_state) return false;
     return isNormalTopic(mblog);
   });
-  data.items = items.filter(({ category, ...item }) =>
-    isNormalFeedTopic(category, item)
-  );
+  data.items = items.filter(({ category, ...item }) => {
+    console.log("category", category, item.data.mblogtypename);
+    return isNormalFeedTopic(category, item);
+  })
   return data;
 };
 
