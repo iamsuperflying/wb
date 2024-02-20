@@ -1,4 +1,4 @@
-const version = '0.0.24';
+const version = '0.0.25';
 const proxy_name = 'Weibo Ad Block';
 console.log(`${proxy_name}: ${version}`);
 
@@ -11,7 +11,7 @@ let blackList = ['贾玲', '热辣滚烫', '乐莹'];
 const filePath = '/wb/black-list.json';
 let readUint8Array = $iCloud.readFile(filePath);
 if (!readUint8Array) {
-  console.log('NO');
+  // console.log('NO');
 } else {
   try {
     let textDecoder = new TextDecoder();
@@ -21,9 +21,9 @@ if (!readUint8Array) {
       blackList = [...blackList, ..._blackList];
     }
   } catch (error) {
-    console.log(error);
+    console.log('error', error);
   } finally {
-    console.log(blackList);
+    // console.log(blackList);
   }
 }
 
@@ -31,7 +31,7 @@ let blockedWeibo = [];
 const filterFilePath = '/wb/filter.json';
 const filterReadUint8Array = $iCloud.readFile(filterFilePath);
 if (!filterReadUint8Array) {
-  console.log('NO');
+  // console.log('NO');
 } else {
   const textDecoder = new TextDecoder();
   const readContent = textDecoder.decode(filterReadUint8Array);
@@ -52,7 +52,7 @@ if (!filterReadUint8Array) {
       }
     })
     .filter((item) => item !== null);
-  console.log(blockedWeibo);
+  // console.log(blockedWeibo);
 }
 
 // 分组
@@ -439,6 +439,7 @@ function rwProfileMe(items) {
 }
 
 const rwSearchAll = (data) => {
+  console.log('rwSearchAll');
   if (!data) return data;
   const { cards, items } = data;
   if (!cards && !items) return data;
