@@ -376,6 +376,7 @@ function rwDiscoverContainer(data) {
       if (item.category !== CARD) return item;
       // if (!item.data || !item.data.group || item.data.card_type !== 17)
       //   return item;
+      if (!item.data || !item.data.group) return item;
       item.data.group = item.data.group.filter(
         ({ title_sub }) => !isBlack(title_sub)
       );
