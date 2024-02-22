@@ -368,7 +368,7 @@ function rwDiscoverContainer(data) {
       /// 182: 热门人物啥的
 
       if (category === GROUP) {
-        return !!item.items || !!items;
+        return !(!!item.items || !!items);
       }
 
       /**
