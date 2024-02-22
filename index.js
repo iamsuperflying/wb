@@ -351,13 +351,13 @@ function rwDiscoverContainer(data) {
     );
   }
 
-  const rmHotItem = (args) => {
-    const { category, data } = args;
-    if (!category || !data) return true;
-    if (category !== CARD) return true;
-    const { card_type } = data;
-    return !AD_CARD_TYPES.test(card_type);
-  };
+  // const rmHotItem = (args) => {
+  //   const { category, data } = args;
+  //   if (!category || !data) return true;
+  //   if (category !== CARD) return true;
+  //   const { card_type } = data;
+  //   return !AD_CARD_TYPES.test(card_type);
+  // };
 
   data.items = data.items
     .filter((item) => {
@@ -368,14 +368,14 @@ function rwDiscoverContainer(data) {
       /// 182: 热门人物啥的
       return (
         !(category === CARD && AD_CARD_TYPES.test(card_type)) &&
-        !(category === GROUP && !!item.items) &&
+        !(category === GROUP && (!!item.items || !!data.items)) &&
         !(category === FEED && !isNormalTopic(item))
       );
     })
     .map((item) => {
       if (item.category !== CARD) return item;
-      if (!item.data || !item.data.group || item.data.card_type !== 17)
-        return item;
+      // if (!item.data || !item.data.group || item.data.card_type !== 17)
+      //   return item;
       item.data.group = item.data.group.filter(
         ({ title_sub }) => !isBlack(title_sub)
       );
