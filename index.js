@@ -342,13 +342,12 @@ const discoverItemsFilter = (payload) => {
   return payload;
 };
 
-function rwDiscoverContainer(data) {
-  if (!data || !data.items) return data;
+function rwDiscoverContainer(payload) {
+  if (!payload || !payload.items) return payload;
   // 推荐搜索过滤
-  if (data.loadedInfo) {
-    data.loadedInfo.searchBarContent = data.loadedInfo.searchBarContent.filter(
-      ({ note }) => !isBlack(note)
-    );
+  if (payload.loadedInfo) {
+    payload.loadedInfo.searchBarContent =
+      payload.loadedInfo.searchBarContent.filter(({ note }) => !isBlack(note));
   }
 
   // const rmHotItem = (args) => {
@@ -359,7 +358,7 @@ function rwDiscoverContainer(data) {
   //   return !AD_CARD_TYPES.test(card_type);
   // };
 
-  data.items = data.items
+  payload.items = payload.items
     .filter((item) => {
       if (!item) return false;
       const { data, category } = item;
@@ -390,7 +389,7 @@ function rwDiscoverContainer(data) {
       return item;
     });
 
-  return rwChannelStyleMap(data);
+  return rwChannelStyleMap(payload);
 }
 
 /**
