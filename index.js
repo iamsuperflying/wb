@@ -362,8 +362,8 @@ function rwDiscoverContainer(payload) {
     .filter((item) => {
       if (!item) return false;
       const { data, category } = item;
-      if (!data || !category) return true;
-      const { card_type, items } = data;
+      // if (!data || !category) return true;
+      const { card_type, items } = data || {};
       /// 182: 热门人物啥的
 
       if (category === GROUP) {
