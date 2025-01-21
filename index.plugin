@@ -2,7 +2,7 @@
 
 #!desc=微博去广告
 
-#!icon=https://raw.githubusercontent.com/iamsuperflying/wb/master/weboadguard.png
+#!icon=https://raw.githubusercontent.com/iamsuperflying/wb/refs/heads/master/weiboadguard.png
 
 #!author=roc
 
@@ -13,4 +13,5 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, new.vip.weibo.cn
 [Script]
 
 # 热搜等
-http-response ^https://api.weibo.cn/2/(groups|video|statuses|search|profile|comments)/(allgroups|timeline|tiny_stream_video_list|container_timeline_hot|finder|container_discover|container_timeline|me|build_comments|extend|userinfo)|(page)|(searchall) requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/index.js
+
+http-response ^https://api\.weibo\.cn/2/(groups|video|statuses|search|profile|comments)/(allgroups|timeline|tiny_stream_video_list|container_timeline_hot|finder|container_discover|container_timeline|me|build_comments|extend|userinfo)|(page)|(searchall) requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/index.js
