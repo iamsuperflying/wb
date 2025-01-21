@@ -5,55 +5,55 @@ console.log(`${proxy_name}: ${version}`);
 let body = $response.body;
 let url = $request.url;
 
-let blackList = ["贾玲", "热辣滚烫", "乐莹"];
+// let blackList = ["贾玲", "热辣滚烫", "乐莹"];
 
 // 读取 iCloud 中的配置
-const filePath = "/wb/black-list.json";
-let readUint8Array = $iCloud.readFile(filePath);
-if (!readUint8Array) {
-  // console.log('NO');
-} else {
-  try {
-    let textDecoder = new TextDecoder();
-    let readContent = textDecoder.decode(readUint8Array);
-    const _blackList = JSON.parse(readContent);
-    if (_blackList && Array.isArray(_blackList)) {
-      blackList = [...blackList, ..._blackList];
-    }
-  } catch (error) {
-    console.log("error", error);
-  } finally {
-    // console.log(blackList);
-  }
-}
+// const filePath = "/wb/black-list.json";
+// let readUint8Array = $iCloud.readFile(filePath);
+// if (!readUint8Array) {
+//   // console.log('NO');
+// } else {
+//   try {
+//     let textDecoder = new TextDecoder();
+//     let readContent = textDecoder.decode(readUint8Array);
+//     const _blackList = JSON.parse(readContent);
+//     if (_blackList && Array.isArray(_blackList)) {
+//       blackList = [...blackList, ..._blackList];
+//     }
+//   } catch (error) {
+//     console.log("error", error);
+//   } finally {
+//     // console.log(blackList);
+//   }
+// }
 
-let blockedWeibo = [];
-const filterFilePath = "/wb/filter.json";
-const filterReadUint8Array = $iCloud.readFile(filterFilePath);
-if (!filterReadUint8Array) {
-  // console.log('NO');
-} else {
-  const textDecoder = new TextDecoder();
-  const readContent = textDecoder.decode(filterReadUint8Array);
-  const filter = JSON.parse(readContent);
-  blockedWeibo = filter.blockedWeibo;
-  blockedWeibo = blockedWeibo
-    .map((item) => {
-      // "https://weibo.com/6356104116/4901947448230404"
-      const reg = /https:\/\/weibo.com\/(\d+)\/(\d+)/;
-      const match = item.match(reg);
-      if (match) {
-        return {
-          uid: match[1],
-          mid: match[2],
-        };
-      } else {
-        return null;
-      }
-    })
-    .filter((item) => item !== null);
-  // console.log(blockedWeibo);
-}
+// let blockedWeibo = [];
+// const filterFilePath = "/wb/filter.json";
+// const filterReadUint8Array = $iCloud.readFile(filterFilePath);
+// if (!filterReadUint8Array) {
+//   // console.log('NO');
+// } else {
+//   const textDecoder = new TextDecoder();
+//   const readContent = textDecoder.decode(filterReadUint8Array);
+//   const filter = JSON.parse(readContent);
+//   blockedWeibo = filter.blockedWeibo;
+//   blockedWeibo = blockedWeibo
+//     .map((item) => {
+//       // "https://weibo.com/6356104116/4901947448230404"
+//       const reg = /https:\/\/weibo.com\/(\d+)\/(\d+)/;
+//       const match = item.match(reg);
+//       if (match) {
+//         return {
+//           uid: match[1],
+//           mid: match[2],
+//         };
+//       } else {
+//         return null;
+//       }
+//     })
+//     .filter((item) => item !== null);
+//   // console.log(blockedWeibo);
+// }
 
 // 分组
 const groups = /\/groups\/allgroups/.test(url);
@@ -530,7 +530,7 @@ function rwProfileTimeline(data) {
 }
 
 if (body) {
-  let data = JSON.parse($response.body);
+  let data = JSON.parse(body);
 
   try {
     // 1. 首页 时间线
