@@ -5,58 +5,7 @@ console.log(`${proxy_name}: ${version}`);
 let body = $response.body;
 let url = $request.url;
 
-
 const blackList = ["贾玲", "热辣滚烫", "乐莹", "谢娜", "中医"];
-
-// let blackList = ["贾玲", "热辣滚烫", "乐莹"];
-
-// 读取 iCloud 中的配置
-// const filePath = "/wb/black-list.json";
-// let readUint8Array = $iCloud.readFile(filePath);
-// if (!readUint8Array) {
-//   // console.log('NO');
-// } else {
-//   try {
-//     let textDecoder = new TextDecoder();
-//     let readContent = textDecoder.decode(readUint8Array);
-//     const _blackList = JSON.parse(readContent);
-//     if (_blackList && Array.isArray(_blackList)) {
-//       blackList = [...blackList, ..._blackList];
-//     }
-//   } catch (error) {
-//     console.log("error", error);
-//   } finally {
-//     // console.log(blackList);
-//   }
-// }
-
-// let blockedWeibo = [];
-// const filterFilePath = "/wb/filter.json";
-// const filterReadUint8Array = $iCloud.readFile(filterFilePath);
-// if (!filterReadUint8Array) {
-//   // console.log('NO');
-// } else {
-//   const textDecoder = new TextDecoder();
-//   const readContent = textDecoder.decode(filterReadUint8Array);
-//   const filter = JSON.parse(readContent);
-//   blockedWeibo = filter.blockedWeibo;
-//   blockedWeibo = blockedWeibo
-//     .map((item) => {
-//       // "https://weibo.com/6356104116/4901947448230404"
-//       const reg = /https:\/\/weibo.com\/(\d+)\/(\d+)/;
-//       const match = item.match(reg);
-//       if (match) {
-//         return {
-//           uid: match[1],
-//           mid: match[2],
-//         };
-//       } else {
-//         return null;
-//       }
-//     })
-//     .filter((item) => item !== null);
-//   // console.log(blockedWeibo);
-// }
 
 // 分组
 const groups = /\/groups\/allgroups/.test(url);
@@ -99,6 +48,8 @@ const IS_AD_FLAGS = /广告|热推/;
 // card_type === 22 为图片广告
 // card_type === 208 为热聊
 const AD_CARD_TYPES = /19|22|118|207|208/;
+// 分隔标识
+const CELL = "cell";
 // 卡片标识
 const CARD = "card";
 // 信息流标识
@@ -346,7 +297,109 @@ const discoverItemsFilter = (payload) => {
 };
 
 /**
+ * 移除 category 为 card 的广告
+ */
+const rmCardAd = (payload) => {
+  if (!payload || payload.category !== CARD || !payload.data) return payload;
+
+  /** 目前是中文广告 */
+  const { card_type } = payload.data;
+  /** 1. 从 card_type 中判断是否为广告 */
+  const isAd = AD_CARD_TYPES.test(card_type);
+  if (isAd) return null;
+
+  /** 2. 从 data 中判断是否为广告 */
+  /** 
+   * 2.1 promotion 字段：
+   * 如果 data 对象中包含 promotion 字段，通常表示这是一个广告卡片。promotion 字段通常包含广告的监控链接等信息。
+   */
+  // const { promotion } = payload.data;
+  // if (promotion) return null;
+  // /** 2.2 adid 字段： */
+  // const { adid } = payload.data;
+  // if (adid) return null;
+
+  return payload;
+};
+
+/**
+ * 移除 category 为 feed 的广告
+ */
+const rmFeedAd = (payload) => {
+  if (!payload || payload.category !== FEED || !payload.data) return payload;
+  const { data } = payload;
+  const { is_id, ad_state,  mblogtypename, content_auth_info, ad_actionlogs, promotion_info, readtimetype, timestamp_text } = data;
+
+  /** 1. 从 is_id 中判断是否为广告 */
+  if (is_id === 1 || ad_state === 1) return null;
+
+  /** 2. 从 mblogtypename 中判断是否为广告 */
+  /** 2.1 从 mblogtypename 中判断是否为广告, 目前: mblogtypename === '广告' */
+  if (mblogtypename) return null;
+  /** 3. 从 content_auth_info 中判断是否为广告 */
+  if (content_auth_info) {
+    const { content_auth_title, actionlog } = content_auth_info;
+    if (content_auth_title === '广告' || (actionlog && actionlog.source === 'ad')) return null;
+  }
+  /** 4. 从 ad_actionlogs 中判断是否为广告 */
+  if (ad_actionlogs) {
+    return null;
+  }
+  /** 5. 从 promotion_info 中判断是否为广告 */
+  if (promotion_info) {
+    const { display_text } = promotion_info;
+    if (display_text === '推荐内容') return null;
+  }
+
+  /** 
+   * 6. 从 readtimetype 中判断是否为广告 
+   * mblog：普通微博内容
+   * adMblog：广告内容
+   * video：视频内容
+   * live：直播内容
+   * article：文章内容
+   */
+  if (readtimetype === 'adMblog') return null;
+
+  /** 7. 从 timestamp_text 中判断是否为广告 */
+  if (timestamp_text === '推荐内容') return null;
+  return payload;
+};
+
+/**
+ * 移除 category 为 group 的广告
+ */
+const rmGroupAd = (payload) => {
+  if (!payload || payload.category !== GROUP || !payload.items) return payload;
+  payload.items.forEach((item, index, array) => {
+    const { category, items } = item;
+    if (category === CELL) {
+      return
+    }
+
+    if (category === CARD) {
+      array[index] = rmCardAd(item);
+    }
+
+    if (category === FEED) {
+      array[index] = rmFeedAd(item);
+    }
+  });
+  payload.items = payload.items.filter(Boolean);
+  return payload;
+};
+
+/**
  * 移除发现(热搜)页广告
+ * 广告信息的位置：
+ * promotion 字段：在 searchBarContent 数组中，某些对象包含 promotion 字段，这表示这些内容是广告。例如：
+ * 老乡鸡送出12万份鸡汤
+ * #今晚8点 京东年货最后一波放价#
+ * #恋爱脑程序员修成正果#
+ * adid 字段：在 ext 字段中，adid 表示广告的唯一标识符。例如：
+ * adid:273447（老乡鸡送出12万份鸡汤）
+ * adid:273435（京东年货最后一波放价）
+ * adid:271875（恋爱脑程序员修成正果）
  * @param {*} payload 发现页数据
  * @returns 发现页数据
  */
@@ -355,8 +408,22 @@ function rwDiscoverContainer(payload) {
   // 推荐搜索过滤
   if (payload.loadedInfo) {
     payload.loadedInfo.searchBarContent =
-      payload.loadedInfo.searchBarContent.filter(({ note }) => !isBlack(note));
+      payload.loadedInfo.searchBarContent.filter(({ note, promotion, ext }) => {
+        const _isB = !isBlack(note);
+        const _isAd = ext.includes("adid");
+        return _isB || !promotion || _isAd;
+      });
   }
+
+  /**
+   * 
+   * card_type 的可能类型如下：
+   * 101：通常用于表示热搜卡片或标题卡片，包含热搜话题、广告等内容。
+   * 17：可能用于表示热搜列表卡片，包含多个热搜话题的列表。
+   * 119：通常用于表示广告卡片，包含广告内容、图片或视频等。
+   * 118：可能用于表示广告窗口卡片，包含多个广告子项。
+   * 264：通常用于表示趋势卡片，包含趋势话题及其相关信息。
+   */
 
   // const rmHotItem = (args) => {
   //   const { category, data } = args;
@@ -366,6 +433,21 @@ function rwDiscoverContainer(payload) {
   //   return !AD_CARD_TYPES.test(card_type);
   // };
 
+  payload.items.forEach((item, index, array) => {
+    const { data, category, items: groupItems } = item;
+    if (!data || !category) return;
+    // 分隔标识, 不会包含广告
+    if (category === CELL) return;
+
+    // 热搜
+    if (category === GROUP) {
+      array[index] = rmGroupAd(item);
+    }
+  });
+
+  payload.items = payload.items.filter(Boolean);
+
+  /**
   payload.items = payload.items
     .filter((item) => {
       if (!item) return false;
@@ -378,13 +460,10 @@ function rwDiscoverContainer(payload) {
         return !(!!item.items || !!items);
       }
 
-      /**
-       * !(category === GROUP && (!!item.items || !!data.items)) &&
-       */
-      return (
-        !(category === CARD && AD_CARD_TYPES.test(card_type)) &&
-        !(category === FEED && !isNormalTopic(item))
-      );
+      // return (
+      //   !(category === CARD && AD_CARD_TYPES.test(card_type)) &&
+      //   !(category === FEED && !isNormalTopic(item))
+      // );
     })
     .map((item) => {
       if (item.category !== CARD) return item;
@@ -396,6 +475,8 @@ function rwDiscoverContainer(payload) {
       );
       return item;
     });
+
+    */
 
   return rwChannelStyleMap(payload);
 }
@@ -478,10 +559,10 @@ const rwSearchAll = (data) => {
     return isNormalTopic(mblog);
   });
 
-   data.items = items?.filter((item) => {
-     console.log("category");
-     return isNormalFeedTopic(item.category, item);
-   });
+  data.items = items?.filter((item) => {
+    console.log("category");
+    return isNormalFeedTopic(item.category, item);
+  });
 
   return data;
 };
