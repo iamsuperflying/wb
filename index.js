@@ -342,6 +342,11 @@ const discoverItemsFilter = (payload) => {
   return payload;
 };
 
+/**
+ * 移除发现(热搜)页广告
+ * @param {*} payload 发现页数据
+ * @returns 发现页数据
+ */
 function rwDiscoverContainer(payload) {
   if (!payload || !payload.items) return payload;
   // 推荐搜索过滤
