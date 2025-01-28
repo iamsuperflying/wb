@@ -305,7 +305,11 @@ const rmCardAd = (payload) => {
   /** 目前是中文广告 */
   const { card_type } = payload.data;
   /** 1. 从 card_type 中判断是否为广告 */
-  const isAd = AD_CARD_TYPES.test(card_type);
+  const isAd = AD_CARD_TYPES.test("" + card_type);
+
+  console.log("isAd", isAd);
+  console.log("card_type", card_type);
+
   if (isAd) return null;
 
   /** 2. 从 data 中判断是否为广告 */
@@ -374,7 +378,7 @@ const rmGroupAd = (payload) => {
   payload.items.forEach((item, index, array) => {
     const { category, items } = item;
     if (category === CELL) {
-      return
+      return null;
     }
 
     if (category === CARD) {
