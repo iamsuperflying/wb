@@ -1,4 +1,4 @@
-const version = "0.0.26";
+const version = "0.0.1";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
