@@ -453,7 +453,7 @@ function rwDiscoverContainer(payload) {
 
   payload.items.forEach((item, index, array) => {
     const { data, category, items: groupItems } = item;
-    if (!data || !category) return;
+    if (!category) return;
     // 分隔标识, 不会包含广告
     if (category === CELL) return;
 
@@ -495,7 +495,7 @@ function rwDiscoverContainer(payload) {
     });
 
     */
-
+   debugger
   return rwChannelStyleMap(payload);
 }
 
