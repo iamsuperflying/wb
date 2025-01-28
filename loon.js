@@ -67,6 +67,18 @@ const isAdFlag = IS_AD_FLAGS.test.bind(IS_AD_FLAGS);
 
 const isString = (item) => item && typeof item === "string";
 
+// **********************
+try {
+  if (typeof [].forEach === "function") {
+    console.log("forEach 是一个函数");
+  } else {
+    console.log("forEach 不是一个函数或未定义");
+  }
+} catch (e) {
+  console.error("函数执行出错:", e);
+}
+// **********************
+
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
   return target.indexOf(source) !== -1;
