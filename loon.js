@@ -374,8 +374,10 @@ const rmFeedAd = (payload) => {
  * 移除 category 为 group 的广告
  */
 const rmGroupAd = (payload) => {
+  console.log("rmGroupAd...");
   if (!payload || payload.category !== GROUP || !payload.items) return payload;
   payload.items.forEach((item, index, array) => {
+    console.log("rmGroupAd item block");
     const { category, items } = item;
     if (category === CELL) {
       return null;
