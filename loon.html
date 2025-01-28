@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loon 微博广告屏蔽测试</title>
+    <script>
+      async function init() {
+        // 模拟 Loon 环境
+        $request = {
+          url: "https://api.weibo.cn/2/search/finder?aid=01Az350o0Aec57eJ4oAA441cqQPHNGjIdOodNINOsCDaJOZKU.&b=0&c=iphone&dlang=en-HK&from=10F1293010&ft=1&gsid=_2A25Kk-l3DeRxGeVH6FYQ8C3Kyz-IHXVnCXu_rDV6PUJbkdAGLRDEkWpNT0oHtohTUgX5vLcPAOVkXB95Ubzsab5T&lang=zh_CN&launchid=10000365--x&networktype=wifi&s=e8228b70&sflag=1&skin=dark&ua=iPhone16%2C2__weibo__15.1.2__iphone__os18.3&v_f=1&v_p=90&wm=3333_2001&extparam=discover&moduleID=pagecard&orifid=&oriuicode=&uicode=10001344&ul_sid=6A61B24D-7E46-4464-A47D-08FDDFC7E3BB&ul_hid=B85F0EF6-04C8-449D-964A-E678107B9839&ul_ctime=1738054389339",
+        };
+
+        // 使用 fetch 加载 JSON 文件
+        const response = await fetch("发现/search_finder.json");
+        const body = await response.json();
+        $response = {
+          body: JSON.stringify(body),
+        };
+
+        $done = function (response) {
+          console.log(`$done: ${JSON.stringify(response)}`);
+        };
+      }
+      init().then(() => {
+        const script = document.createElement("script");
+        script.src = "loon.js";
+        document.head.appendChild(script);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Loon 微博广告屏蔽测试</h1>
+    <pre id="result"></pre>
+  </body>
+</html>

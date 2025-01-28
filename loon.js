@@ -3,7 +3,7 @@ const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
 let body = $response.body;
-let url = $request.url;
+const url = $request.url;
 
 const blackList = ["贾玲", "热辣滚烫", "乐莹", "谢娜", "中医"];
 
@@ -506,6 +506,10 @@ const rwDiscover = (data) => {
   if (!data) return data;
   // "热搜", "游戏" 不做保留
   const keep = [DISCOVER_TITLE];
+
+  if (data.header && data.header.data) {
+    data.header.data = rwDiscoverContainer(data.header.data);
+  }
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
     // 保留 发现

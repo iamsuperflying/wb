@@ -9,5 +9,4 @@ const match = item.match(reg);
 // } else {
 //   return null;
 // }
-debugger
 console.log(match)
