@@ -37,6 +37,8 @@ const videoList = /\/video\/tiny_stream_video_list/.test(url);
 const comment = /\/comments\/build_comments/.test(url);
 // 我的某条微博
 const extend = /\/statuses\/extend/.test(url);
+// 用户信息
+const userShow = /\/users\/show/.test(url);
 
 const noop = (items) => items;
 
@@ -632,6 +634,13 @@ function rwUserinfo(data) {
   return data;
 }
 
+function owUserShow(payload) {
+  payload.vvip = 1;
+  payload.svip = 1;
+  payload.followers_count = 1000000000000000000;
+  return payload;
+}
+
 function rwProfileTimeline(data) {
   if (!data || !data.loadedInfo || !data.loadedInfo.follow_guide_info) {
     return data;
@@ -742,6 +751,10 @@ if (body) {
             ...prop,
           };
         });
+    }
+
+    if (userShow) {
+      data = owUserShow(data);
     }
   } catch (error) {
     console.log("[ error ] >", error);

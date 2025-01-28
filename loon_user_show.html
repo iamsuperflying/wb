@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loon 微博广告屏蔽测试</title>
+    <script>
+      async function init() {
+        // 模拟 Loon 环境
+        $request = {
+          url: "https://api.weibo.cn/2/users/show?uid=1234567890",
+        };
+
+        // 使用 fetch 加载 JSON 文件
+        const response = await fetch("apis/用户信息/user_show.json");
+        const body = await response.json();
+        $response = {
+          body: JSON.stringify(body),
+        };
+
+        $done = function (response) {
+          console.log(`$done: ${JSON.stringify(response)}`);
+        };
+      }
+      init().then(() => {
+        const script = document.createElement("script");
+        script.src = "loon.js";
+        document.head.appendChild(script);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Loon 微博广告屏蔽测试</h1>
+    <pre id="result"></pre>
+  </body>
+</html>
