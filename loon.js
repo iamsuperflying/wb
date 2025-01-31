@@ -363,6 +363,8 @@ const rmCardAd = (payload) => {
     return !isAdHotSearch(item) && !isBlack(item.title_sub);
   });
 
+  debugger
+
   return payload;
 };
 
@@ -432,6 +434,7 @@ const rmGroupAd = (payload) => {
     }
   });
   payload.items = payload.items.filter(Boolean);
+  debugger
   return payload;
 };
 
