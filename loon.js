@@ -497,7 +497,6 @@ function rwDiscoverContainer(payload) {
     });
 
     */
-   debugger
   return rwChannelStyleMap(payload);
 }
 
@@ -509,9 +508,17 @@ const rwDiscover = (data) => {
   // "热搜", "游戏" 不做保留
   const keep = [DISCOVER_TITLE];
 
+  if (data.header) {
+    data.header.params = {
+      square_bigday_enable: false,
+      square_new_bigday_enable: false,
+    };
+  }
   if (data.header && data.header.data) {
     data.header.data = rwDiscoverContainer(data.header.data);
   }
+
+
   if (data.channelInfo && data.channelInfo.channels) {
     let { channels } = data.channelInfo;
     // 保留 发现
@@ -637,7 +644,7 @@ function rwUserinfo(data) {
 function owUserShow(payload) {
   payload.vvip = 1;
   payload.svip = 1;
-  payload.followers_count = 1000000000000000000;
+  payload.followers_count = 100000000;
   return payload;
 }
 
