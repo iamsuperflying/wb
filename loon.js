@@ -530,7 +530,7 @@ const rwDiscover = (data) => {
 
   if (data.channelInfo.channels) {
     data.channelInfo.channels = data.channelInfo.channels.filter((channel) => {
-      return keepChannels.includes(channel.name);
+      return keepChannels.includes(channel.key);
     });
   }
   // if (data.channelInfo && data.channelInfo.channels) {
