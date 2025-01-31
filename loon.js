@@ -518,28 +518,42 @@ const rwDiscover = (data) => {
     data.header.data = rwDiscoverContainer(data.header.data);
   }
 
+  if (!data.channelInfo) return data;
 
-  if (data.channelInfo && data.channelInfo.channels) {
-    let { channels } = data.channelInfo;
-    // 保留 发现
-    channels = channels
-      .filter(({ name }) => keep.includes(name))
-      .map((channel) => {
-        const { name, title, en_name } = channel;
-        // 发现
-        if (
-          name === DISCOVER_TITLE ||
-          title === DISCOVER_TITLE ||
-          en_name === DISCOVER_EN_TITLE
-        ) {
-          // channel.payload = discoverItemsFilter(channel.payload);
-          channel.payload = rwDiscoverContainer(channel.payload);
-        }
-        return channel;
-      });
+  data.channelInfo.moreChannels = [];
 
-    data.channelInfo.channels = channels;
+  const keepChannels = [
+    "discover_channel",
+    "hot_repost_channel",
+    "hot_qa_channel",
+  ];
+
+  if (data.channelInfo.channels) {
+    data.channelInfo.channels = data.channelInfo.channels.filter((channel) => {
+      return keepChannels.includes(channel.name);
+    });
   }
+  // if (data.channelInfo && data.channelInfo.channels) {
+  //   let { channels } = data.channelInfo;
+  //   // 保留 发现
+  //   channels = channels
+  //     .filter(({ name }) => keep.includes(name))
+  //     .map((channel) => {
+  //       const { name, title, en_name } = channel;
+  //       // 发现
+  //       if (
+  //         name === DISCOVER_TITLE ||
+  //         title === DISCOVER_TITLE ||
+  //         en_name === DISCOVER_EN_TITLE
+  //       ) {
+  //         // channel.payload = discoverItemsFilter(channel.payload);
+  //         channel.payload = rwDiscoverContainer(channel.payload);
+  //       }
+  //       return channel;
+  //     });
+
+  //   data.channelInfo.channels = channels;
+  // }
   return data;
 };
 
