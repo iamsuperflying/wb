@@ -337,6 +337,32 @@ const rmCardAd = (payload) => {
   // const { adid } = payload.data;
   // if (adid) return null;
 
+  // 从 data 中判断是否有 group 字段
+  const { group } = payload.data;
+  if (!group) return payload;
+
+  function isAdHotSearch(item) {
+    // 条件1: 存在promotion节点且包含监测链接
+    const hasPromotion = item.promotion?.monitor_url?.length > 0;
+
+    // 条件2: action_log.ext包含ads_word或adid
+    const hasAdKeyword = /(ads_word|adid:\d+)/.test(item.action_log?.ext || "");
+
+    // 条件3: scheme链接包含广告参数
+    const hasAdScheme =
+      item.scheme?.includes("source=is_ad") ||
+      item.scheme?.includes("topic_ad=1");
+
+    // 条件4: itemid格式为adid:数字
+    const hasAdItemId = /^adid:\d+$/.test(item.itemid || "");
+
+    return hasPromotion || hasAdKeyword || hasAdScheme || hasAdItemId;
+  }
+
+  payload.data.group = group.filter((item) => {
+    return !isAdHotSearch(item) && !isBlack(item.title_sub);
+  });
+
   return payload;
 };
 
