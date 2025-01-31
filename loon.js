@@ -524,8 +524,8 @@ const rwDiscover = (data) => {
 
   const keepChannels = [
     "discover_channel",
-    "hot_repost_channel",
-    "hot_qa_channel",
+    "hot_reposts_channel",
+    "qa_channel",
   ];
 
   if (data.channelInfo.channels) {
