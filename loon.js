@@ -1,4 +1,4 @@
-const version = "0.0.1";
+const version = "0.0.3";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -83,7 +83,8 @@ try {
 
 const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
-  return target.indexOf(source) !== -1;
+  // target 和 source 转换为小写  
+  return target.toLowerCase().indexOf(source.toLowerCase()) !== -1;
 };
 
 const isBlack = (target) =>
@@ -361,9 +362,7 @@ const rmCardAd = (payload) => {
 
   payload.data.group = group.filter((item) => {
     return !isAdHotSearch(item) && !isBlack(item.title_sub);
-  });
-
-  debugger
+  })
 
   return payload;
 };
@@ -434,7 +433,6 @@ const rmGroupAd = (payload) => {
     }
   });
   payload.items = payload.items.filter(Boolean);
-  debugger
   return payload;
 };
 
