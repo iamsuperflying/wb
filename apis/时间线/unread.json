@@ -1,0 +1,502 @@
+{
+  "dm_pub_dot_total": 0,
+  "video": {
+    "video_events": {
+      "count": 0
+    },
+    "video_subscribe": {
+      "count": 0
+    },
+    "video_reddot": {
+      "count": 1
+    },
+    "231643": {
+      "count": 0
+    }
+  },
+  "message_flow_follow": 0,
+  "double_flow": 0,
+  "status_home": 101,
+  "attention_follower_mention_status": 1,
+  "status_hot": 0,
+  "message_flow_agg_attitude": 0,
+  "app_message": {
+    "apps": [],
+    "app_unreadcount": 0
+  },
+  "tome": 0,
+  "timeStamp": 1738580155845,
+  "with_dm_group": 0,
+  "chat_group_client": 0,
+  "message_flow_unaggregate": 0,
+  "group": 0,
+  "notice_unread": [],
+  "activity_above_all_remind_count": 0,
+  "msgbox_schemeitem": 0,
+  "attitude": 0,
+  "comment_attitude": 0,
+  "dm_total": 0,
+  "notice": 0,
+  "page_follower": 0,
+  "with_chat_group": 0,
+  "vplus_status": 0,
+  "message_flow_agg_at": 0,
+  "all_mention_status": 0,
+  "is_show_hot_dot": 0,
+  "mention_status": 0,
+  "attention_cmt": 0,
+  "likeuser": 0,
+  "message_flow_aggr_wild_card": 0,
+  "featured_channel": 0,
+  "message_flow_follow_attitude_unread": 0,
+  "invite": 0,
+  "chat_group_notice": 0,
+  "message_flow_agg_comment": 0,
+  "bilateral_status": 0,
+  "friends_suggestions": 0,
+  "sys_notice": 0,
+  "attention_follower_mention_cmt": 1,
+  "ext": {
+    "mypay": 0,
+    "home_super_group": 14,
+    "memory": 0,
+    "xinyongka3": 0,
+    "horoscope": 0,
+    "fenqi": 0,
+    "creditcard": 0,
+    "fafacredit": 0,
+    "jinrong1": 0,
+    "video_reddot": 1,
+    "caipiao": 0,
+    "feed_remind_bubble": 1738563698,
+    "fansService": 0,
+    "health_weight": 0,
+    "video_airbubbles": 1,
+    "creator_card": 0,
+    "video_events": 0,
+    "leguagua": 0,
+    "jieqian1": 0,
+    "supertopic_unread": 184,
+    "huzhu": 0,
+    "hot_Rankinglist_icon": 1,
+    "thedot_test": 1,
+    "weibo_level": 0,
+    "likeuser": 0,
+    "story_sticker": 0,
+    "health_icon": 0,
+    "globaldot_test": 0,
+    "licai2": 0,
+    "radar_didi": 0,
+    "xinyongka1": 0,
+    "radar_person": 0,
+    "ashares": 0,
+    "radar_recom": 0,
+    "card_coupon": 9,
+    "card_privilegeone": 1,
+    "shop_cart": 1,
+    "sign_gift": 0,
+    "huanshouji": 0,
+    "panda": 0,
+    "health_checkin": 0,
+    "licai": 0,
+    "card_privilegetwo": 0,
+    "jieqian": 1,
+    "card_background": 0,
+    "dianping": 0,
+    "weiboweika": 0,
+    "hot_NCEE_icon": 0,
+    "jinrong2": 0,
+    "health_exercise": 0,
+    "order_gmv": 0,
+    "stock": 0,
+    "wawa": 0,
+    "jieqian2": 0,
+    "life": 0,
+    "lucky_treasure": 0,
+    "notification": 1,
+    "unreadvideo": 0,
+    "hot_event": 1,
+    "thirdparty": 0,
+    "jingcai": 0,
+    "licai3": 0,
+    "radar_movie": 0,
+    "xinyongka2": 0,
+    "jifen": 0,
+    "information": 1,
+    "finance": 0,
+    "creator_revenue": 0,
+    "follower": 0,
+    "RedPackets": 0,
+    "daka": 0,
+    "crowdfunding": 0,
+    "jijin": 0,
+    "story_face_filter": 0,
+    "wccaipiao": 0,
+    "commercial_Service": 0,
+    "creator_title": 0,
+    "jinrong3": 0,
+    "entertainment": 0,
+    "hot_pandemic_icon": 0,
+    "video_test": 0,
+    "radar_tv": 0,
+    "productcenter_dot": 0,
+    "creator_task": 0,
+    "radar_card_coupon": 0,
+    "addfriends": 0,
+    "jieqian3": 0,
+    "qiandao": 0,
+    "video_subscribe": 0,
+    "licai1": 0,
+    "thedot_test02": 0
+  },
+  "normal_cmt": 0,
+  "close_friends_cmt": 0,
+  "ext_new": {
+    "mypay": {
+      "count": 0
+    },
+    "home_super_group": {
+      "count": 14,
+      "type": "single"
+    },
+    "memory": {
+      "count": 0
+    },
+    "xinyongka3": {
+      "count": 0
+    },
+    "horoscope": {
+      "count": 0
+    },
+    "fenqi": {
+      "count": 0
+    },
+    "creditcard": {
+      "count": 0
+    },
+    "fafacredit": {
+      "count": 0
+    },
+    "jinrong1": {
+      "count": 0
+    },
+    "video_reddot": {
+      "count": 1,
+      "type": "single"
+    },
+    "caipiao": {
+      "count": 0
+    },
+    "feed_remind_bubble": {
+      "count": 1738563698,
+      "type": "single"
+    },
+    "hot_channel_frequency": {
+      "count": 0
+    },
+    "fansService": {
+      "count": 0
+    },
+    "health_weight": {
+      "count": 0
+    },
+    "video_airbubbles": {
+      "count": 1,
+      "type": "all"
+    },
+    "creator_card": {
+      "count": 0
+    },
+    "video_events": {
+      "count": 0
+    },
+    "leguagua": {
+      "count": 0
+    },
+    "jieqian1": {
+      "count": 0
+    },
+    "supertopic_unread": {
+      "count": 184,
+      "type": "single"
+    },
+    "huzhu": {
+      "count": 0
+    },
+    "hot_Rankinglist_icon": {
+      "count": 1,
+      "type": "all"
+    },
+    "thedot_test": {
+      "count": 1,
+      "type": "all"
+    },
+    "weibo_level": {
+      "count": 0
+    },
+    "likeuser": {
+      "count": 0
+    },
+    "story_sticker": {
+      "count": 0
+    },
+    "health_icon": {
+      "count": 0
+    },
+    "globaldot_test": {
+      "count": 0
+    },
+    "licai2": {
+      "count": 0
+    },
+    "radar_didi": {
+      "count": 0
+    },
+    "xinyongka1": {
+      "count": 0
+    },
+    "radar_person": {
+      "count": 0
+    },
+    "ashares": {
+      "count": 0
+    },
+    "radar_recom": {
+      "count": 0
+    },
+    "card_coupon": {
+      "count": 9,
+      "type": "single"
+    },
+    "card_privilegeone": {
+      "count": 1,
+      "type": "all"
+    },
+    "shop_cart": {
+      "count": 1,
+      "type": "single"
+    },
+    "sign_gift": {
+      "count": 0
+    },
+    "huanshouji": {
+      "count": 0
+    },
+    "panda": {
+      "count": 0
+    },
+    "health_checkin": {
+      "count": 0
+    },
+    "licai": {
+      "count": 0
+    },
+    "card_privilegetwo": {
+      "count": 0
+    },
+    "jieqian": {
+      "count": 1,
+      "type": "all"
+    },
+    "card_background": {
+      "count": 0
+    },
+    "dianping": {
+      "count": 0
+    },
+    "weiboweika": {
+      "count": 0
+    },
+    "hot_NCEE_icon": {
+      "count": 0
+    },
+    "jinrong2": {
+      "count": 0
+    },
+    "health_exercise": {
+      "count": 0
+    },
+    "order_gmv": {
+      "count": 0
+    },
+    "stock": {
+      "count": 0
+    },
+    "wawa": {
+      "count": 0
+    },
+    "jieqian2": {
+      "count": 0
+    },
+    "life": {
+      "count": 0
+    },
+    "lucky_treasure": {
+      "count": 0
+    },
+    "notification": {
+      "count": 1,
+      "type": "all"
+    },
+    "unreadvideo": {
+      "count": 0
+    },
+    "hot_event": {
+      "count": 1,
+      "type": "single"
+    },
+    "thirdparty": {
+      "count": 0
+    },
+    "jingcai": {
+      "count": 0
+    },
+    "licai3": {
+      "count": 0
+    },
+    "radar_movie": {
+      "count": 0
+    },
+    "xinyongka2": {
+      "count": 0
+    },
+    "hot_channel": {
+      "count": 0
+    },
+    "jifen": {
+      "count": 0
+    },
+    "information": {
+      "count": 1,
+      "type": "single"
+    },
+    "finance": {
+      "count": 0
+    },
+    "creator_revenue": {
+      "count": 0
+    },
+    "follower": {
+      "count": 0
+    },
+    "RedPackets": {
+      "count": 0
+    },
+    "daka": {
+      "count": 0
+    },
+    "crowdfunding": {
+      "count": 0
+    },
+    "jijin": {
+      "count": 0
+    },
+    "story_face_filter": {
+      "count": 0
+    },
+    "wccaipiao": {
+      "count": 0
+    },
+    "commercial_Service": {
+      "count": 0
+    },
+    "creator_title": {
+      "count": 0
+    },
+    "jinrong3": {
+      "count": 0
+    },
+    "entertainment": {
+      "count": 0
+    },
+    "hot_pandemic_icon": {
+      "count": 0
+    },
+    "video_test": {
+      "count": 0
+    },
+    "radar_tv": {
+      "count": 0
+    },
+    "productcenter_dot": {
+      "count": 0
+    },
+    "creator_task": {
+      "count": 0
+    },
+    "radar_card_coupon": {
+      "count": 0
+    },
+    "addfriends": {
+      "count": 0
+    },
+    "jieqian3": {
+      "count": 0
+    },
+    "qiandao": {
+      "count": 0
+    },
+    "video_subscribe": {
+      "count": 0
+    },
+    "licai1": {
+      "count": 0
+    },
+    "thedot_test02": {
+      "count": 0
+    }
+  },
+  "status_hot_home": 0,
+  "customer_service_unread": 0,
+  "attention_mention_status": 0,
+  "message_flow_agg_repost": 0,
+  "message_flow_unfollow": 0,
+  "attention_ironfollower_mention_cmt": 1,
+  "dm_single": 0,
+  "photo": 0,
+  "all_follower": 0,
+  "remind_settings": {
+    "msgbox": 1
+  },
+  "all_cmt": 0,
+  "messageflow_force_jump_type": 0,
+  "message_flow_attitude_unread": 0,
+  "attention_ironfollower_mention_status": 1,
+  "all_mention_cmt": 0,
+  "pc_viedo": 0,
+  "status_24unread": 100,
+  "status_hot_refresh_time": 1596377114,
+  "double_flow_unread_jump_mode": 0,
+  "reward_attitude": 0,
+  "message_flow_unaggr_wild_card": 0,
+  "cmt": 0,
+  "object_attitude": 0,
+  "dynamic_friends_attention": 1,
+  "status_feed": 1004,
+  "dm": 0,
+  "close_friends_mention_status": 0,
+  "dm_group": 0,
+  "follower": 0,
+  "msgbox": 0,
+  "me_follow_updateremind": 0,
+  "mention_cmt": 0,
+  "double_flow_force_reminder": 0,
+  "status": 1004,
+  "fans_group_unread": 0,
+  "badge": 0,
+  "attention_mention_cmt": 0,
+  "chat_group_significant": 0,
+  "hot_status": 0,
+  "attention_follower_cmt": 129,
+  "folder_total_unread": 0,
+  "voip": 0,
+  "addfriends": 0,
+  "attention_ironfollower_cmt": 122,
+  "dm_pub_total": 0,
+  "important_cmt": 0,
+  "common_attitude": 0,
+  "common_cmt": 0,
+  "chat_group_total": 0,
+  "message_flow_aggregate": 0,
+  "close_friends_mention_cmt": 0
+}

@@ -5,7 +5,7 @@ console.log(`${proxy_name}: ${version}`);
 let body = $response.body;
 const url = $request.url;
 
-const blackList = ["贾玲", "热辣滚烫", "乐莹", "谢娜", "中医", "DeepSeek"];
+const blackList = ["贾玲", "热辣滚烫", "乐莹", "谢娜", "中医", "DeepSeek", "肖战", "射雕", "侠之大者"];
 
 // 分组
 const groups = /\/groups\/allgroups/.test(url);
