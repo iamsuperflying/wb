@@ -1,0 +1,204 @@
+const version = "0.0.26";
+const proxy_name = "Weibo Ad Block";
+console.log(`${proxy_name}: ${version}`);
+
+let body = $response.body;
+let url = $request.url;
+
+// 新的首页时间线
+const containerTimeline = /\/statuses\/container_timeline/.test(url);
+// 推荐
+const recommend = /\/statuses\/container_timeline_hot/.test(url);
+// 新的评论
+const comment = /\/statuses\/container_detail_comment/.test(url);
+
+const noop = (items) => items;
+
+// 是否是广告标识
+const IS_AD_FLAGS = /广告|热推/;
+// card_type === 118 为图片轮播广告
+// card_type === 207 为各种赛程比分广告
+// card_type === 19 为小图标广告
+// card_type === 22 为图片广告
+// card_type === 208 为热聊
+const AD_CARD_TYPES = /19|22|118|207|208/;
+// 卡片标识
+const CARD = "card";
+// 信息流标识
+const FEED = "feed";
+// 热搜标识
+const GROUP = "group";
+
+
+// 某项是否有广告标识
+const isAdFlag = IS_AD_FLAGS.test.bind(IS_AD_FLAGS);
+
+const isString = (item) => item && typeof item === "string";
+
+const safeIncludes = (source, target) => {
+  if (!isString(source) || !isString(target)) return false;
+  return target.indexOf(source) !== -1;
+};
+
+const isBlack = (target) =>
+  blackList.some((item) => safeIncludes(item, target));
+
+function isNormalFeedTopic(category, item) {
+  const feed = category === FEED;
+  return feed ? isNormalTopic(item) : !feed;
+}
+
+function promiseItems(data) {
+  return new Promise((resolve, reject) => {
+    if (data && data.items) {
+      resolve(data.items);
+    } else {
+      reject("data is null");
+    }
+  });
+}
+
+function promiseStatuses(data) {
+  return new Promise((resolve, reject) => {
+    if (data && data.statuses) {
+      resolve(data.statuses);
+    } else {
+      reject("data is null");
+    }
+  });
+}
+
+/**
+ * @description: 区分不同的 url
+ */
+function diffUrl() {
+  if (comment) {
+    return rwTrendAd
+  } else {
+    return noop;
+  }
+}
+
+/**
+ * 是否是正常的帖子
+ * @param {Object} item 帖子, 包含 data 或者 item 属性
+ * @returns  {Boolean} true: 正常帖子, false: 广告帖子
+ */
+const isNormalTopic = (item) => {
+  const topic = item.data || item;
+  // item.data.mblogtypename === '广告'
+  // item.data.content_auth_info.content_auth_title === '广告' | '热推'
+  // item.data.promotion.recommend === '广告' | '热推
+  const { mblogtypename, content_auth_info, promotion } = topic;
+  if (mblogtypename) {
+    return !isAdFlag(mblogtypename);
+  } else if (content_auth_info) {
+    return !isAdFlag(content_auth_info.content_auth_title);
+    // return (
+    //   content_auth_info.content_auth_title !== "广告" &&
+    //   content_auth_info.content_auth_title !== "热推"
+    // );
+  } else if (promotion) {
+    return !isAdFlag(promotion.recommend) && promotion.type !== "ad";
+    // return promotion.recommend !== "广告" && promotion.recommend !== "热推";
+  } else {
+    return true;
+  }
+};
+
+/**
+ * @description: 移除评论
+ * @param {*} items
+ */
+function rwComments(data) {
+  if (!data || !data.datas) return data;
+
+  data.lack = 1;
+  data.max_id = 0;
+  data.max_id_str = "0";
+
+  // 001OutQmly1h8eswmmhe1j60zo0qy46i02
+
+  // data.status?.source_type = 1;
+  if (data.status) {
+    data.status.source_type = 1;
+    delete data.status.ad_state;
+
+    if (data.status.pic_infos) {
+      let { pic_infos } = data.status;
+      Object.keys(pic_infos).forEach((key) => {
+        pic_infos[key].pic_status = 0;
+      });
+
+      data.status.pic_infos = pic_infos;
+    }
+  }
+  // delete data.tip_msg,
+  data.datas = data.datas.filter((item) => {
+    const { type, commentAdSubType, commentAdType, adType } = item;
+    const isAd =
+      type === 1 ||
+      commentAdSubType === 1 ||
+      commentAdType === 1 ||
+      isAdFlag(adType);
+    // 相关内容
+    const is5 = type === 5 || commentAdType === 5 || adType === "相关内容";
+    // 空评论
+    const is6 = type === 6;
+    return !isAd && !is5 && !is6;
+  });
+  return data;
+}
+
+/**
+ * @description: 移除 feed 中的 trend ad
+ * @param {Array} items
+ * @returns {Array}
+ */
+const rwTrendAd = (items) => {
+  if (!items || !Array.isArray(items)) return items;
+  return items.filter((item) => {
+    const isTrendAd = item.type === "trend" && item.data?.blog?.mblogtype === 1;
+    if (isTrendAd) {
+      console.log(`移除 trend ad`);
+    }
+    return !isTrendAd;
+  });
+};
+
+if (body) {
+  let data = JSON.parse(body);
+
+  try {
+
+    // 移除评论区的广告
+    if (comment) {
+      data = rwComments(data);
+    }
+
+  } catch (error) {
+    console.log("[ error ] >", error);
+  }
+
+  promiseItems(data)
+    .then((items) => {
+      const rw = diffUrl();
+      data.items = rw(items);
+      $done({ body: JSON.stringify(data) });
+    })
+    .catch((_error) => {
+      $done({ body: JSON.stringify(data) });
+    });
+
+//   promiseStatuses(data)
+//     .then((statuses) => {
+//       const rw = diffUrl();
+//       data.statuses = rw(statuses);
+//       $done({ body: JSON.stringify(data) });
+//     })
+//     .catch((_error) => {
+//       $done({ body: JSON.stringify(data) });
+//     });
+} else {
+  $done({});
+}
