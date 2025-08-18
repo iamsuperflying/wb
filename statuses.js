@@ -11,6 +11,8 @@ const containerTimeline = /\/statuses\/container_timeline/.test(url);
 const recommend = /\/statuses\/container_timeline_hot/.test(url);
 // 新的评论
 const comment = /\/statuses\/container_detail_comment/.test(url);
+// 新的详情
+const detail = /\/statuses\/container_detail/.test(url);
 
 const noop = (items) => items;
 
@@ -39,9 +41,6 @@ const safeIncludes = (source, target) => {
   if (!isString(source) || !isString(target)) return false;
   return target.indexOf(source) !== -1;
 };
-
-const isBlack = (target) =>
-  blackList.some((item) => safeIncludes(item, target));
 
 function isNormalFeedTopic(category, item) {
   const feed = category === FEED;
@@ -73,7 +72,9 @@ function promiseStatuses(data) {
  */
 function diffUrl() {
   if (comment) {
-    return rwTrendAd
+    return rwTrendAd;
+  } else if (detail) {
+    return rwDetailAd;
   } else {
     return noop;
   }
@@ -150,6 +151,55 @@ function rwComments(data) {
   return data;
 }
 
+function rwDetailAd(data) {
+  // 移除主要的广告相关字段
+  if (data.detailInfo && data.detailInfo.status) {
+    const status = data.detailInfo.status;
+    
+    // 移除广告标记
+    delete status.ad_marked;
+    
+    // 移除推广信息
+    delete status.extend_info;
+    
+    // 移除语义品牌参数
+    delete status.semantic_brand_params;
+    
+    // 移除通用结构中的广告
+    if (status.common_struct) {
+      status.common_struct = status.common_struct.filter(item => 
+        !item.promotion && item.type !== 3
+      );
+    }
+    
+    // 移除购物橱窗卡片
+    if (status.extend_info && status.extend_info.shopwindow_cards) {
+      delete status.extend_info.shopwindow_cards;
+    }
+    
+    // 移除广告语义品牌
+    if (status.extend_info && status.extend_info.ad_semantic_brand) {
+      delete status.extend_info.ad_semantic_brand;
+    }
+  }
+  
+  // 移除底部的广告卡片
+  if (data.detailInfo && data.detailInfo.cards) {
+    data.detailInfo.cards = data.detailInfo.cards.filter(card => {
+      // 过滤掉广告卡片
+      if (card.card_group) {
+        card.card_group = card.card_group.filter(item => 
+          item.category !== 'wboxcard' && 
+          !item.wboxParam
+        );
+      }
+      return card.card_group && card.card_group.length > 0;
+    });
+  }
+  
+  return data;
+}
+
 /**
  * @description: 移除 feed 中的 trend ad
  * @param {Array} items
@@ -174,6 +224,8 @@ if (body) {
     // 移除评论区的广告
     if (comment) {
       data = rwComments(data);
+    } else if (detail) {
+      data = rwDetailAd(data);
     }
 
   } catch (error) {
