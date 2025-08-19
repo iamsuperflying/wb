@@ -225,7 +225,7 @@ function rwTimelineAd(data) {
   if (data.items && data.items.length > 0) {
     data.items = data.items.map(item => {
       // "category": "feed",
-      if (item.category === 'feed') {
+      if (item.category && item.category === 'feed') {
         item.data.text = 'Hello Weibo';
         return item;
       }
