@@ -167,21 +167,7 @@ function rwDetailAd(data) {
     // 移除通用结构中的广告
     status.common_struct = [];
     delete status.common_struct;
-    // if (status.common_struct) {
-    //   status.common_struct = status.common_struct.filter(item => 
-    //     !item.promotion && item.type !== 3
-    //   );
-    // }
-    
-    // 移除购物橱窗卡片
-    // if (status.extend_info && status.extend_info.shopwindow_cards) {
-    //   delete status.extend_info.shopwindow_cards;
-    // }
-    
-    // // 移除广告语义品牌
-    // if (status.extend_info && status.extend_info.ad_semantic_brand) {
-    //   delete status.extend_info.ad_semantic_brand;
-    // }
+  
   }
   
   // 移除底部的广告卡片
@@ -199,6 +185,11 @@ function rwDetailAd(data) {
   }
 
   data.detailInfo.extend = {}
+
+  // 商业化
+  if (data.pageHeader.data.items && data.pageHeader.data.items.length > 0) {
+    data.pageHeader.data.items = [];
+  }
   
   return data;
 }
