@@ -190,10 +190,13 @@ function rwDetailAd(data) {
   if (data.pageHeader.data.items && data.pageHeader.data.items.length > 0) {
     // data.pageHeader.data.items = [data.pageHeader.data.items[0]];
     data.pageHeader.data.items = data.pageHeader.data.items.filter(item => {
-      if (item.type === 'vertical' && item.category === 'group') {
-        return false;
-      }
-      return true;
+      // if (item.type === 'vertical' && item.category === 'group') {
+      //   return false;
+      // }
+
+      //     "type": "status",
+    // "category": "detail"
+      return item.category === 'detail' && item.type === 'status';
     });
   }
   
