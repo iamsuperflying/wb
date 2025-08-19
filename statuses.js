@@ -261,7 +261,7 @@ if (body) {
       data = rwComments(data);
     } else if (detail) {
       data = rwDetailAd(data);
-    } else if (timeline) {
+    } else if (containerTimeline) {
       data = rwTimelineAd(data);
     }
 
