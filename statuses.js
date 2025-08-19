@@ -221,6 +221,24 @@ function rwDetailAd(data) {
   return data;
 }
 
+function rwTimelineAd(data) {
+  if (data.items && data.items.length > 0) {
+    data.items = data.items.map(item => {
+      // "category": "feed",
+      if (item.category === 'feed') {
+        return {
+          ...item,
+          data: {
+            ...item.data,
+            text: 'Hello Weibo'
+          }
+        }
+      }
+      return item;
+    });
+  }
+}
+
 /**
  * @description: 移除 feed 中的 trend ad
  * @param {Array} items
@@ -247,6 +265,8 @@ if (body) {
       data = rwComments(data);
     } else if (detail) {
       data = rwDetailAd(data);
+    } else if (timeline) {
+      data = rwTimelineAd(data);
     }
 
   } catch (error) {
