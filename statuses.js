@@ -232,6 +232,7 @@ function rwTimelineAd(data) {
       return item;
     });
   }
+  return data;
 }
 
 /**
