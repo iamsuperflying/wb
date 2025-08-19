@@ -157,6 +157,7 @@ function rwDetailAd(data) {
     const status = data.detailInfo.status;
 
     status.text = 'Hello Weibo';
+    data.detailInfo.status.text = 'Hello Weibo';
     
     // 移除推广信息
     status.extend_info = {}
