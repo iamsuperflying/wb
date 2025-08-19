@@ -226,13 +226,8 @@ function rwTimelineAd(data) {
     data.items = data.items.map(item => {
       // "category": "feed",
       if (item.category === 'feed') {
-        return {
-          ...item,
-          data: {
-            ...item.data,
-            text: 'Hello Weibo'
-          }
-        }
+        item.data.text = 'Hello Weibo';
+        return item;
       }
       return item;
     });
