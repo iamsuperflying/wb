@@ -188,7 +188,13 @@ function rwDetailAd(data) {
 
   // 商业化
   if (data.pageHeader.data.items && data.pageHeader.data.items.length > 0) {
-    data.pageHeader.data.items = [data.pageHeader.data.items[0]];
+    // data.pageHeader.data.items = [data.pageHeader.data.items[0]];
+    data.pageHeader.data.items = data.pageHeader.data.items.filter(item => {
+      if (item.type === 'vertical' && item.category === 'group') {
+        return false;
+      }
+      return true;
+    });
   }
   
   return data;
