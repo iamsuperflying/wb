@@ -166,12 +166,13 @@ function rwDetailAd(data) {
     
     // 移除通用结构中的广告
     status.common_struct = [];
-    data.detailInfo.status = [];
+    data.detailInfo.status.common_struct = [];
     // delete status.common_struct;
 
     // 移除小店
     status.tag_struct = [];
     delete status.tag_struct;
+
   
   }
   
