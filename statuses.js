@@ -156,31 +156,32 @@ function rwDetailAd(data) {
   if (data.detailInfo && data.detailInfo.status) {
     const status = data.detailInfo.status;
     
-    // 移除广告标记
-    delete status.ad_marked;
-    
     // 移除推广信息
+    status.extend_info = {}
     delete status.extend_info;
     
     // 移除语义品牌参数
+    status.semantic_brand_params = {}
     delete status.semantic_brand_params;
     
     // 移除通用结构中的广告
-    if (status.common_struct) {
-      status.common_struct = status.common_struct.filter(item => 
-        !item.promotion && item.type !== 3
-      );
-    }
+    status.common_struct = [];
+    delete status.common_struct;
+    // if (status.common_struct) {
+    //   status.common_struct = status.common_struct.filter(item => 
+    //     !item.promotion && item.type !== 3
+    //   );
+    // }
     
     // 移除购物橱窗卡片
-    if (status.extend_info && status.extend_info.shopwindow_cards) {
-      delete status.extend_info.shopwindow_cards;
-    }
+    // if (status.extend_info && status.extend_info.shopwindow_cards) {
+    //   delete status.extend_info.shopwindow_cards;
+    // }
     
-    // 移除广告语义品牌
-    if (status.extend_info && status.extend_info.ad_semantic_brand) {
-      delete status.extend_info.ad_semantic_brand;
-    }
+    // // 移除广告语义品牌
+    // if (status.extend_info && status.extend_info.ad_semantic_brand) {
+    //   delete status.extend_info.ad_semantic_brand;
+    // }
   }
   
   // 移除底部的广告卡片
@@ -196,6 +197,8 @@ function rwDetailAd(data) {
       return card.card_group && card.card_group.length > 0;
     });
   }
+
+  data.detailInfo.extend = {}
   
   return data;
 }
