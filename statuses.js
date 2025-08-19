@@ -188,7 +188,7 @@ function rwDetailAd(data) {
 
   // 商业化
   if (data.pageHeader.data.items && data.pageHeader.data.items.length > 0) {
-    data.pageHeader.data.items = [];
+    data.pageHeader.data.items = [data.pageHeader.data.items[0]];
   }
   
   return data;
