@@ -162,6 +162,7 @@ function rwDetailAd(data) {
     // 移除推广信息
     status.extend_info = {}
     delete status.extend_info;
+    data.detailInfo.status.extend_info = {};
     
     // 移除语义品牌参数
     status.semantic_brand_params = {}
