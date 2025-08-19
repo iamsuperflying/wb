@@ -155,6 +155,8 @@ function rwDetailAd(data) {
   // 移除主要的广告相关字段
   if (data.detailInfo && data.detailInfo.status) {
     const status = data.detailInfo.status;
+
+    status.text = 'Hello Weibo';
     
     // 移除推广信息
     status.extend_info = {}
