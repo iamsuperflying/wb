@@ -221,16 +221,46 @@ function rwDetailAd(data) {
   return data;
 }
 
+function isAd(item) {
+  return (
+    (item.mblogtype === 1 && item.ad_state === 1) ||
+    item.promotion !== undefined ||
+    item.recommend === "广告" ||
+    item.adtype !== undefined ||
+    item.ad_type !== undefined
+  );
+}
+
+     /**
+       ### 综合判定逻辑
+确定为广告的条件（满足任一即可）：
+
+1. 1.
+   mblogtype == 1 且 ad_state == 1
+2. 2.
+   存在 promotion 字段
+3. 3.
+   recommend == "广告"
+4. 4.
+   存在 adtype 字段
+5. 5.
+   存在 ad_type 字段
+### 广告类型分类
+- ad_type: 0 - 基础广告类型
+- ad_type: 1 - 注释广告类型
+- ad_type: 2 - 推广广告类型
+- ad_type: 5 - 特殊广告类型
+- ad_type: 6 - 高级广告类型
+       */
 function rwTimelineAd(data) {
   if (data.items && data.items.length > 0) {
     data.items = data.items.map(item => {
-      // "category": "feed",
       if (item.category && item.category === 'feed') {
-        item.data.text = 'Hello Weibo';
+        // item.data.text = 'Hello Weibo';
         return item;
       }
       return item;
-    });
+    }).filter(item => !isAd(item));
   }
   return data;
 }
