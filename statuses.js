@@ -260,7 +260,7 @@ function rwTimelineAd(data) {
         return item;
       }
       return item;
-    }).filter(item => !isAd(item));
+    }).filter(item => !isAd(item.data));
   }
   return data;
 }
