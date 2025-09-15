@@ -223,11 +223,16 @@ function rwDetailAd(data) {
 
 function isAd(item) {
   return (
+    item.mblogtypename === '广告' ||
+    item.readtimetype === 'adMblog' ||
+    item.ad_actionlogs !== undefined ||
+    item.is_ad === 1 ||
     (item.mblogtype === 1 && item.ad_state === 1) ||
     item.promotion !== undefined ||
     item.recommend === "广告" ||
-    item.adtype !== undefined ||
-    item.ad_type !== undefined
+    item.adtype === "1" ||
+    item.ad_type !== undefined ||
+    item.ad_object !== undefined
   );
 }
 
