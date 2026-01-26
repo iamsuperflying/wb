@@ -24,8 +24,12 @@ http-response ^https?://m?api\.weibo\.c(n|om)/2/users/show\? requires-body=1,scr
 # container_detail_comment: 评论内容
 http-response ^https?:\/\/api\.weibo\.cn\/2\/statuses\/(container_timeline|container_detail_comment|container_detail) script-path = https://raw.githubusercontent.com/iamsuperflying/wb/master/statuses.js, requires-body = true, tag = Statuses接口
 
-# profile 去广告
-http-response ^https?:\/\/api\.weibo\.cn\/2\/statuses\/(container_timeline) script-path = https://raw.githubusercontent.com/iamsuperflying/wb/master/profile.js, requires-body = true, tag = Profile接口
+# Profile 时间线接口
+# 接口路径：/2/profile/container_timeline
+# 行为：拦截响应体并执行脚本修改
+# 说明：用于个人页 / 时间线去广告与内容清洗
+# 前提：需开启 MITM，并包含 api.weibo.cn
+http-response ^https?:\/\/api\.weibo\.cn\/2\/profile\/container_timeline script-path = https://raw.githubusercontent.com/iamsuperflying/wb/master/profile.js, requires-body = true, tag = Profile接口净化
 
 # 修改微博时间线请求体中的 preAdInterval 参数
 # http-request ^https://api\.weibo\.cn/2/statuses/container_timeline script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/modify_request.js, requires-body=true, tag=修改preAdInterval参数, enable=true
