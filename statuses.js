@@ -151,23 +151,41 @@ function rwComments(data) {
   return data;
 }
 
+function rmDetailAd(data) {
+  // 移除推广信息
+  data.extend_info = {}
+  delete data.extend_info;
+
+  // 移除语义品牌参数
+  data.semantic_brand_params = {}
+  delete data.semantic_brand_params;
+
+  // 移除通用结构中的广告
+  data.common_struct = [];
+  delete data.common_struct;
+
+  // 移除小店
+  data.tag_struct = [];
+  delete data.tag_struct;
+}
+
 function rwDetailAd(data) {
   // 移除主要的广告相关字段
   if (data.detailInfo && data.detailInfo.status) {
     const status = data.detailInfo.status;
 
-    status.text = 'Hello Weibo';
-    data.detailInfo.status.text = 'Hello Weibo';
-    
+    // status.text = 'Hello Weibo';
+    // data.detailInfo.status.text = 'Hello Weibo';
+
     // 移除推广信息
     status.extend_info = {}
     delete status.extend_info;
     data.detailInfo.status.extend_info = {};
-    
+
     // 移除语义品牌参数
     status.semantic_brand_params = {}
     delete status.semantic_brand_params;
-    
+
     // 移除通用结构中的广告
     status.common_struct = [];
     data.detailInfo.status.common_struct = [];
@@ -177,16 +195,15 @@ function rwDetailAd(data) {
     status.tag_struct = [];
     delete status.tag_struct;
 
-  
   }
-  
+
   // 移除底部的广告卡片
   if (data.detailInfo && data.detailInfo.cards) {
     data.detailInfo.cards = data.detailInfo.cards.filter(card => {
       // 过滤掉广告卡片
       if (card.card_group) {
-        card.card_group = card.card_group.filter(item => 
-          item.category !== 'wboxcard' && 
+        card.card_group = card.card_group.filter(item =>
+          item.category !== 'wboxcard' &&
           !item.wboxParam
         );
       }
@@ -217,20 +234,56 @@ function rwDetailAd(data) {
         }
       }]
   }
-  
+
   return data;
 }
 
+function isAd(item) {
+  return (
+    item.mblogtypename === '广告' ||
+    item.readtimetype === 'adMblog' ||
+    item.ad_actionlogs !== undefined ||
+    item.is_ad === 1 ||
+    (item.mblogtype === 1 && item.ad_state === 1) ||
+    item.promotion !== undefined ||
+    item.recommend === "广告" ||
+    item.adtype === "1" ||
+    item.ad_type !== undefined ||
+    item.ad_object !== undefined
+  );
+}
+
+/**
+  ### 综合判定逻辑
+确定为广告的条件（满足任一即可）：
+
+1. 1.
+mblogtype == 1 且 ad_state == 1
+2. 2.
+存在 promotion 字段
+3. 3.
+recommend == "广告"
+4. 4.
+存在 adtype 字段
+5. 5.
+存在 ad_type 字段
+### 广告类型分类
+- ad_type: 0 - 基础广告类型
+- ad_type: 1 - 注释广告类型
+- ad_type: 2 - 推广广告类型
+- ad_type: 5 - 特殊广告类型
+- ad_type: 6 - 高级广告类型
+  */
 function rwTimelineAd(data) {
   if (data.items && data.items.length > 0) {
-    data.items = data.items.map(item => {
-      // "category": "feed",
-      // if (item.category && item.category === 'feed') {
-      //   item.data.text = 'Hello Weibo';
-      //   return item;
-      // }
+    data.items = data.items.filter(({ data, category }) => category === 'feedBiz' || !isAd(data)).map(item => {
+      if (item.category && item.category === 'feed') {
+        // item.data.text = 'Hello Weibo';
+        rmDetailAd(item.data);
+        return item;
+      }
       return item;
-    });
+    })
   }
   return data;
 }
@@ -279,15 +332,15 @@ if (body) {
       $done({ body: JSON.stringify(data) });
     });
 
-//   promiseStatuses(data)
-//     .then((statuses) => {
-//       const rw = diffUrl();
-//       data.statuses = rw(statuses);
-//       $done({ body: JSON.stringify(data) });
-//     })
-//     .catch((_error) => {
-//       $done({ body: JSON.stringify(data) });
-//     });
+  //   promiseStatuses(data)
+  //     .then((statuses) => {
+  //       const rw = diffUrl();
+  //       data.statuses = rw(statuses);
+  //       $done({ body: JSON.stringify(data) });
+  //     })
+  //     .catch((_error) => {
+  //       $done({ body: JSON.stringify(data) });
+  //     });
 } else {
   $done({});
 }

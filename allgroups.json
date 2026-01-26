@@ -1,136 +1,217 @@
 {
-  "defaultPageId" : "homeFeed",
-  "is_new_segment" : "1",
-  "trans_param" : "0_1707481424",
-  "feed_default" : 0,
-  "pageDatas" : [
+  "defaultPageId": "homeHot",
+  "pageDatasType": 0,
+  "feed_default": 1,
+  "pageDatas": [
     {
-      "pageDataTitle" : "关注",
-      "pageDataType" : "homeFeed",
-      "pageId" : "homeFeed",
-      "categories" : [
-        {
-          "title" : "默认分组",
-          "group_type" : 0,
-          "pageDatas" : [
-            {
-              "is_first_level" : 1,
-              "uid" : "3934103603",
-              "frequency" : 0,
-              "title" : "全部关注",
-              "count" : 0,
-              "sysgroup" : 2,
-              "ad_scene" : 1,
-              "pageDataType" : "feedStream",
-              "navigation_title" : "关注",
-              "gid" : "100013934103603",
-              "type" : "1"
-            },
-            {
-              "is_first_level" : 1,
-              "uid" : "3934103603",
-              "frequency" : 2,
-              "title" : "好友圈",
-              "count" : 0,
-              "sysgroup" : 2,
-              "ad_scene" : 1,
-              "pageDataType" : "feedStream",
-              "type" : "9",
-              "gid" : "100093934103603",
-              "settings" : {
-                "remind" : 1,
-                "priority" : 2
-              }
-            }
-          ]
-        },
-        {
-          "title" : "我的分组",
-          "group_type" : 0,
-          "pageDatas" : [
-            {
-              "is_first_level" : 1,
-              "uid" : 3934103603,
-              "frequency" : 2,
-              "title" : "TimeLine",
-              "count" : 0,
-              "sysgroup" : 0,
-              "ad_scene" : 2,
-              "pageDataType" : "feedStream",
-              "type" : "0",
-              "gid" : "4235641627355405",
-              "settings" : {
-                "remind" : 0
-              }
-            },
-            {
-              "is_first_level" : 1,
-              "uid" : 3934103603,
-              "frequency" : 2,
-              "title" : "iOS",
-              "count" : 0,
-              "sysgroup" : 0,
-              "ad_scene" : 2,
-              "pageDataType" : "feedStream",
-              "type" : "0",
-              "gid" : "3976070422487503",
-              "settings" : {
-                "remind" : 0
-              }
-            },
-            {
-              "uid" : "3934103603",
-              "frequency" : 0,
-              "title" : "悄悄关注",
-              "count" : 0,
-              "sysgroup" : 2,
-              "ad_scene" : 2,
-              "pageDataType" : "feedStream",
-              "type" : "5",
-              "gid" : "100053934103603",
-              "is_first_level" : 1
-            }
-          ]
-        },
-        {
-          "title" : "订阅分组",
-          "group_type" : 0,
-          "pageDatas" : [
-
-          ]
-        }
-      ]
+      "is_first_level": 1,
+      "pageDataTitle": "推荐",
+      "pageDataType": "homeHot",
+      "pageId": "homeHot"
     },
     {
-      "is_first_level" : 1,
-      "pageDataTitle" : "推荐",
-      "pageDataType" : "homeHot",
-      "pageId" : "homeHot"
-    },
-    {
-      "pageDataTitle" : "春晚",
-      "pageDataType" : "homeExtend",
-      "pageId" : "homeExtend",
-      "categories" : [
+      "pageDataTitle": "关注",
+      "pageDataType": "homeFeed",
+      "pageId": "homeFeed",
+      "categories": [
         {
-          "group_type" : 5,
-          "pageDatas" : [
+          "title": "默认分组",
+          "group_type": 0,
+          "pageDatas": [
             {
-              "uid" : "3934103603",
-              "navigation_info" : {
-                "max_width" : 90,
-                "title" : "春晚"
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 0,
+              "title": "全部关注",
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "is_first_level": 1,
+              "type": 1,
+              "navigation_title": "关注",
+              "gid": "100013934103603",
+              "pageDataType": "feedStream"
+            },
+            {
+              "uid": "3934103603",
+              "count": 0,
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "apipath": "statuses/friends/timeline",
+              "settings": {
+                "remind": 0
               },
-              "gid" : "102803_ctg1_600331_-_ctg1_600331",
-              "navigation_title" : "春晚",
-              "pageDataType" : "feedStream",
-              "type" : 40
+              "type": 20,
+              "title": "最新微博",
+              "gid": "110003934103603",
+              "pageDataType": "feedStream",
+              "is_first_level": 1,
+              "frequency": 0
+            },
+            {
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 2,
+              "title": "特别关注",
+              "ad_scene": 1,
+              "sysgroup": 1,
+              "is_first_level": 1,
+              "type": 0,
+              "settings": {
+                "remind": 1,
+                "priority": 1
+              },
+              "gid": "3652505362130848",
+              "pageDataType": "feedStream"
+            },
+            {
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 2,
+              "title": "好友圈",
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "is_first_level": 1,
+              "type": 9,
+              "settings": {
+                "remind": 1,
+                "priority": 2
+              },
+              "gid": "100093934103603",
+              "pageDataType": "feedStream"
+            },
+            {
+              "uid": "3934103603",
+              "count": 0,
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "apipath": "statuses/friends/timeline",
+              "settings": {
+                "remind": 0
+              },
+              "type": 20,
+              "title": "原创",
+              "gid": "110013934103603",
+              "pageDataType": "feedStream",
+              "is_first_level": 1,
+              "frequency": 0
+            },
+            {
+              "uid": "3934103603",
+              "count": 0,
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "apipath": "statuses/friends/timeline",
+              "settings": {
+                "remind": 0
+              },
+              "type": 20,
+              "title": "视频",
+              "gid": "110023934103603",
+              "pageDataType": "feedStream",
+              "is_first_level": 1,
+              "frequency": 0
+            },
+            {
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 2,
+              "title": "超话社区",
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "is_first_level": 1,
+              "type": 20,
+              "settings": {
+                "remind": 1,
+                "priority": 3
+              },
+              "gid": "110053934103603",
+              "pageDataType": "feedStream"
+            },
+            {
+              "uid": "3934103603",
+              "frequency": 0,
+              "title": "V+微博",
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "is_first_level": 1,
+              "pageDataType": "feedStream",
+              "type": 20,
+              "gid": "100133934103603",
+              "count": 0
+            },
+            {
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 2,
+              "title": "群微博",
+              "ad_scene": 1,
+              "sysgroup": 2,
+              "is_first_level": 1,
+              "type": 10,
+              "settings": {
+                "remind": 1
+              },
+              "gid": "100103934103603",
+              "pageDataType": "feedStream"
             }
           ]
+        },
+        {
+          "title": "我的分组",
+          "group_type": 0,
+          "pageDatas": [
+            {
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 2,
+              "title": "TimeLine",
+              "ad_scene": 2,
+              "sysgroup": 0,
+              "is_first_level": 1,
+              "type": 0,
+              "settings": {
+                "remind": 0
+              },
+              "gid": "4235641627355405",
+              "pageDataType": "feedStream"
+            },
+            {
+              "count": 0,
+              "uid": "3934103603",
+              "frequency": 2,
+              "title": "iOS",
+              "ad_scene": 2,
+              "sysgroup": 0,
+              "is_first_level": 1,
+              "type": 0,
+              "settings": {
+                "remind": 0
+              },
+              "gid": "3976070422487503",
+              "pageDataType": "feedStream"
+            },
+            {
+              "uid": "3934103603",
+              "frequency": 0,
+              "title": "悄悄关注",
+              "ad_scene": 2,
+              "sysgroup": 2,
+              "is_first_level": 1,
+              "pageDataType": "feedStream",
+              "type": 5,
+              "gid": "100053934103603",
+              "count": 0
+            }
+          ]
+        },
+        {
+          "title": "订阅分组",
+          "group_type": 0,
+          "pageDatas": []
         }
       ]
     }
   ],
-  "pageDatasType" : 10,
-  "total_number" : 11
+  "trans_param": "0_1757902983",
+  "total_number": 12
 }
