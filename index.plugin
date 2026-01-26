@@ -8,7 +8,7 @@
 
 [MITM]
 
-hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, new.vip.weibo.cn
+hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, new.vip.weibo.cn, wbapp.mobile.sina.cn, mi.gdt.qq.com, tqt.weibo.cn
 
 [script]
 
@@ -29,3 +29,14 @@ http-response ^https?:\/\/api\.weibo\.cn\/2\/statuses\/(container_timeline) scri
 
 # 修改微博时间线请求体中的 preAdInterval 参数
 # http-request ^https://api\.weibo\.cn/2/statuses/container_timeline script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/modify_request.js, requires-body=true, tag=修改preAdInterval参数, enable=true
+
+# 微博开屏广告
+http-response ^https?://.*?.uve.weibo.com/(v\d+/ad/preload|wbapplua/wbpullad.lua) requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/launch-guard.js,tag=微博开屏广告
+
+# 微博开屏广告 (wbapp.mobile.sina.cn)
+http-response ^https?://wbapp\.mobile\.sina\.cn/wbapplua/wbpullad\.lua requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/launch-guard.js,tag=微博开屏广告2
+
+# 微博轻享版开屏广告
+http-response ^https://.*?.uve.weibo.com/interface/sdk/sdkad.php requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=微博轻享版开屏广告
+http-response ^https://mi.gdt.qq.com/gdt_mview.fcg requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=腾讯广告
+http-response ^https://tqt.weibo.cn/api/fortune/decisionMaker requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=微博运势广告
