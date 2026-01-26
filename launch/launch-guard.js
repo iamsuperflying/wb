@@ -2,7 +2,7 @@ const version = "1.0.1";
 const proxy_name = "Weibo Launch Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
-const path1 = "/v1/ad/preload";
+const path1 = "/ad/preload";
 const path2 = "/wbapplua/wbpullad.lua";
 
 const url = $request.url;
