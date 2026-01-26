@@ -41,6 +41,6 @@ http-response ^https?://.*?.uve.weibo.com/(v\d+/ad/preload|wbapplua/wbpullad.lua
 http-response ^https?://wbapp\.mobile\.sina\.cn/wbapplua/wbpullad\.lua requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/launch-guard.js,tag=微博开屏广告2
 
 # 微博轻享版开屏广告
-http-response ^https://.*?.uve.weibo.com/interface/sdk/sdkad.php requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=微博轻享版开屏广告
-http-response ^https://mi.gdt.qq.com/gdt_mview.fcg requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=腾讯广告
-http-response ^https://tqt.weibo.cn/api/fortune/decisionMaker requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=微博运势广告
+# http-response ^https://.*?.uve.weibo.com/interface/sdk/sdkad.php requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=微博轻享版开屏广告
+# http-response ^https://mi.gdt.qq.com/gdt_mview.fcg requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=腾讯广告
+# http-response ^https://tqt.weibo.cn/api/fortune/decisionMaker requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/launch/qx.launch-guard.js,tag=微博运势广告

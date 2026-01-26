@@ -1,4 +1,4 @@
-const version = "0.0.26";
+const version = "0.0.27";
 const proxy_name = "Weibo Ad Block";
 console.log(`${proxy_name}: ${version}`);
 
@@ -81,14 +81,18 @@ const isNormalTopic = (item) => {
 
 function rwTimelineAd(data) {
   if (data.items && data.items.length > 0) {
-    data.items = data.items.map(item => {
-      // "category": "feed",
-      // if (item.category && item.category === 'feed') {
-      //   item.data.text = 'Hello Weibo';
-      //   return item;
-      // }
-      return item;
+    const originalCount = data.items.length;
+    data.items = data.items.filter(item => {
+      // 过滤 feed 类型的广告
+      if (item.category === FEED) {
+        return isNormalTopic(item);
+      }
+      return true;
     });
+    const filteredCount = originalCount - data.items.length;
+    if (filteredCount > 0) {
+      console.log(`[profile] 过滤了 ${filteredCount} 条广告`);
+    }
   }
   return data;
 }
@@ -102,8 +106,10 @@ if (body) {
       data = rwTimelineAd(data);
     }
 
+    $done({ body: JSON.stringify(data) });
   } catch (error) {
     console.log("[ error ] >", error);
+    $done({});
   }
 } else {
   $done({});
