@@ -561,17 +561,28 @@ function rwDiscoverContainer(payload) {
   // };
 
   payload.items.forEach((item, index, array) => {
-    const { data, category, items: groupItems } = item;
+    const { category } = item;
     if (!category) return;
     // 分隔标识, 不会包含广告
     if (category === CELL) return;
 
-    // 热搜
+    // 处理 GROUP 类型
     if (category === GROUP) {
       array[index] = rmGroupAd(item);
     }
+
+    // 处理 CARD 类型
+    if (category === CARD) {
+      array[index] = rmCardAd(item);
+    }
+
+    // 处理 FEED 类型
+    if (category === FEED) {
+      array[index] = rmFeedAd(item);
+    }
   });
 
+  // 移除所有被标记为 null 的项
   payload.items = payload.items.filter(Boolean);
 
   /**
