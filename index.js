@@ -5,7 +5,6 @@ console.log(`${proxy_name}: ${version}`);
 let body = $response.body;
 let url = $request.url;
 
-
 const blackList = ["贾玲", "热辣滚烫", "乐莹", "谢娜", "中医"];
 
 // let blackList = ["贾玲", "热辣滚烫", "乐莹"];
@@ -392,7 +391,7 @@ function rwDiscoverContainer(payload) {
       //   return item;
       if (!item.data || !item.data.group) return item;
       item.data.group = item.data.group.filter(
-        ({ title_sub }) => !isBlack(title_sub)
+        ({ title_sub }) => !isBlack(title_sub),
       );
       return item;
     });
@@ -460,7 +459,7 @@ function rwProfileMe(items) {
 
       if (item.itemId === "100505_-_top8") {
         const top4 = ["album", "like", "watchhistory", "draft"].map(
-          (id) => `100505_-_${id}`
+          (id) => `100505_-_${id}`,
         );
         item.items = item.items.filter(({ itemId }) => top4.includes(itemId));
       }
@@ -478,10 +477,10 @@ const rwSearchAll = (data) => {
     return isNormalTopic(mblog);
   });
 
-   data.items = items?.filter((item) => {
-     console.log("category");
-     return isNormalFeedTopic(item.category, item);
-   });
+  data.items = items?.filter((item) => {
+    console.log("category");
+    return isNormalFeedTopic(item.category, item);
+  });
 
   return data;
 };
@@ -535,6 +534,92 @@ function rwProfileTimeline(data) {
   }
   delete data.loadedInfo.follow_guide_info;
   return data;
+}
+
+/**
+ * 处理微博首页分组数据
+ * @param {Object} data - 原始分组数据
+ * @returns {Object} 处理后的分组数据
+ */
+function processGroupsData(data) {
+  const homeFeed = "homeFeed";
+  const homeHot = "homeHot";
+  const timelineGid = "4235641627355405"; // TimeLine 的 gid
+
+  // 1. 设置默认页面为"关注"
+  data.defaultPageId = homeFeed;
+  data.feed_default = 0; // 0 = 关注, 1 = 推荐
+  data.pageDatasType = 10;
+
+  // 2. 过滤顶层 pageDatas: 只保留"关注"和"推荐"
+  data.pageDatas = data.pageDatas
+    .filter(
+      ({ pageDataTitle, pageDataType, pageId }) =>
+        [homeFeed, homeHot].includes(pageDataType) ||
+        [homeFeed, homeHot].includes(pageId) ||
+        ["关注", "推荐"].includes(pageDataTitle),
+    )
+    .map((page) => {
+      // 只处理"关注"页
+      if (page.pageId === homeFeed && page.pageDataType === homeFeed) {
+        return processHomeFeedCategories(page, timelineGid);
+      }
+      return page;
+    });
+
+  return data;
+}
+
+/**
+ * 处理关注页的分类数据
+ * @param {Object} page - 关注页数据
+ * @param {String} timelineGid - TimeLine 的 gid
+ * @returns {Object} 处理后的关注页数据
+ */
+function processHomeFeedCategories(page, timelineGid) {
+  const keepCategories = ["默认分组", "我的分组"];
+  const keepDefaultGroupItems = ["全部关注", "好友圈"];
+  let timelineGroup = null;
+
+  // 1. 过滤 categories: 只保留"默认分组"和"我的分组"
+  page.categories = page.categories
+    .filter((category) => keepCategories.includes(category.title))
+    .map((category) => {
+      // 处理"默认分组"
+      if (category.title === "默认分组") {
+        category.pageDatas = category.pageDatas.filter(({ title }) =>
+          keepDefaultGroupItems.includes(title),
+        );
+      }
+
+      // 从"我的分组"中提取 TimeLine
+      if (category.title === "我的分组") {
+        const index = category.pageDatas.findIndex(
+          (g) => g.gid === timelineGid,
+        );
+        if (index !== -1) {
+          timelineGroup = category.pageDatas.splice(index, 1)[0];
+          // 🔑 关键修改: 添加 navigation_title 字段
+          timelineGroup.navigation_title = "关注";
+          // 备选: 完全模拟"全部关注"（如果第一步不生效）
+          // timelineGroup.type = 1;
+          // timelineGroup.sysgroup = 2;
+          // timelineGroup.ad_scene = 1;
+        }
+      }
+
+      return category;
+    });
+
+  // 2. 将 TimeLine 插入到"默认分组"第一位
+  if (timelineGroup) {
+    const defaultCategory = page.categories.find((c) => c.title === "默认分组");
+    if (defaultCategory) {
+      defaultCategory.pageDatas.unshift(timelineGroup);
+    }
+  }
+
+  return page;
 }
 
 if (body) {
@@ -592,53 +677,7 @@ if (body) {
     }
     // 10. 分组
     if (groups) {
-      // homeFeed 为首页
-      // homeHot 为推荐
-      const homeFeed = "homeFeed";
-      const homeHot = "homeHot";
-      const defaultPageId = "feedStream";
-
-      const myCas = ["默认分组", "我的分组"];
-      const myCasDatas = ["全部关注", "好友圈"];
-      data.defaultPageId = defaultPageId;
-      data.pageDatas = data.pageDatas
-        .filter(
-          ({ pageDataTitle, pageDataType, pageId }) =>
-            [homeFeed, homeHot].includes(pageDataType) ||
-            [homeFeed, homeHot].includes(pageId) ||
-            ["关注", "推荐"].includes(pageDataTitle)
-        )
-        .map(({ pageId, pageDataType, categories, ...prop }) => {
-          // 如果是信息流分组
-          // "title" : "默认分组",  "title" : "我的分组",
-          if (pageId === homeFeed && pageDataType === homeFeed) {
-            const cas = categories
-              .filter((category) => myCas.includes(category.title))
-              .map((category) => {
-                if (category.title === "默认分组") {
-                  // 只保留 myCas
-                  category.pageDatas = category.pageDatas.filter(({ title }) =>
-                    myCasDatas.includes(title)
-                  );
-                }
-                return category;
-              });
-
-            return {
-              pageId,
-              pageDataType,
-              categories: cas,
-              ...prop,
-            };
-          }
-
-          return {
-            pageId,
-            pageDataType,
-            categories,
-            ...prop,
-          };
-        });
+      data = processGroupsData(data);
     }
   } catch (error) {
     console.log("[ error ] >", error);
