@@ -13,10 +13,10 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, new.vip.weibo.cn, wbap
 [script]
 
 # 热搜等
-http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend|video_mixtimeline)|profile/(me|statuses)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item|search/(finder|container_timeline|container_discover)) requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/loon.js
+http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend|video_mixtimeline)|profile/(me|statuses)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item|search/(finder|container_timeline|container_discover)) requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/loon.js,tag=热搜及时间线净化
 
 # 用户信息
-http-response ^https?://m?api\.weibo\.c(n|om)/2/users/show\? requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/loon.js
+http-response ^https?://m?api\.weibo\.c(n|om)/2/users/show\? requires-body=1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/loon.js,tag=用户信息净化
 
 # http-response ^https://api\.weibo\.cn/2/(groups|video|statuses|search|profile|comments)/(allgroups|timeline|tiny_stream_video_list|container_timeline_hot|finder|container_discover|container_timeline|me|build_comments|extend|userinfo)|(page)|(searchall) requires-body =1,script-path=https://raw.githubusercontent.com/iamsuperflying/wb/master/index.js
 
