@@ -353,29 +353,57 @@ const rmCardAd = (payload) => {
 
   // 从 data 中判断是否有 group 字段
   const { group } = payload.data;
-  if (!group) return payload;
+  if (group) {
+    function isAdHotSearch(item) {
+      // 条件1: 存在promotion节点且包含监测链接
+      const hasPromotion = item.promotion?.monitor_url?.length > 0;
 
-  function isAdHotSearch(item) {
-    // 条件1: 存在promotion节点且包含监测链接
-    const hasPromotion = item.promotion?.monitor_url?.length > 0;
+      // 条件2: action_log.ext包含ads_word或adid
+      const hasAdKeyword = /(ads_word|adid:\d+)/.test(
+        item.action_log?.ext || "",
+      );
 
-    // 条件2: action_log.ext包含ads_word或adid
-    const hasAdKeyword = /(ads_word|adid:\d+)/.test(item.action_log?.ext || "");
+      // 条件3: scheme链接包含广告参数
+      const hasAdScheme =
+        item.scheme?.includes("source=is_ad") ||
+        item.scheme?.includes("topic_ad=1");
 
-    // 条件3: scheme链接包含广告参数
-    const hasAdScheme =
-      item.scheme?.includes("source=is_ad") ||
-      item.scheme?.includes("topic_ad=1");
+      // 条件4: itemid格式为adid:数字
+      const hasAdItemId = /^adid:\d+$/.test(item.itemid || "");
 
-    // 条件4: itemid格式为adid:数字
-    const hasAdItemId = /^adid:\d+$/.test(item.itemid || "");
+      return hasPromotion || hasAdKeyword || hasAdScheme || hasAdItemId;
+    }
 
-    return hasPromotion || hasAdKeyword || hasAdScheme || hasAdItemId;
+    payload.data.group = group.filter((item) => {
+      return !isAdHotSearch(item) && !isBlack(item.title_sub);
+    });
   }
 
-  payload.data.group = group.filter((item) => {
-    return !isAdHotSearch(item) && !isBlack(item.title_sub);
-  });
+  /** 3. 处理 data.items 中的频道卡片广告（如轮播卡片） */
+  const { items } = payload.data;
+  if (items && Array.isArray(items)) {
+    payload.data.items = items.filter((item) => {
+      if (!item) return false;
+
+      // 检查 sub_item 中的广告标识
+      const { sub_item } = item;
+      if (sub_item) {
+        // 过滤视频广告: ad_videoinfo 字段
+        if (sub_item.ad_videoinfo) {
+          console.log("过滤视频广告: ad_videoinfo");
+          return false;
+        }
+
+        // 过滤推广内容: promotion 字段
+        if (sub_item.promotion) {
+          console.log("过滤推广频道: promotion");
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }
 
   return payload;
 };
@@ -445,13 +473,39 @@ const rmGroupAd = (payload) => {
   if (!payload || payload.category !== GROUP || !payload.items) return payload;
   payload.items.forEach((item, index, array) => {
     console.log("rmGroupAd item block");
-    const { category, items } = item;
+    const { category } = item;
     if (category === CELL) {
       return null;
     }
 
     if (category === CARD) {
       array[index] = rmCardAd(item);
+
+      // 递归处理 CARD 中的 data.items[] 结构
+      const processedItem = array[index];
+      if (processedItem && processedItem.data && processedItem.data.items) {
+        processedItem.data.items = processedItem.data.items.filter(
+          (subItem) => {
+            if (!subItem) return false;
+
+            // 递归处理嵌套的 CARD
+            if (subItem.category === CARD) {
+              const filtered = rmCardAd(subItem);
+              if (!filtered) return false;
+              Object.assign(subItem, filtered);
+            }
+
+            // 递归处理嵌套的 FEED
+            if (subItem.category === FEED) {
+              const filtered = rmFeedAd(subItem);
+              if (!filtered) return false;
+              Object.assign(subItem, filtered);
+            }
+
+            return true;
+          },
+        );
+      }
     }
 
     if (category === FEED) {
