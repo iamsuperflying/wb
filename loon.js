@@ -531,13 +531,13 @@ const rmGroupAd = (payload) => {
  * @returns 发现页数据
  */
 function rwDiscoverContainer(payload) {
-  if (!payload || !payload.items) return payload;
+  if (!payload || !Array.isArray(payload.items)) return payload;
   // 推荐搜索过滤
-  if (payload.loadedInfo) {
+  if (Array.isArray(payload.loadedInfo?.searchBarContent)) {
     payload.loadedInfo.searchBarContent =
       payload.loadedInfo.searchBarContent.filter(({ note, promotion, ext }) => {
         const _isB = !isBlack(note);
-        const _isAd = ext.includes("adid");
+        const _isAd = typeof ext === "string" && ext.includes("adid");
         return _isB || !promotion || _isAd;
       });
   }
