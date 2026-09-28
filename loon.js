@@ -677,6 +677,24 @@ const isFinderAd = (item) => {
   );
 };
 
+// 发现页的广告横幅，以及同一活动的六个圆形入口。
+const isFinderPromotionCard = (item) => {
+  if (item?.category !== CARD || !item.data) return false;
+  const { card_type, itemid, group } = item.data;
+  if (String(card_type) === "118" && itemid === "finder_window") return true;
+
+  const scheme = group?.[0]?.scheme;
+  return (
+    String(card_type) === "19" &&
+    itemid === "finder_channel" &&
+    Array.isArray(group) &&
+    group.length === 6 &&
+    typeof scheme === "string" &&
+    scheme.includes("searchall") &&
+    group.every((entry) => entry?.scheme === scheme && !entry?.title_sub)
+  );
+};
+
 function filterFinderContent(node) {
   if (!node || typeof node !== "object") return;
   if (Array.isArray(node)) {
@@ -695,12 +713,14 @@ function filterFinderContent(node) {
       continue;
     }
 
-    node[key] = value.filter((item) => !isFinderAd(item)).filter((item) => {
-      const hadSubItems =
-        key === "items" && Array.isArray(item?.sub_item) && item.sub_item.length > 0;
-      filterFinderContent(item);
-      return !hadSubItems || item.sub_item.length > 0;
-    });
+    node[key] = value
+      .filter((item) => !isFinderPromotionCard(item) && !isFinderAd(item))
+      .filter((item) => {
+        const hadSubItems =
+          key === "items" && Array.isArray(item?.sub_item) && item.sub_item.length > 0;
+        filterFinderContent(item);
+        return !hadSubItems || item.sub_item.length > 0;
+      });
   }
 }
 
