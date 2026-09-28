@@ -728,8 +728,15 @@ const filterFinderAds = (data) => {
   if (Array.isArray(data?.channelInfo?.channels)) {
     for (const channel of data.channelInfo.channels) {
       filterFinderContent(channel?.payload);
+      if (channel?.key === "discover_channel") {
+        rwChannelStyleMap(channel.payload);
+      }
     }
+    data.channelInfo.channels = data.channelInfo.channels.filter(
+      (channel) => channel?.key === "discover_channel",
+    );
   }
+  if (data?.channelInfo) delete data.channelInfo.moreChannels;
   filterFinderContent(data?.header?.data);
   return data;
 };
