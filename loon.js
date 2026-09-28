@@ -621,6 +621,99 @@ function rwDiscoverContainer(payload) {
 /**
  * @description: 移除发现页广告
  */
+// 只有符合已知旧格式时才运行旧的频道裁剪规则。
+// 其他格式只过滤明确标记的广告，避免字段变化时误删整个频道。
+const isLegacyFinderFlow = (data) => {
+  const channelConfig = data?.channelInfo?.channelConfig;
+  return (
+    !data?.header &&
+    Array.isArray(data?.channelInfo?.channels) &&
+    channelConfig &&
+    typeof channelConfig === "object" &&
+    Object.prototype.hasOwnProperty.call(channelConfig, "selectInfo") &&
+    Object.prototype.hasOwnProperty.call(channelConfig, "autoRefresh") &&
+    !Object.prototype.hasOwnProperty.call(channelConfig, "defaultSelectInfo") &&
+    !Object.prototype.hasOwnProperty.call(channelConfig, "auto_refresh_config")
+  );
+};
+
+const finderAdListKeys = new Set([
+  "items",
+  "group",
+  "sub_item",
+  "common_struct",
+  "searchBarContent",
+]);
+
+const isFinderAd = (item) => {
+  if (!item || typeof item !== "object") return false;
+  const data = item.data && typeof item.data === "object" ? item.data : item;
+  const enabled = (value) => value === 1 || value === "1" || value === true;
+
+  if (
+    enabled(data.is_ad) ||
+    enabled(data.ad_state) ||
+    data.readtimetype === "adMblog" ||
+    data.mblogtypename === "广告" ||
+    data.content_auth_info?.content_auth_title === "广告" ||
+    data.ad_videoinfo
+  ) {
+    return true;
+  }
+
+  const monitorUrl = data.promotion?.monitor_url;
+  if (
+    (Array.isArray(monitorUrl) && monitorUrl.length > 0) ||
+    (typeof monitorUrl === "string" && monitorUrl.length > 0)
+  ) {
+    return true;
+  }
+
+  const ext = data.action_log?.ext || data.actionlog?.ext || data.ext;
+  return (
+    typeof ext === "string" &&
+    (/(?:^|[|&])adid:\d+(?:\b|$)/.test(ext) ||
+      /ads_word|ads_hotword/.test(ext))
+  );
+};
+
+function filterFinderContent(node) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(filterFinderContent);
+    return;
+  }
+
+  for (const key of Object.keys(node)) {
+    const value = node[key];
+    if (!Array.isArray(value)) {
+      filterFinderContent(value);
+      continue;
+    }
+    if (!finderAdListKeys.has(key)) {
+      value.forEach(filterFinderContent);
+      continue;
+    }
+
+    node[key] = value.filter((item) => !isFinderAd(item)).filter((item) => {
+      const hadSubItems =
+        key === "items" && Array.isArray(item?.sub_item) && item.sub_item.length > 0;
+      filterFinderContent(item);
+      return !hadSubItems || item.sub_item.length > 0;
+    });
+  }
+}
+
+const filterFinderAds = (data) => {
+  if (Array.isArray(data?.channelInfo?.channels)) {
+    for (const channel of data.channelInfo.channels) {
+      filterFinderContent(channel?.payload);
+    }
+  }
+  filterFinderContent(data?.header?.data);
+  return data;
+};
+
 const rwDiscover = (data) => {
   if (!data) return data;
   // "热搜", "游戏" 不做保留
@@ -876,6 +969,10 @@ function processHomeFeedCategories(page, timelineGid) {
 
 if (body) {
   let data = JSON.parse(body);
+  if (discover && !isLegacyFinderFlow(data)) {
+    data = filterFinderAds(data);
+    $done({ body: JSON.stringify(data) });
+  } else {
 
   try {
     // 1. 首页 时间线
@@ -939,6 +1036,10 @@ if (body) {
     console.log("[ error ] >", error);
   }
 
+  if (discover) {
+    data = filterFinderAds(data);
+  }
+
   promiseItems(data)
     .then((items) => {
       const rw = diffUrl();
@@ -958,6 +1059,7 @@ if (body) {
     .catch((_error) => {
       $done({ body: JSON.stringify(data) });
     });
+  }
 } else {
   $done({});
 }
